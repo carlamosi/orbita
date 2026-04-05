@@ -1,0 +1,5816 @@
+[
+  {
+    "id": "AFG",
+    "name": "Afghanistan",
+    "capital": "Kabul",
+    "flag": "🇦🇫",
+    "flagCode": "af",
+    "population": 43844000,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Dari",
+      "Pashto",
+      "Turkmen"
+    ],
+    "currency": "Afghan afghani",
+    "coordinates": [
+      33,
+      65
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 43.8 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "IRN",
+      "PAK",
+      "TKM",
+      "UZB",
+      "TJK",
+      "CHN"
+    ],
+    "capitalCoords": [
+      34.52,
+      69.18
+    ]
+  },
+  {
+    "id": "ALB",
+    "name": "Albania",
+    "capital": "Tirana",
+    "flag": "🇦🇱",
+    "flagCode": "al",
+    "population": 2363314,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Albanian"
+    ],
+    "currency": "Albanian lek",
+    "coordinates": [
+      41,
+      20
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 2.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "MNE",
+      "GRC",
+      "MKD",
+      "UNK"
+    ],
+    "capitalCoords": [
+      41.32,
+      19.82
+    ]
+  },
+  {
+    "id": "DZA",
+    "name": "Algeria",
+    "capital": "Algiers",
+    "flag": "🇩🇿",
+    "flagCode": "dz",
+    "population": 47400000,
+    "region": "Northern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Algerian dinar",
+    "coordinates": [
+      28,
+      3
+    ],
+    "funFact": "A fascinating country in Northern Africa, home to around 47.4 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "TUN",
+      "LBY",
+      "NER",
+      "ESH",
+      "MRT",
+      "MLI",
+      "MAR"
+    ],
+    "capitalCoords": [
+      36.75,
+      3.05
+    ]
+  },
+  {
+    "id": "AND",
+    "name": "Andorra",
+    "capital": "Andorra la Vella",
+    "flag": "🇦🇩",
+    "flagCode": "ad",
+    "population": 88406,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Catalan"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      42.5,
+      1.5
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "FRA",
+      "ESP"
+    ],
+    "capitalCoords": [
+      42.5,
+      1.52
+    ]
+  },
+  {
+    "id": "AGO",
+    "name": "Angola",
+    "capital": "Luanda",
+    "flag": "🇦🇴",
+    "flagCode": "ao",
+    "population": 36170961,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "Portuguese"
+    ],
+    "currency": "Angolan kwanza",
+    "coordinates": [
+      -12.5,
+      18.5
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 36.2 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "COG",
+      "COD",
+      "ZMB",
+      "NAM"
+    ],
+    "capitalCoords": [
+      -8.83,
+      13.22
+    ]
+  },
+  {
+    "id": "ATG",
+    "name": "Antigua and Barbuda",
+    "capital": "Saint John's",
+    "flag": "🇦🇬",
+    "flagCode": "ag",
+    "population": 103603,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Eastern Caribbean dollar",
+    "coordinates": [
+      17.05,
+      -61.8
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      17.12,
+      -61.85
+    ]
+  },
+  {
+    "id": "ARG",
+    "name": "Argentina",
+    "capital": "Buenos Aires",
+    "flag": "🇦🇷",
+    "flagCode": "ar",
+    "population": 46735004,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Guaraní",
+      "Spanish"
+    ],
+    "currency": "Argentine peso",
+    "coordinates": [
+      -34,
+      -64
+    ],
+    "funFact": "A fascinating country in South America, home to around 46.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BOL",
+      "BRA",
+      "CHL",
+      "PRY",
+      "URY"
+    ],
+    "capitalCoords": [
+      -34.58,
+      -58.67
+    ]
+  },
+  {
+    "id": "ARM",
+    "name": "Armenia",
+    "capital": "Yerevan",
+    "flag": "🇦🇲",
+    "flagCode": "am",
+    "population": 3076200,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Armenian"
+    ],
+    "currency": "Armenian dram",
+    "coordinates": [
+      40,
+      45
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 3.1 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "AZE",
+      "GEO",
+      "IRN",
+      "TUR"
+    ],
+    "capitalCoords": [
+      40.17,
+      44.5
+    ]
+  },
+  {
+    "id": "AUS",
+    "name": "Australia",
+    "capital": "Canberra",
+    "flag": "🇦🇺",
+    "flagCode": "au",
+    "population": 27536874,
+    "region": "Australia and New Zealand",
+    "continent": "Oceania",
+    "languages": [
+      "English"
+    ],
+    "currency": "Australian dollar",
+    "coordinates": [
+      -27,
+      133
+    ],
+    "funFact": "An island continent and the world's sixth-largest country by total area.",
+    "difficulty": "medium",
+    "borders": [],
+    "capitalCoords": [
+      -35.27,
+      149.13
+    ]
+  },
+  {
+    "id": "AUT",
+    "name": "Austria",
+    "capital": "Vienna",
+    "flag": "🇦🇹",
+    "flagCode": "at",
+    "population": 9200931,
+    "region": "Central Europe",
+    "continent": "Europe",
+    "languages": [
+      "German"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      47.33333333,
+      13.33333333
+    ],
+    "funFact": "A fascinating country in Central Europe, home to around 9.2 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CZE",
+      "DEU",
+      "HUN",
+      "ITA",
+      "LIE",
+      "SVK",
+      "SVN",
+      "CHE"
+    ],
+    "capitalCoords": [
+      48.2,
+      16.37
+    ]
+  },
+  {
+    "id": "AZE",
+    "name": "Azerbaijan",
+    "capital": "Baku",
+    "flag": "🇦🇿",
+    "flagCode": "az",
+    "population": 10241722,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Azerbaijani"
+    ],
+    "currency": "Azerbaijani manat",
+    "coordinates": [
+      40.5,
+      47.5
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 10.2 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "ARM",
+      "GEO",
+      "IRN",
+      "RUS",
+      "TUR"
+    ],
+    "capitalCoords": [
+      40.38,
+      49.87
+    ]
+  },
+  {
+    "id": "BHS",
+    "name": "Bahamas",
+    "capital": "Nassau",
+    "flag": "🇧🇸",
+    "flagCode": "bs",
+    "population": 398165,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Bahamian dollar",
+    "coordinates": [
+      25.0343,
+      -77.3963
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.4 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      25.08,
+      -77.35
+    ]
+  },
+  {
+    "id": "BHR",
+    "name": "Bahrain",
+    "capital": "Manama",
+    "flag": "🇧🇭",
+    "flagCode": "bh",
+    "population": 1594654,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Bahraini dinar",
+    "coordinates": [
+      26,
+      50.55
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 1.6 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      26.23,
+      50.57
+    ]
+  },
+  {
+    "id": "BGD",
+    "name": "Bangladesh",
+    "capital": "Dhaka",
+    "flag": "🇧🇩",
+    "flagCode": "bd",
+    "population": 169828911,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Bengali"
+    ],
+    "currency": "Bangladeshi taka",
+    "coordinates": [
+      24,
+      90
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 169.8 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "MMR",
+      "IND"
+    ],
+    "capitalCoords": [
+      23.72,
+      90.4
+    ]
+  },
+  {
+    "id": "BRB",
+    "name": "Barbados",
+    "capital": "Bridgetown",
+    "flag": "🇧🇧",
+    "flagCode": "bb",
+    "population": 267800,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Barbadian dollar",
+    "coordinates": [
+      13.16666666,
+      -59.53333333
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.3 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      13.1,
+      -59.62
+    ]
+  },
+  {
+    "id": "BLR",
+    "name": "Belarus",
+    "capital": "Minsk",
+    "flag": "🇧🇾",
+    "flagCode": "by",
+    "population": 9109280,
+    "region": "Eastern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Belarusian",
+      "Russian"
+    ],
+    "currency": "Belarusian ruble",
+    "coordinates": [
+      53,
+      28
+    ],
+    "funFact": "A fascinating country in Eastern Europe, home to around 9.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "LVA",
+      "LTU",
+      "POL",
+      "RUS",
+      "UKR"
+    ],
+    "capitalCoords": [
+      53.9,
+      27.57
+    ]
+  },
+  {
+    "id": "BEL",
+    "name": "Belgium",
+    "capital": "Brussels",
+    "flag": "🇧🇪",
+    "flagCode": "be",
+    "population": 11825551,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "German",
+      "French",
+      "Dutch"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      50.83333333,
+      4
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 11.8 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "FRA",
+      "DEU",
+      "LUX",
+      "NLD"
+    ],
+    "capitalCoords": [
+      50.83,
+      4.33
+    ]
+  },
+  {
+    "id": "BLZ",
+    "name": "Belize",
+    "capital": "Belmopan",
+    "flag": "🇧🇿",
+    "flagCode": "bz",
+    "population": 417634,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Belizean Creole",
+      "English",
+      "Spanish"
+    ],
+    "currency": "Belize dollar",
+    "coordinates": [
+      17.25,
+      -88.75
+    ],
+    "funFact": "A fascinating country in Central America, home to around 0.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "GTM",
+      "MEX"
+    ],
+    "capitalCoords": [
+      17.25,
+      -88.77
+    ]
+  },
+  {
+    "id": "BEN",
+    "name": "Benin",
+    "capital": "Porto-Novo",
+    "flag": "🇧🇯",
+    "flagCode": "bj",
+    "population": 13224860,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      9.5,
+      2.25
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 13.2 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BFA",
+      "NER",
+      "NGA",
+      "TGO"
+    ],
+    "capitalCoords": [
+      6.48,
+      2.62
+    ]
+  },
+  {
+    "id": "BTN",
+    "name": "Bhutan",
+    "capital": "Thimphu",
+    "flag": "🇧🇹",
+    "flagCode": "bt",
+    "population": 784043,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Dzongkha"
+    ],
+    "currency": "Bhutanese ngultrum",
+    "coordinates": [
+      27.5,
+      90.5
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 0.8 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "CHN",
+      "IND"
+    ],
+    "capitalCoords": [
+      27.47,
+      89.63
+    ]
+  },
+  {
+    "id": "BOL",
+    "name": "Bolivia",
+    "capital": "Sucre",
+    "flag": "🇧🇴",
+    "flagCode": "bo",
+    "population": 11365333,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Aymara",
+      "Guaraní",
+      "Quechua",
+      "Spanish"
+    ],
+    "currency": "Bolivian boliviano",
+    "coordinates": [
+      -17,
+      -65
+    ],
+    "funFact": "One of two landlocked countries in South America.",
+    "difficulty": "medium",
+    "borders": [
+      "ARG",
+      "BRA",
+      "CHL",
+      "PRY",
+      "PER"
+    ],
+    "capitalCoords": [
+      -19.02,
+      -65.26
+    ]
+  },
+  {
+    "id": "BIH",
+    "name": "Bosnia and Herzegovina",
+    "capital": "Sarajevo",
+    "flag": "🇧🇦",
+    "flagCode": "ba",
+    "population": 3422000,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Bosnian",
+      "Croatian",
+      "Serbian"
+    ],
+    "currency": "Bosnia and Herzegovina convertible mark",
+    "coordinates": [
+      44,
+      18
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 3.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "HRV",
+      "MNE",
+      "SRB"
+    ],
+    "capitalCoords": [
+      43.87,
+      18.42
+    ]
+  },
+  {
+    "id": "BWA",
+    "name": "Botswana",
+    "capital": "Gaborone",
+    "flag": "🇧🇼",
+    "flagCode": "bw",
+    "population": 2359609,
+    "region": "Southern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Tswana"
+    ],
+    "currency": "Botswana pula",
+    "coordinates": [
+      -22,
+      24
+    ],
+    "funFact": "A fascinating country in Southern Africa, home to around 2.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "NAM",
+      "ZAF",
+      "ZMB",
+      "ZWE"
+    ],
+    "capitalCoords": [
+      -24.63,
+      25.9
+    ]
+  },
+  {
+    "id": "BRA",
+    "name": "Brazil",
+    "capital": "Brasília",
+    "flag": "🇧🇷",
+    "flagCode": "br",
+    "population": 213421037,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Portuguese"
+    ],
+    "currency": "Brazilian real",
+    "coordinates": [
+      -10,
+      -55
+    ],
+    "funFact": "Home to the majority of the Amazon Rainforest.",
+    "difficulty": "easy",
+    "borders": [
+      "ARG",
+      "BOL",
+      "COL",
+      "GUF",
+      "GUY",
+      "PRY",
+      "PER",
+      "SUR",
+      "URY",
+      "VEN"
+    ],
+    "capitalCoords": [
+      -15.79,
+      -47.88
+    ]
+  },
+  {
+    "id": "BRN",
+    "name": "Brunei",
+    "capital": "Bandar Seri Begawan",
+    "flag": "🇧🇳",
+    "flagCode": "bn",
+    "population": 455500,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Malay"
+    ],
+    "currency": "Brunei dollar",
+    "coordinates": [
+      4.5,
+      114.66666666
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 0.5 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "MYS"
+    ],
+    "capitalCoords": [
+      4.88,
+      114.93
+    ]
+  },
+  {
+    "id": "BGR",
+    "name": "Bulgaria",
+    "capital": "Sofia",
+    "flag": "🇧🇬",
+    "flagCode": "bg",
+    "population": 6437360,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Bulgarian"
+    ],
+    "currency": "Bulgarian lev",
+    "coordinates": [
+      43,
+      25
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 6.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GRC",
+      "MKD",
+      "ROU",
+      "SRB",
+      "TUR"
+    ],
+    "capitalCoords": [
+      42.68,
+      23.32
+    ]
+  },
+  {
+    "id": "BFA",
+    "name": "Burkina Faso",
+    "capital": "Ouagadougou",
+    "flag": "🇧🇫",
+    "flagCode": "bf",
+    "population": 24070553,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      13,
+      -2
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 24.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BEN",
+      "CIV",
+      "GHA",
+      "MLI",
+      "NER",
+      "TGO"
+    ],
+    "capitalCoords": [
+      12.37,
+      -1.52
+    ]
+  },
+  {
+    "id": "BDI",
+    "name": "Burundi",
+    "capital": "Gitega",
+    "flag": "🇧🇮",
+    "flagCode": "bi",
+    "population": 12332788,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "French",
+      "Kirundi"
+    ],
+    "currency": "Burundian franc",
+    "coordinates": [
+      -3.5,
+      30
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 12.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "COD",
+      "RWA",
+      "TZA"
+    ],
+    "capitalCoords": [
+      -3.43,
+      29.93
+    ]
+  },
+  {
+    "id": "KHM",
+    "name": "Cambodia",
+    "capital": "Phnom Penh",
+    "flag": "🇰🇭",
+    "flagCode": "kh",
+    "population": 17577760,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Khmer"
+    ],
+    "currency": "Cambodian riel",
+    "coordinates": [
+      13,
+      105
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 17.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "LAO",
+      "THA",
+      "VNM"
+    ],
+    "capitalCoords": [
+      11.55,
+      104.92
+    ]
+  },
+  {
+    "id": "CMR",
+    "name": "Cameroon",
+    "capital": "Yaoundé",
+    "flag": "🇨🇲",
+    "flagCode": "cm",
+    "population": 29442327,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "French"
+    ],
+    "currency": "Central African CFA franc",
+    "coordinates": [
+      6,
+      12
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 29.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CAF",
+      "TCD",
+      "COG",
+      "GNQ",
+      "GAB",
+      "NGA"
+    ],
+    "capitalCoords": [
+      3.85,
+      11.5
+    ]
+  },
+  {
+    "id": "CAN",
+    "name": "Canada",
+    "capital": "Ottawa",
+    "flag": "🇨🇦",
+    "flagCode": "ca",
+    "population": 41651653,
+    "region": "North America",
+    "continent": "Americas",
+    "languages": [
+      "English",
+      "French"
+    ],
+    "currency": "Canadian dollar",
+    "coordinates": [
+      60,
+      -95
+    ],
+    "funFact": "Has more lakes than the rest of the world combined.",
+    "difficulty": "easy",
+    "borders": [
+      "USA"
+    ],
+    "capitalCoords": [
+      45.42,
+      -75.7
+    ]
+  },
+  {
+    "id": "CPV",
+    "name": "Cape Verde",
+    "capital": "Praia",
+    "flag": "🇨🇻",
+    "flagCode": "cv",
+    "population": 491233,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "Portuguese"
+    ],
+    "currency": "Cape Verdean escudo",
+    "coordinates": [
+      16.5388,
+      -23.0418
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 0.5 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      14.92,
+      -23.52
+    ]
+  },
+  {
+    "id": "CAF",
+    "name": "Central African Republic",
+    "capital": "Bangui",
+    "flag": "🇨🇫",
+    "flagCode": "cf",
+    "population": 6470307,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "French",
+      "Sango"
+    ],
+    "currency": "Central African CFA franc",
+    "coordinates": [
+      7,
+      21
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 6.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CMR",
+      "TCD",
+      "COD",
+      "COG",
+      "SSD",
+      "SDN"
+    ],
+    "capitalCoords": [
+      4.37,
+      18.58
+    ]
+  },
+  {
+    "id": "TCD",
+    "name": "Chad",
+    "capital": "N'Djamena",
+    "flag": "🇹🇩",
+    "flagCode": "td",
+    "population": 19340757,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "French"
+    ],
+    "currency": "Central African CFA franc",
+    "coordinates": [
+      15,
+      19
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 19.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CMR",
+      "CAF",
+      "LBY",
+      "NER",
+      "NGA",
+      "SDN"
+    ],
+    "similarTo": "ROU",
+    "capitalCoords": [
+      12.1,
+      15.03
+    ]
+  },
+  {
+    "id": "CHL",
+    "name": "Chile",
+    "capital": "Santiago",
+    "flag": "🇨🇱",
+    "flagCode": "cl",
+    "population": 20206953,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Chilean peso",
+    "coordinates": [
+      -30,
+      -71
+    ],
+    "funFact": "A fascinating country in South America, home to around 20.2 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "ARG",
+      "BOL",
+      "PER"
+    ],
+    "capitalCoords": [
+      -33.45,
+      -70.67
+    ]
+  },
+  {
+    "id": "CHN",
+    "name": "China",
+    "capital": "Beijing",
+    "flag": "🇨🇳",
+    "flagCode": "cn",
+    "population": 1408280000,
+    "region": "Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Chinese"
+    ],
+    "currency": "Chinese yuan",
+    "coordinates": [
+      35,
+      105
+    ],
+    "funFact": "A fascinating country in Eastern Asia, home to around 1408.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AFG",
+      "BTN",
+      "MMR",
+      "HKG",
+      "IND",
+      "KAZ",
+      "NPL",
+      "PRK",
+      "KGZ",
+      "LAO",
+      "MAC",
+      "MNG",
+      "PAK",
+      "RUS",
+      "TJK",
+      "VNM"
+    ],
+    "capitalCoords": [
+      39.92,
+      116.38
+    ]
+  },
+  {
+    "id": "COL",
+    "name": "Colombia",
+    "capital": "Bogotá",
+    "flag": "🇨🇴",
+    "flagCode": "co",
+    "population": 53057212,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Colombian peso",
+    "coordinates": [
+      4,
+      -72
+    ],
+    "funFact": "A fascinating country in South America, home to around 53.1 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BRA",
+      "ECU",
+      "PAN",
+      "PER",
+      "VEN"
+    ],
+    "similarTo": "VEN",
+    "capitalCoords": [
+      4.71,
+      -74.07
+    ]
+  },
+  {
+    "id": "COM",
+    "name": "Comoros",
+    "capital": "Moroni",
+    "flag": "🇰🇲",
+    "flagCode": "km",
+    "population": 919901,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "French",
+      "Comorian"
+    ],
+    "currency": "Comorian franc",
+    "coordinates": [
+      -12.16666666,
+      44.25
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 0.9 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -11.7,
+      43.23
+    ]
+  },
+  {
+    "id": "CRI",
+    "name": "Costa Rica",
+    "capital": "San José",
+    "flag": "🇨🇷",
+    "flagCode": "cr",
+    "population": 5309625,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Costa Rican colón",
+    "coordinates": [
+      10,
+      -84
+    ],
+    "funFact": "A fascinating country in Central America, home to around 5.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "NIC",
+      "PAN"
+    ],
+    "capitalCoords": [
+      9.93,
+      -84.09
+    ]
+  },
+  {
+    "id": "HRV",
+    "name": "Croatia",
+    "capital": "Zagreb",
+    "flag": "🇭🇷",
+    "flagCode": "hr",
+    "population": 3866233,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Croatian"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      45.16666666,
+      15.5
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 3.9 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "BIH",
+      "HUN",
+      "MNE",
+      "SRB",
+      "SVN"
+    ],
+    "capitalCoords": [
+      45.8,
+      16
+    ]
+  },
+  {
+    "id": "CUB",
+    "name": "Cuba",
+    "capital": "Havana",
+    "flag": "🇨🇺",
+    "flagCode": "cu",
+    "population": 9748007,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Cuban convertible peso",
+    "coordinates": [
+      21.5,
+      -80
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 9.7 million people.",
+    "difficulty": "medium",
+    "borders": [],
+    "capitalCoords": [
+      23.12,
+      -82.35
+    ]
+  },
+  {
+    "id": "CYP",
+    "name": "Cyprus",
+    "capital": "Nicosia",
+    "flag": "🇨🇾",
+    "flagCode": "cy",
+    "population": 1442614,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Greek",
+      "Turkish"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      35,
+      33
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 1.4 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      35.17,
+      33.37
+    ]
+  },
+  {
+    "id": "CZE",
+    "name": "Czechia",
+    "capital": "Prague",
+    "flag": "🇨🇿",
+    "flagCode": "cz",
+    "population": 10882341,
+    "region": "Central Europe",
+    "continent": "Europe",
+    "languages": [
+      "Czech",
+      "Slovak"
+    ],
+    "currency": "Czech koruna",
+    "coordinates": [
+      49.75,
+      15.5
+    ],
+    "funFact": "A fascinating country in Central Europe, home to around 10.9 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AUT",
+      "DEU",
+      "POL",
+      "SVK"
+    ],
+    "capitalCoords": [
+      50.08,
+      14.47
+    ]
+  },
+  {
+    "id": "DNK",
+    "name": "Denmark",
+    "capital": "Copenhagen",
+    "flag": "🇩🇰",
+    "flagCode": "dk",
+    "population": 6011488,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Danish"
+    ],
+    "currency": "Danish krone",
+    "coordinates": [
+      56,
+      10
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 6.0 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DEU"
+    ],
+    "capitalCoords": [
+      55.67,
+      12.58
+    ]
+  },
+  {
+    "id": "DJI",
+    "name": "Djibouti",
+    "capital": "Djibouti",
+    "flag": "🇩🇯",
+    "flagCode": "dj",
+    "population": 1066809,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "French"
+    ],
+    "currency": "Djiboutian franc",
+    "coordinates": [
+      11.5,
+      43
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 1.1 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ERI",
+      "ETH",
+      "SOM"
+    ],
+    "capitalCoords": [
+      11.58,
+      43.15
+    ]
+  },
+  {
+    "id": "DMA",
+    "name": "Dominica",
+    "capital": "Roseau",
+    "flag": "🇩🇲",
+    "flagCode": "dm",
+    "population": 67408,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Eastern Caribbean dollar",
+    "coordinates": [
+      15.41666666,
+      -61.33333333
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      15.3,
+      -61.4
+    ]
+  },
+  {
+    "id": "DOM",
+    "name": "Dominican Republic",
+    "capital": "Santo Domingo",
+    "flag": "🇩🇴",
+    "flagCode": "do",
+    "population": 10771504,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Dominican peso",
+    "coordinates": [
+      19,
+      -70.66666666
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 10.8 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "HTI"
+    ],
+    "capitalCoords": [
+      18.47,
+      -69.9
+    ]
+  },
+  {
+    "id": "COD",
+    "name": "DR Congo",
+    "capital": "Kinshasa",
+    "flag": "🇨🇩",
+    "flagCode": "cd",
+    "population": 112832000,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "French",
+      "Kikongo",
+      "Lingala",
+      "Tshiluba",
+      "Swahili"
+    ],
+    "currency": "Congolese franc",
+    "coordinates": [
+      0,
+      25
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 112.8 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AGO",
+      "BDI",
+      "CAF",
+      "COG",
+      "RWA",
+      "SSD",
+      "TZA",
+      "UGA",
+      "ZMB"
+    ],
+    "capitalCoords": [
+      -4.32,
+      15.3
+    ]
+  },
+  {
+    "id": "ECU",
+    "name": "Ecuador",
+    "capital": "Quito",
+    "flag": "🇪🇨",
+    "flagCode": "ec",
+    "population": 18103660,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      -2,
+      -77.5
+    ],
+    "funFact": "A fascinating country in South America, home to around 18.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "COL",
+      "PER"
+    ],
+    "capitalCoords": [
+      -0.22,
+      -78.5
+    ]
+  },
+  {
+    "id": "EGY",
+    "name": "Egypt",
+    "capital": "Cairo",
+    "flag": "🇪🇬",
+    "flagCode": "eg",
+    "population": 107271260,
+    "region": "Northern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Egyptian pound",
+    "coordinates": [
+      27,
+      30
+    ],
+    "funFact": "A fascinating country in Northern Africa, home to around 107.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "ISR",
+      "LBY",
+      "PSE",
+      "SDN"
+    ],
+    "capitalCoords": [
+      30.05,
+      31.25
+    ]
+  },
+  {
+    "id": "SLV",
+    "name": "El Salvador",
+    "capital": "San Salvador",
+    "flag": "🇸🇻",
+    "flagCode": "sv",
+    "population": 6029976,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      13.83333333,
+      -88.91666666
+    ],
+    "funFact": "A fascinating country in Central America, home to around 6.0 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GTM",
+      "HND"
+    ],
+    "capitalCoords": [
+      13.7,
+      -89.2
+    ]
+  },
+  {
+    "id": "GNQ",
+    "name": "Equatorial Guinea",
+    "capital": "Ciudad de la Paz",
+    "flag": "🇬🇶",
+    "flagCode": "gq",
+    "population": 1668768,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "French",
+      "Portuguese",
+      "Spanish"
+    ],
+    "currency": "Central African CFA franc",
+    "coordinates": [
+      2,
+      10
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 1.7 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "CMR",
+      "GAB"
+    ],
+    "capitalCoords": [
+      1.35,
+      10.49
+    ]
+  },
+  {
+    "id": "ERI",
+    "name": "Eritrea",
+    "capital": "Asmara",
+    "flag": "🇪🇷",
+    "flagCode": "er",
+    "population": 3607000,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "English",
+      "Tigrinya"
+    ],
+    "currency": "Eritrean nakfa",
+    "coordinates": [
+      15,
+      39
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 3.6 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "DJI",
+      "ETH",
+      "SDN"
+    ],
+    "capitalCoords": [
+      15.33,
+      38.93
+    ]
+  },
+  {
+    "id": "EST",
+    "name": "Estonia",
+    "capital": "Tallinn",
+    "flag": "🇪🇪",
+    "flagCode": "ee",
+    "population": 1369995,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Estonian"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      59,
+      26
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 1.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "LVA",
+      "RUS"
+    ],
+    "capitalCoords": [
+      59.43,
+      24.72
+    ]
+  },
+  {
+    "id": "SWZ",
+    "name": "Eswatini",
+    "capital": "Mbabane",
+    "flag": "🇸🇿",
+    "flagCode": "sz",
+    "population": 1235549,
+    "region": "Southern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Swazi"
+    ],
+    "currency": "Swazi lilangeni",
+    "coordinates": [
+      -26.5,
+      31.5
+    ],
+    "funFact": "A fascinating country in Southern Africa, home to around 1.2 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "MOZ",
+      "ZAF"
+    ],
+    "capitalCoords": [
+      -26.32,
+      31.13
+    ]
+  },
+  {
+    "id": "ETH",
+    "name": "Ethiopia",
+    "capital": "Addis Ababa",
+    "flag": "🇪🇹",
+    "flagCode": "et",
+    "population": 111652998,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Amharic"
+    ],
+    "currency": "Ethiopian birr",
+    "coordinates": [
+      8,
+      38
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 111.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "DJI",
+      "ERI",
+      "KEN",
+      "SOM",
+      "SSD",
+      "SDN"
+    ],
+    "capitalCoords": [
+      9.03,
+      38.7
+    ]
+  },
+  {
+    "id": "FJI",
+    "name": "Fiji",
+    "capital": "Suva",
+    "flag": "🇫🇯",
+    "flagCode": "fj",
+    "population": 900869,
+    "region": "Melanesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Fijian",
+      "Fiji Hindi"
+    ],
+    "currency": "Fijian dollar",
+    "coordinates": [
+      -17.7134,
+      178.065
+    ],
+    "funFact": "A fascinating country in Melanesia, home to around 0.9 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -18.13,
+      178.42
+    ]
+  },
+  {
+    "id": "FIN",
+    "name": "Finland",
+    "capital": "Helsinki",
+    "flag": "🇫🇮",
+    "flagCode": "fi",
+    "population": 5650325,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Finnish",
+      "Swedish"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      64,
+      26
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 5.7 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "NOR",
+      "SWE",
+      "RUS"
+    ],
+    "capitalCoords": [
+      60.17,
+      24.93
+    ]
+  },
+  {
+    "id": "FRA",
+    "name": "France",
+    "capital": "Paris",
+    "flag": "🇫🇷",
+    "flagCode": "fr",
+    "population": 66351959,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "French"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      46,
+      2
+    ],
+    "funFact": "The most visited country in the world.",
+    "difficulty": "easy",
+    "borders": [
+      "AND",
+      "BEL",
+      "DEU",
+      "ITA",
+      "LUX",
+      "MCO",
+      "ESP",
+      "CHE"
+    ],
+    "capitalCoords": [
+      48.87,
+      2.33
+    ]
+  },
+  {
+    "id": "GAB",
+    "name": "Gabon",
+    "capital": "Libreville",
+    "flag": "🇬🇦",
+    "flagCode": "ga",
+    "population": 2469296,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "Central African CFA franc",
+    "coordinates": [
+      -1,
+      11.75
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 2.5 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "CMR",
+      "COG",
+      "GNQ"
+    ],
+    "capitalCoords": [
+      0.38,
+      9.45
+    ]
+  },
+  {
+    "id": "GMB",
+    "name": "Gambia",
+    "capital": "Banjul",
+    "flag": "🇬🇲",
+    "flagCode": "gm",
+    "population": 2422712,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "dalasi",
+    "coordinates": [
+      13.46666666,
+      -16.56666666
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 2.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "SEN"
+    ],
+    "capitalCoords": [
+      13.45,
+      -16.57
+    ]
+  },
+  {
+    "id": "GEO",
+    "name": "Georgia",
+    "capital": "Tbilisi",
+    "flag": "🇬🇪",
+    "flagCode": "ge",
+    "population": 4000921,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Georgian"
+    ],
+    "currency": "lari",
+    "coordinates": [
+      42,
+      43.5
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 4.0 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ARM",
+      "AZE",
+      "RUS",
+      "TUR"
+    ],
+    "capitalCoords": [
+      41.68,
+      44.83
+    ]
+  },
+  {
+    "id": "DEU",
+    "name": "Germany",
+    "capital": "Berlin",
+    "flag": "🇩🇪",
+    "flagCode": "de",
+    "population": 83491249,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "German"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      51,
+      9
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 83.5 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AUT",
+      "BEL",
+      "CZE",
+      "DNK",
+      "FRA",
+      "LUX",
+      "NLD",
+      "POL",
+      "CHE"
+    ],
+    "capitalCoords": [
+      52.52,
+      13.4
+    ]
+  },
+  {
+    "id": "GHA",
+    "name": "Ghana",
+    "capital": "Accra",
+    "flag": "🇬🇭",
+    "flagCode": "gh",
+    "population": 33742380,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "Ghanaian cedi",
+    "coordinates": [
+      8,
+      -2
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 33.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BFA",
+      "CIV",
+      "TGO"
+    ],
+    "capitalCoords": [
+      5.55,
+      -0.22
+    ]
+  },
+  {
+    "id": "GRC",
+    "name": "Greece",
+    "capital": "Athens",
+    "flag": "🇬🇷",
+    "flagCode": "gr",
+    "population": 10400720,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Greek"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      39,
+      22
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 10.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "ALB",
+      "BGR",
+      "TUR",
+      "MKD"
+    ],
+    "capitalCoords": [
+      37.98,
+      23.73
+    ]
+  },
+  {
+    "id": "GRD",
+    "name": "Grenada",
+    "capital": "St. George's",
+    "flag": "🇬🇩",
+    "flagCode": "gd",
+    "population": 109021,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Eastern Caribbean dollar",
+    "coordinates": [
+      12.11666666,
+      -61.66666666
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      32.38,
+      -64.68
+    ]
+  },
+  {
+    "id": "GTM",
+    "name": "Guatemala",
+    "capital": "Guatemala City",
+    "flag": "🇬🇹",
+    "flagCode": "gt",
+    "population": 18079810,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Guatemalan quetzal",
+    "coordinates": [
+      15.5,
+      -90.25
+    ],
+    "funFact": "A fascinating country in Central America, home to around 18.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BLZ",
+      "SLV",
+      "HND",
+      "MEX"
+    ],
+    "capitalCoords": [
+      14.62,
+      -90.52
+    ]
+  },
+  {
+    "id": "GIN",
+    "name": "Guinea",
+    "capital": "Conakry",
+    "flag": "🇬🇳",
+    "flagCode": "gn",
+    "population": 14363931,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "Guinean franc",
+    "coordinates": [
+      11,
+      -10
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 14.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CIV",
+      "GNB",
+      "LBR",
+      "MLI",
+      "SEN",
+      "SLE"
+    ],
+    "capitalCoords": [
+      9.5,
+      -13.7
+    ]
+  },
+  {
+    "id": "GNB",
+    "name": "Guinea-Bissau",
+    "capital": "Bissau",
+    "flag": "🇬🇼",
+    "flagCode": "gw",
+    "population": 1781308,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "Portuguese",
+      "Upper Guinea Creole"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      12,
+      -15
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 1.8 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "GIN",
+      "SEN"
+    ],
+    "capitalCoords": [
+      11.85,
+      -15.58
+    ]
+  },
+  {
+    "id": "GUY",
+    "name": "Guyana",
+    "capital": "Georgetown",
+    "flag": "🇬🇾",
+    "flagCode": "gy",
+    "population": 772975,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Guyanese dollar",
+    "coordinates": [
+      5,
+      -59
+    ],
+    "funFact": "A fascinating country in South America, home to around 0.8 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "BRA",
+      "SUR",
+      "VEN"
+    ],
+    "capitalCoords": [
+      6.8,
+      -58.15
+    ]
+  },
+  {
+    "id": "HTI",
+    "name": "Haiti",
+    "capital": "Port-au-Prince",
+    "flag": "🇭🇹",
+    "flagCode": "ht",
+    "population": 11867032,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "French",
+      "Haitian Creole"
+    ],
+    "currency": "Haitian gourde",
+    "coordinates": [
+      19,
+      -72.41666666
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 11.9 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DOM"
+    ],
+    "capitalCoords": [
+      18.53,
+      -72.33
+    ]
+  },
+  {
+    "id": "HND",
+    "name": "Honduras",
+    "capital": "Tegucigalpa",
+    "flag": "🇭🇳",
+    "flagCode": "hn",
+    "population": 9892632,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Honduran lempira",
+    "coordinates": [
+      15,
+      -86.5
+    ],
+    "funFact": "A fascinating country in Central America, home to around 9.9 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GTM",
+      "SLV",
+      "NIC"
+    ],
+    "capitalCoords": [
+      14.1,
+      -87.22
+    ]
+  },
+  {
+    "id": "HUN",
+    "name": "Hungary",
+    "capital": "Budapest",
+    "flag": "🇭🇺",
+    "flagCode": "hu",
+    "population": 9539502,
+    "region": "Central Europe",
+    "continent": "Europe",
+    "languages": [
+      "Hungarian"
+    ],
+    "currency": "Hungarian forint",
+    "coordinates": [
+      47,
+      20
+    ],
+    "funFact": "A fascinating country in Central Europe, home to around 9.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AUT",
+      "HRV",
+      "ROU",
+      "SRB",
+      "SVK",
+      "SVN",
+      "UKR"
+    ],
+    "capitalCoords": [
+      47.5,
+      19.08
+    ]
+  },
+  {
+    "id": "ISL",
+    "name": "Iceland",
+    "capital": "Reykjavik",
+    "flag": "🇮🇸",
+    "flagCode": "is",
+    "population": 391810,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Icelandic"
+    ],
+    "currency": "Icelandic króna",
+    "coordinates": [
+      65,
+      -18
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 0.4 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "similarTo": "NOR",
+    "capitalCoords": [
+      64.15,
+      -21.95
+    ]
+  },
+  {
+    "id": "IND",
+    "name": "India",
+    "capital": "New Delhi",
+    "flag": "🇮🇳",
+    "flagCode": "in",
+    "population": 1417492000,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "English",
+      "Hindi",
+      "Tamil"
+    ],
+    "currency": "Indian rupee",
+    "coordinates": [
+      20,
+      77
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 1417.5 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BGD",
+      "BTN",
+      "MMR",
+      "CHN",
+      "NPL",
+      "PAK"
+    ],
+    "capitalCoords": [
+      28.6,
+      77.2
+    ]
+  },
+  {
+    "id": "IDN",
+    "name": "Indonesia",
+    "capital": "Jakarta",
+    "flag": "🇮🇩",
+    "flagCode": "id",
+    "population": 284438782,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Indonesian"
+    ],
+    "currency": "Indonesian rupiah",
+    "coordinates": [
+      -5,
+      120
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 284.4 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "TLS",
+      "MYS",
+      "PNG"
+    ],
+    "similarTo": "MCO",
+    "capitalCoords": [
+      -6.17,
+      106.82
+    ]
+  },
+  {
+    "id": "IRN",
+    "name": "Iran",
+    "capital": "Tehran",
+    "flag": "🇮🇷",
+    "flagCode": "ir",
+    "population": 85961000,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Persian (Farsi)"
+    ],
+    "currency": "Iranian rial",
+    "coordinates": [
+      32,
+      53
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 86.0 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AFG",
+      "ARM",
+      "AZE",
+      "IRQ",
+      "PAK",
+      "TUR",
+      "TKM"
+    ],
+    "capitalCoords": [
+      35.7,
+      51.42
+    ]
+  },
+  {
+    "id": "IRQ",
+    "name": "Iraq",
+    "capital": "Baghdad",
+    "flag": "🇮🇶",
+    "flagCode": "iq",
+    "population": 46118793,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic",
+      "Aramaic",
+      "Sorani"
+    ],
+    "currency": "Iraqi dinar",
+    "coordinates": [
+      33,
+      44
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 46.1 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "IRN",
+      "JOR",
+      "KWT",
+      "SAU",
+      "SYR",
+      "TUR"
+    ],
+    "capitalCoords": [
+      33.33,
+      44.4
+    ]
+  },
+  {
+    "id": "IRL",
+    "name": "Ireland",
+    "capital": "Dublin",
+    "flag": "🇮🇪",
+    "flagCode": "ie",
+    "population": 5458600,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "English",
+      "Irish"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      53,
+      -8
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 5.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GBR"
+    ],
+    "similarTo": "CIV",
+    "capitalCoords": [
+      53.32,
+      -6.23
+    ]
+  },
+  {
+    "id": "ISR",
+    "name": "Israel",
+    "capital": "Jerusalem",
+    "flag": "🇮🇱",
+    "flagCode": "il",
+    "population": 10134800,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic",
+      "Hebrew"
+    ],
+    "currency": "Israeli new shekel",
+    "coordinates": [
+      31.47,
+      35.13
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 10.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "EGY",
+      "JOR",
+      "LBN",
+      "PSE",
+      "SYR"
+    ],
+    "capitalCoords": [
+      31.77,
+      35.23
+    ]
+  },
+  {
+    "id": "ITA",
+    "name": "Italy",
+    "capital": "Rome",
+    "flag": "🇮🇹",
+    "flagCode": "it",
+    "population": 58927633,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Italian",
+      "Catalan"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      42.83333333,
+      12.83333333
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 58.9 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AUT",
+      "FRA",
+      "SMR",
+      "SVN",
+      "CHE",
+      "VAT"
+    ],
+    "capitalCoords": [
+      41.9,
+      12.48
+    ]
+  },
+  {
+    "id": "CIV",
+    "name": "Ivory Coast",
+    "capital": "Yamoussoukro",
+    "flag": "🇨🇮",
+    "flagCode": "ci",
+    "population": 31719275,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      8,
+      -5
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 31.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BFA",
+      "GHA",
+      "GIN",
+      "LBR",
+      "MLI"
+    ],
+    "similarTo": "IRL",
+    "capitalCoords": [
+      6.82,
+      -5.27
+    ]
+  },
+  {
+    "id": "JAM",
+    "name": "Jamaica",
+    "capital": "Kingston",
+    "flag": "🇯🇲",
+    "flagCode": "jm",
+    "population": 2825544,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English",
+      "Jamaican Patois"
+    ],
+    "currency": "Jamaican dollar",
+    "coordinates": [
+      18.25,
+      -77.5
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 2.8 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      17.99702,
+      -76.79358
+    ]
+  },
+  {
+    "id": "JPN",
+    "name": "Japan",
+    "capital": "Tokyo",
+    "flag": "🇯🇵",
+    "flagCode": "jp",
+    "population": 123210000,
+    "region": "Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Japanese"
+    ],
+    "currency": "Japanese yen",
+    "coordinates": [
+      36,
+      138
+    ],
+    "funFact": "Made up of exactly 6,852 islands.",
+    "difficulty": "easy",
+    "borders": [],
+    "capitalCoords": [
+      35.68,
+      139.75
+    ]
+  },
+  {
+    "id": "JOR",
+    "name": "Jordan",
+    "capital": "Amman",
+    "flag": "🇯🇴",
+    "flagCode": "jo",
+    "population": 11734000,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Jordanian dinar",
+    "coordinates": [
+      31,
+      36
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 11.7 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "IRQ",
+      "ISR",
+      "PSE",
+      "SAU",
+      "SYR"
+    ],
+    "capitalCoords": [
+      31.95,
+      35.93
+    ]
+  },
+  {
+    "id": "KAZ",
+    "name": "Kazakhstan",
+    "capital": "Astana",
+    "flag": "🇰🇿",
+    "flagCode": "kz",
+    "population": 20426568,
+    "region": "Central Asia",
+    "continent": "Asia",
+    "languages": [
+      "Kazakh",
+      "Russian"
+    ],
+    "currency": "Kazakhstani tenge",
+    "coordinates": [
+      48.0196,
+      66.9237
+    ],
+    "funFact": "A fascinating country in Central Asia, home to around 20.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CHN",
+      "KGZ",
+      "RUS",
+      "TKM",
+      "UZB"
+    ],
+    "capitalCoords": [
+      51.16,
+      71.45
+    ]
+  },
+  {
+    "id": "KEN",
+    "name": "Kenya",
+    "capital": "Nairobi",
+    "flag": "🇰🇪",
+    "flagCode": "ke",
+    "population": 53330978,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Swahili"
+    ],
+    "currency": "Kenyan shilling",
+    "coordinates": [
+      1,
+      38
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 53.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "ETH",
+      "SOM",
+      "SSD",
+      "TZA",
+      "UGA"
+    ],
+    "capitalCoords": [
+      -1.28,
+      36.82
+    ]
+  },
+  {
+    "id": "KIR",
+    "name": "Kiribati",
+    "capital": "South Tarawa",
+    "flag": "🇰🇮",
+    "flagCode": "ki",
+    "population": 120740,
+    "region": "Micronesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Gilbertese"
+    ],
+    "currency": "Australian dollar",
+    "coordinates": [
+      1.41666666,
+      173
+    ],
+    "funFact": "A fascinating country in Micronesia, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      1.33,
+      172.98
+    ]
+  },
+  {
+    "id": "UNK",
+    "name": "Kosovo",
+    "capital": "Pristina",
+    "flag": "🇽🇰",
+    "flagCode": "xk",
+    "population": 1585566,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Albanian",
+      "Serbian"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      42.666667,
+      21.166667
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 1.6 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ALB",
+      "MKD",
+      "MNE",
+      "SRB"
+    ],
+    "capitalCoords": [
+      42.67,
+      21.17
+    ]
+  },
+  {
+    "id": "KWT",
+    "name": "Kuwait",
+    "capital": "Kuwait City",
+    "flag": "🇰🇼",
+    "flagCode": "kw",
+    "population": 4881254,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Kuwaiti dinar",
+    "coordinates": [
+      29.5,
+      45.75
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 4.9 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "IRQ",
+      "SAU"
+    ],
+    "capitalCoords": [
+      29.37,
+      47.97
+    ]
+  },
+  {
+    "id": "KGZ",
+    "name": "Kyrgyzstan",
+    "capital": "Bishkek",
+    "flag": "🇰🇬",
+    "flagCode": "kg",
+    "population": 7281800,
+    "region": "Central Asia",
+    "continent": "Asia",
+    "languages": [
+      "Kyrgyz",
+      "Russian"
+    ],
+    "currency": "Kyrgyzstani som",
+    "coordinates": [
+      41,
+      75
+    ],
+    "funFact": "A fascinating country in Central Asia, home to around 7.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CHN",
+      "KAZ",
+      "TJK",
+      "UZB"
+    ],
+    "capitalCoords": [
+      42.87,
+      74.6
+    ]
+  },
+  {
+    "id": "LAO",
+    "name": "Laos",
+    "capital": "Vientiane",
+    "flag": "🇱🇦",
+    "flagCode": "la",
+    "population": 7647000,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Lao"
+    ],
+    "currency": "Lao kip",
+    "coordinates": [
+      18,
+      105
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 7.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "MMR",
+      "KHM",
+      "CHN",
+      "THA",
+      "VNM"
+    ],
+    "capitalCoords": [
+      17.97,
+      102.6
+    ]
+  },
+  {
+    "id": "LVA",
+    "name": "Latvia",
+    "capital": "Riga",
+    "flag": "🇱🇻",
+    "flagCode": "lv",
+    "population": 1829000,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Latvian"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      57,
+      25
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 1.8 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "BLR",
+      "EST",
+      "LTU",
+      "RUS"
+    ],
+    "capitalCoords": [
+      56.95,
+      24.1
+    ]
+  },
+  {
+    "id": "LBN",
+    "name": "Lebanon",
+    "capital": "Beirut",
+    "flag": "🇱🇧",
+    "flagCode": "lb",
+    "population": 5490000,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic",
+      "French"
+    ],
+    "currency": "Lebanese pound",
+    "coordinates": [
+      33.83333333,
+      35.83333333
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 5.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "ISR",
+      "SYR"
+    ],
+    "capitalCoords": [
+      33.87,
+      35.5
+    ]
+  },
+  {
+    "id": "LSO",
+    "name": "Lesotho",
+    "capital": "Maseru",
+    "flag": "🇱🇸",
+    "flagCode": "ls",
+    "population": 2116427,
+    "region": "Southern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Sotho"
+    ],
+    "currency": "Lesotho loti",
+    "coordinates": [
+      -29.5,
+      28.5
+    ],
+    "funFact": "A fascinating country in Southern Africa, home to around 2.1 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ZAF"
+    ],
+    "capitalCoords": [
+      -29.32,
+      27.48
+    ]
+  },
+  {
+    "id": "LBR",
+    "name": "Liberia",
+    "capital": "Monrovia",
+    "flag": "🇱🇷",
+    "flagCode": "lr",
+    "population": 5248621,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "Liberian dollar",
+    "coordinates": [
+      6.5,
+      -9.5
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 5.2 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GIN",
+      "CIV",
+      "SLE"
+    ],
+    "capitalCoords": [
+      6.3,
+      -10.8
+    ]
+  },
+  {
+    "id": "LBY",
+    "name": "Libya",
+    "capital": "Tripoli",
+    "flag": "🇱🇾",
+    "flagCode": "ly",
+    "population": 7459000,
+    "region": "Northern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Libyan dinar",
+    "coordinates": [
+      25,
+      17
+    ],
+    "funFact": "A fascinating country in Northern Africa, home to around 7.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DZA",
+      "TCD",
+      "EGY",
+      "NER",
+      "SDN",
+      "TUN"
+    ],
+    "capitalCoords": [
+      32.88,
+      13.17
+    ]
+  },
+  {
+    "id": "LIE",
+    "name": "Liechtenstein",
+    "capital": "Vaduz",
+    "flag": "🇱🇮",
+    "flagCode": "li",
+    "population": 40900,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "German"
+    ],
+    "currency": "Swiss franc",
+    "coordinates": [
+      47.26666666,
+      9.53333333
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "AUT",
+      "CHE"
+    ],
+    "capitalCoords": [
+      47.13,
+      9.52
+    ]
+  },
+  {
+    "id": "LTU",
+    "name": "Lithuania",
+    "capital": "Vilnius",
+    "flag": "🇱🇹",
+    "flagCode": "lt",
+    "population": 2894886,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Lithuanian"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      56,
+      24
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 2.9 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "BLR",
+      "LVA",
+      "POL",
+      "RUS"
+    ],
+    "capitalCoords": [
+      54.68,
+      25.32
+    ]
+  },
+  {
+    "id": "LUX",
+    "name": "Luxembourg",
+    "capital": "Luxembourg",
+    "flag": "🇱🇺",
+    "flagCode": "lu",
+    "population": 681973,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "German",
+      "French",
+      "Luxembourgish"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      49.75,
+      6.16666666
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 0.7 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "BEL",
+      "FRA",
+      "DEU"
+    ],
+    "capitalCoords": [
+      49.6,
+      6.12
+    ]
+  },
+  {
+    "id": "MDG",
+    "name": "Madagascar",
+    "capital": "Antananarivo",
+    "flag": "🇲🇬",
+    "flagCode": "mg",
+    "population": 31727042,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "French",
+      "Malagasy"
+    ],
+    "currency": "Malagasy ariary",
+    "coordinates": [
+      -20,
+      47
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 31.7 million people.",
+    "difficulty": "easy",
+    "borders": [],
+    "capitalCoords": [
+      -18.92,
+      47.52
+    ]
+  },
+  {
+    "id": "MWI",
+    "name": "Malawi",
+    "capital": "Lilongwe",
+    "flag": "🇲🇼",
+    "flagCode": "mw",
+    "population": 20734262,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Chewa"
+    ],
+    "currency": "Malawian kwacha",
+    "coordinates": [
+      -13.5,
+      34
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 20.7 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "MOZ",
+      "TZA",
+      "ZMB"
+    ],
+    "capitalCoords": [
+      -13.97,
+      33.78
+    ]
+  },
+  {
+    "id": "MYS",
+    "name": "Malaysia",
+    "capital": "Kuala Lumpur",
+    "flag": "🇲🇾",
+    "flagCode": "my",
+    "population": 34231700,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "English",
+      "Malay"
+    ],
+    "currency": "Malaysian ringgit",
+    "coordinates": [
+      2.5,
+      112.5
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 34.2 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BRN",
+      "IDN",
+      "THA"
+    ],
+    "capitalCoords": [
+      3.17,
+      101.7
+    ]
+  },
+  {
+    "id": "MDV",
+    "name": "Maldives",
+    "capital": "Malé",
+    "flag": "🇲🇻",
+    "flagCode": "mv",
+    "population": 515132,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Maldivian"
+    ],
+    "currency": "Maldivian rufiyaa",
+    "coordinates": [
+      3.25,
+      73
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 0.5 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      4.17,
+      73.51
+    ]
+  },
+  {
+    "id": "MLI",
+    "name": "Mali",
+    "capital": "Bamako",
+    "flag": "🇲🇱",
+    "flagCode": "ml",
+    "population": 22395489,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      17,
+      -4
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 22.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DZA",
+      "BFA",
+      "GIN",
+      "CIV",
+      "MRT",
+      "NER",
+      "SEN"
+    ],
+    "capitalCoords": [
+      12.65,
+      -8
+    ]
+  },
+  {
+    "id": "MLT",
+    "name": "Malta",
+    "capital": "Valletta",
+    "flag": "🇲🇹",
+    "flagCode": "mt",
+    "population": 574250,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "English",
+      "Maltese"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      35.9375,
+      14.3754
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 0.6 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      35.88,
+      14.5
+    ]
+  },
+  {
+    "id": "MHL",
+    "name": "Marshall Islands",
+    "capital": "Majuro",
+    "flag": "🇲🇭",
+    "flagCode": "mh",
+    "population": 42418,
+    "region": "Micronesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Marshallese"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      9,
+      168
+    ],
+    "funFact": "A fascinating country in Micronesia, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      7.1,
+      171.38
+    ]
+  },
+  {
+    "id": "MRT",
+    "name": "Mauritania",
+    "capital": "Nouakchott",
+    "flag": "🇲🇷",
+    "flagCode": "mr",
+    "population": 4927532,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Mauritanian ouguiya",
+    "coordinates": [
+      20,
+      -12
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 4.9 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "DZA",
+      "MLI",
+      "SEN",
+      "ESH"
+    ],
+    "capitalCoords": [
+      18.07,
+      -15.97
+    ]
+  },
+  {
+    "id": "MUS",
+    "name": "Mauritius",
+    "capital": "Port Louis",
+    "flag": "🇲🇺",
+    "flagCode": "mu",
+    "population": 1243741,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "French",
+      "Mauritian Creole"
+    ],
+    "currency": "Mauritian rupee",
+    "coordinates": [
+      -20.28333333,
+      57.55
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 1.2 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -20.15,
+      57.48
+    ]
+  },
+  {
+    "id": "MEX",
+    "name": "Mexico",
+    "capital": "Mexico City",
+    "flag": "🇲🇽",
+    "flagCode": "mx",
+    "population": 130575786,
+    "region": "North America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Mexican peso",
+    "coordinates": [
+      23,
+      -102
+    ],
+    "funFact": "A fascinating country in North America, home to around 130.6 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BLZ",
+      "GTM",
+      "USA"
+    ],
+    "capitalCoords": [
+      19.43,
+      -99.13
+    ]
+  },
+  {
+    "id": "FSM",
+    "name": "Micronesia",
+    "capital": "Palikir",
+    "flag": "🇫🇲",
+    "flagCode": "fm",
+    "population": 105564,
+    "region": "Micronesia",
+    "continent": "Oceania",
+    "languages": [
+      "English"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      6.91666666,
+      158.25
+    ],
+    "funFact": "A fascinating country in Micronesia, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      6.92,
+      158.15
+    ]
+  },
+  {
+    "id": "MDA",
+    "name": "Moldova",
+    "capital": "Chișinău",
+    "flag": "🇲🇩",
+    "flagCode": "md",
+    "population": 2749076,
+    "region": "Eastern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Romanian"
+    ],
+    "currency": "Moldovan leu",
+    "coordinates": [
+      47,
+      29
+    ],
+    "funFact": "A fascinating country in Eastern Europe, home to around 2.7 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ROU",
+      "UKR"
+    ],
+    "capitalCoords": [
+      47.01,
+      28.9
+    ]
+  },
+  {
+    "id": "MCO",
+    "name": "Monaco",
+    "capital": "Monaco",
+    "flag": "🇲🇨",
+    "flagCode": "mc",
+    "population": 38423,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "French"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      43.73333333,
+      7.4
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "FRA"
+    ],
+    "similarTo": "IDN",
+    "capitalCoords": [
+      43.73,
+      7.42
+    ]
+  },
+  {
+    "id": "MNG",
+    "name": "Mongolia",
+    "capital": "Ulan Bator",
+    "flag": "🇲🇳",
+    "flagCode": "mn",
+    "population": 3544835,
+    "region": "Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Mongolian"
+    ],
+    "currency": "Mongolian tögrög",
+    "coordinates": [
+      46,
+      105
+    ],
+    "funFact": "A fascinating country in Eastern Asia, home to around 3.5 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "CHN",
+      "RUS"
+    ],
+    "capitalCoords": [
+      47.92,
+      106.91
+    ]
+  },
+  {
+    "id": "MNE",
+    "name": "Montenegro",
+    "capital": "Podgorica",
+    "flag": "🇲🇪",
+    "flagCode": "me",
+    "population": 623327,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Montenegrin"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      42.5,
+      19.3
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 0.6 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ALB",
+      "BIH",
+      "HRV",
+      "UNK",
+      "SRB"
+    ],
+    "capitalCoords": [
+      42.43,
+      19.27
+    ]
+  },
+  {
+    "id": "MAR",
+    "name": "Morocco",
+    "capital": "Rabat",
+    "flag": "🇲🇦",
+    "flagCode": "ma",
+    "population": 36828330,
+    "region": "Northern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "Berber"
+    ],
+    "currency": "Moroccan dirham",
+    "coordinates": [
+      32,
+      -5
+    ],
+    "funFact": "A fascinating country in Northern Africa, home to around 36.8 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "DZA",
+      "ESH",
+      "ESP"
+    ],
+    "capitalCoords": [
+      34.02,
+      -6.82
+    ]
+  },
+  {
+    "id": "MOZ",
+    "name": "Mozambique",
+    "capital": "Maputo",
+    "flag": "🇲🇿",
+    "flagCode": "mz",
+    "population": 34090466,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Portuguese"
+    ],
+    "currency": "Mozambican metical",
+    "coordinates": [
+      -18.25,
+      35
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 34.1 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "MWI",
+      "ZAF",
+      "SWZ",
+      "TZA",
+      "ZMB",
+      "ZWE"
+    ],
+    "capitalCoords": [
+      -25.95,
+      32.58
+    ]
+  },
+  {
+    "id": "MMR",
+    "name": "Myanmar",
+    "capital": "Naypyidaw",
+    "flag": "🇲🇲",
+    "flagCode": "mm",
+    "population": 51316756,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Burmese"
+    ],
+    "currency": "Burmese kyat",
+    "coordinates": [
+      22,
+      98
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 51.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BGD",
+      "CHN",
+      "IND",
+      "LAO",
+      "THA"
+    ],
+    "capitalCoords": [
+      19.76,
+      96.07
+    ]
+  },
+  {
+    "id": "NAM",
+    "name": "Namibia",
+    "capital": "Windhoek",
+    "flag": "🇳🇦",
+    "flagCode": "na",
+    "population": 3022401,
+    "region": "Southern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Afrikaans",
+      "German",
+      "English",
+      "Herero",
+      "Khoekhoe",
+      "Kwangali",
+      "Lozi",
+      "Ndonga",
+      "Tswana"
+    ],
+    "currency": "Namibian dollar",
+    "coordinates": [
+      -22,
+      17
+    ],
+    "funFact": "A fascinating country in Southern Africa, home to around 3.0 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "AGO",
+      "BWA",
+      "ZAF",
+      "ZMB"
+    ],
+    "capitalCoords": [
+      -22.57,
+      17.08
+    ]
+  },
+  {
+    "id": "NRU",
+    "name": "Nauru",
+    "capital": "Yaren",
+    "flag": "🇳🇷",
+    "flagCode": "nr",
+    "population": 11680,
+    "region": "Micronesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Nauru"
+    ],
+    "currency": "Australian dollar",
+    "coordinates": [
+      -0.53333333,
+      166.91666666
+    ],
+    "funFact": "A fascinating country in Micronesia, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -0.55,
+      166.92
+    ]
+  },
+  {
+    "id": "NPL",
+    "name": "Nepal",
+    "capital": "Kathmandu",
+    "flag": "🇳🇵",
+    "flagCode": "np",
+    "population": 29911840,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Nepali"
+    ],
+    "currency": "Nepalese rupee",
+    "coordinates": [
+      28,
+      84
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 29.9 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CHN",
+      "IND"
+    ],
+    "capitalCoords": [
+      27.72,
+      85.32
+    ]
+  },
+  {
+    "id": "NLD",
+    "name": "Netherlands",
+    "capital": "Amsterdam",
+    "flag": "🇳🇱",
+    "flagCode": "nl",
+    "population": 18100436,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "Dutch"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      52.5,
+      5.75
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 18.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BEL",
+      "DEU"
+    ],
+    "capitalCoords": [
+      52.35,
+      4.92
+    ]
+  },
+  {
+    "id": "NZL",
+    "name": "New Zealand",
+    "capital": "Wellington",
+    "flag": "🇳🇿",
+    "flagCode": "nz",
+    "population": 5324700,
+    "region": "Australia and New Zealand",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Māori",
+      "New Zealand Sign Language"
+    ],
+    "currency": "New Zealand dollar",
+    "coordinates": [
+      -41,
+      174
+    ],
+    "funFact": "A fascinating country in Australia and New Zealand, home to around 5.3 million people.",
+    "difficulty": "medium",
+    "borders": [],
+    "capitalCoords": [
+      -41.3,
+      174.78
+    ]
+  },
+  {
+    "id": "NIC",
+    "name": "Nicaragua",
+    "capital": "Managua",
+    "flag": "🇳🇮",
+    "flagCode": "ni",
+    "population": 6803886,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Nicaraguan córdoba",
+    "coordinates": [
+      13,
+      -85
+    ],
+    "funFact": "A fascinating country in Central America, home to around 6.8 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CRI",
+      "HND"
+    ],
+    "capitalCoords": [
+      12.13,
+      -86.25
+    ]
+  },
+  {
+    "id": "NER",
+    "name": "Niger",
+    "capital": "Niamey",
+    "flag": "🇳🇪",
+    "flagCode": "ne",
+    "population": 26312034,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      16,
+      8
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 26.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DZA",
+      "BEN",
+      "BFA",
+      "TCD",
+      "LBY",
+      "MLI",
+      "NGA"
+    ],
+    "capitalCoords": [
+      13.52,
+      2.12
+    ]
+  },
+  {
+    "id": "NGA",
+    "name": "Nigeria",
+    "capital": "Abuja",
+    "flag": "🇳🇬",
+    "flagCode": "ng",
+    "population": 223800000,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "Nigerian naira",
+    "coordinates": [
+      10,
+      8
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 223.8 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BEN",
+      "CMR",
+      "TCD",
+      "NER"
+    ],
+    "capitalCoords": [
+      9.08,
+      7.53
+    ]
+  },
+  {
+    "id": "PRK",
+    "name": "North Korea",
+    "capital": "Pyongyang",
+    "flag": "🇰🇵",
+    "flagCode": "kp",
+    "population": 25950000,
+    "region": "Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Korean"
+    ],
+    "currency": "North Korean won",
+    "coordinates": [
+      40,
+      127
+    ],
+    "funFact": "A fascinating country in Eastern Asia, home to around 25.9 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CHN",
+      "KOR",
+      "RUS"
+    ],
+    "capitalCoords": [
+      39.02,
+      125.75
+    ]
+  },
+  {
+    "id": "MKD",
+    "name": "North Macedonia",
+    "capital": "Skopje",
+    "flag": "🇲🇰",
+    "flagCode": "mk",
+    "population": 1822612,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Macedonian"
+    ],
+    "currency": "denar",
+    "coordinates": [
+      41.83333333,
+      22
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 1.8 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ALB",
+      "BGR",
+      "GRC",
+      "UNK",
+      "SRB"
+    ],
+    "capitalCoords": [
+      42,
+      21.43
+    ]
+  },
+  {
+    "id": "NOR",
+    "name": "Norway",
+    "capital": "Oslo",
+    "flag": "🇳🇴",
+    "flagCode": "no",
+    "population": 5606944,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Norwegian Nynorsk",
+      "Norwegian Bokmål",
+      "Sami"
+    ],
+    "currency": "Norwegian krone",
+    "coordinates": [
+      62,
+      10
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 5.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "FIN",
+      "SWE",
+      "RUS"
+    ],
+    "similarTo": "ISL",
+    "capitalCoords": [
+      59.92,
+      10.75
+    ]
+  },
+  {
+    "id": "OMN",
+    "name": "Oman",
+    "capital": "Muscat",
+    "flag": "🇴🇲",
+    "flagCode": "om",
+    "population": 5343630,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Omani rial",
+    "coordinates": [
+      21,
+      57
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 5.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "SAU",
+      "ARE",
+      "YEM"
+    ],
+    "capitalCoords": [
+      23.62,
+      58.58
+    ]
+  },
+  {
+    "id": "PAK",
+    "name": "Pakistan",
+    "capital": "Islamabad",
+    "flag": "🇵🇰",
+    "flagCode": "pk",
+    "population": 241499431,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "English",
+      "Urdu"
+    ],
+    "currency": "Pakistani rupee",
+    "coordinates": [
+      30,
+      70
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 241.5 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AFG",
+      "CHN",
+      "IND",
+      "IRN"
+    ],
+    "capitalCoords": [
+      33.68,
+      73.05
+    ]
+  },
+  {
+    "id": "PLW",
+    "name": "Palau",
+    "capital": "Ngerulmud",
+    "flag": "🇵🇼",
+    "flagCode": "pw",
+    "population": 16733,
+    "region": "Micronesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Palauan"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      7.5,
+      134.5
+    ],
+    "funFact": "A fascinating country in Micronesia, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      7.5,
+      134.62
+    ]
+  },
+  {
+    "id": "PAN",
+    "name": "Panama",
+    "capital": "Panama City",
+    "flag": "🇵🇦",
+    "flagCode": "pa",
+    "population": 4064780,
+    "region": "Central America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Panamanian balboa",
+    "coordinates": [
+      9,
+      -80
+    ],
+    "funFact": "A fascinating country in Central America, home to around 4.1 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "COL",
+      "CRI"
+    ],
+    "capitalCoords": [
+      8.97,
+      -79.53
+    ]
+  },
+  {
+    "id": "PNG",
+    "name": "Papua New Guinea",
+    "capital": "Port Moresby",
+    "flag": "🇵🇬",
+    "flagCode": "pg",
+    "population": 11781559,
+    "region": "Melanesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Hiri Motu",
+      "Tok Pisin"
+    ],
+    "currency": "Papua New Guinean kina",
+    "coordinates": [
+      -6,
+      147
+    ],
+    "funFact": "A fascinating country in Melanesia, home to around 11.8 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "IDN"
+    ],
+    "capitalCoords": [
+      -9.45,
+      147.18
+    ]
+  },
+  {
+    "id": "PRY",
+    "name": "Paraguay",
+    "capital": "Asunción",
+    "flag": "🇵🇾",
+    "flagCode": "py",
+    "population": 6109644,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Guaraní",
+      "Spanish"
+    ],
+    "currency": "Paraguayan guaraní",
+    "coordinates": [
+      -23,
+      -58
+    ],
+    "funFact": "A fascinating country in South America, home to around 6.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "ARG",
+      "BOL",
+      "BRA"
+    ],
+    "capitalCoords": [
+      -25.28,
+      -57.57
+    ]
+  },
+  {
+    "id": "PER",
+    "name": "Peru",
+    "capital": "Lima",
+    "flag": "🇵🇪",
+    "flagCode": "pe",
+    "population": 34350244,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Aymara",
+      "Quechua",
+      "Spanish"
+    ],
+    "currency": "Peruvian sol",
+    "coordinates": [
+      -10,
+      -76
+    ],
+    "funFact": "A fascinating country in South America, home to around 34.4 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU"
+    ],
+    "capitalCoords": [
+      -12.05,
+      -77.05
+    ]
+  },
+  {
+    "id": "PHL",
+    "name": "Philippines",
+    "capital": "Manila",
+    "flag": "🇵🇭",
+    "flagCode": "ph",
+    "population": 114123600,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "English",
+      "Filipino"
+    ],
+    "currency": "Philippine peso",
+    "coordinates": [
+      13,
+      122
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 114.1 million people.",
+    "difficulty": "easy",
+    "borders": [],
+    "capitalCoords": [
+      14.6,
+      120.97
+    ]
+  },
+  {
+    "id": "POL",
+    "name": "Poland",
+    "capital": "Warsaw",
+    "flag": "🇵🇱",
+    "flagCode": "pl",
+    "population": 37392000,
+    "region": "Central Europe",
+    "continent": "Europe",
+    "languages": [
+      "Polish"
+    ],
+    "currency": "Polish złoty",
+    "coordinates": [
+      52,
+      20
+    ],
+    "funFact": "A fascinating country in Central Europe, home to around 37.4 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BLR",
+      "CZE",
+      "DEU",
+      "LTU",
+      "RUS",
+      "SVK",
+      "UKR"
+    ],
+    "capitalCoords": [
+      52.25,
+      21
+    ]
+  },
+  {
+    "id": "PRT",
+    "name": "Portugal",
+    "capital": "Lisbon",
+    "flag": "🇵🇹",
+    "flagCode": "pt",
+    "population": 10749635,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Portuguese"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      39.5,
+      -8
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 10.7 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "ESP"
+    ],
+    "capitalCoords": [
+      38.72,
+      -9.13
+    ]
+  },
+  {
+    "id": "QAT",
+    "name": "Qatar",
+    "capital": "Doha",
+    "flag": "🇶🇦",
+    "flagCode": "qa",
+    "population": 3173024,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Qatari riyal",
+    "coordinates": [
+      25.5,
+      51.25
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 3.2 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "SAU"
+    ],
+    "capitalCoords": [
+      25.28,
+      51.53
+    ]
+  },
+  {
+    "id": "COG",
+    "name": "Republic of the Congo",
+    "capital": "Brazzaville",
+    "flag": "🇨🇬",
+    "flagCode": "cg",
+    "population": 6142180,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "French",
+      "Kikongo",
+      "Lingala"
+    ],
+    "currency": "Central African CFA franc",
+    "coordinates": [
+      -1,
+      15
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 6.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AGO",
+      "CMR",
+      "CAF",
+      "COD",
+      "GAB"
+    ],
+    "capitalCoords": [
+      -4.25,
+      15.28
+    ]
+  },
+  {
+    "id": "ROU",
+    "name": "Romania",
+    "capital": "Bucharest",
+    "flag": "🇷🇴",
+    "flagCode": "ro",
+    "population": 19036031,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Romanian"
+    ],
+    "currency": "Romanian leu",
+    "coordinates": [
+      46,
+      25
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 19.0 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BGR",
+      "HUN",
+      "MDA",
+      "SRB",
+      "UKR"
+    ],
+    "similarTo": "TCD",
+    "capitalCoords": [
+      44.43,
+      26.1
+    ]
+  },
+  {
+    "id": "RUS",
+    "name": "Russia",
+    "capital": "Moscow",
+    "flag": "🇷🇺",
+    "flagCode": "ru",
+    "population": 146028325,
+    "region": "Eastern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Russian"
+    ],
+    "currency": "Russian ruble",
+    "coordinates": [
+      60,
+      100
+    ],
+    "funFact": "A fascinating country in Eastern Europe, home to around 146.0 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AZE",
+      "BLR",
+      "CHN",
+      "EST",
+      "FIN",
+      "GEO",
+      "KAZ",
+      "PRK",
+      "LVA",
+      "LTU",
+      "MNG",
+      "NOR",
+      "POL",
+      "UKR"
+    ],
+    "capitalCoords": [
+      55.75,
+      37.6
+    ]
+  },
+  {
+    "id": "RWA",
+    "name": "Rwanda",
+    "capital": "Kigali",
+    "flag": "🇷🇼",
+    "flagCode": "rw",
+    "population": 14104969,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "French",
+      "Kinyarwanda"
+    ],
+    "currency": "Rwandan franc",
+    "coordinates": [
+      -2,
+      30
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 14.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BDI",
+      "COD",
+      "TZA",
+      "UGA"
+    ],
+    "capitalCoords": [
+      -1.95,
+      30.05
+    ]
+  },
+  {
+    "id": "KNA",
+    "name": "Saint Kitts and Nevis",
+    "capital": "Basseterre",
+    "flag": "🇰🇳",
+    "flagCode": "kn",
+    "population": 51320,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Eastern Caribbean dollar",
+    "coordinates": [
+      17.33333333,
+      -62.75
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      17.3,
+      -62.72
+    ]
+  },
+  {
+    "id": "LCA",
+    "name": "Saint Lucia",
+    "capital": "Castries",
+    "flag": "🇱🇨",
+    "flagCode": "lc",
+    "population": 184100,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Eastern Caribbean dollar",
+    "coordinates": [
+      13.88333333,
+      -60.96666666
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.2 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      14,
+      -61
+    ]
+  },
+  {
+    "id": "VCT",
+    "name": "Saint Vincent and the Grenadines",
+    "capital": "Kingstown",
+    "flag": "🇻🇨",
+    "flagCode": "vc",
+    "population": 110872,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Eastern Caribbean dollar",
+    "coordinates": [
+      13.25,
+      -61.2
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      13.13,
+      -61.22
+    ]
+  },
+  {
+    "id": "WSM",
+    "name": "Samoa",
+    "capital": "Apia",
+    "flag": "🇼🇸",
+    "flagCode": "ws",
+    "population": 205557,
+    "region": "Polynesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Samoan"
+    ],
+    "currency": "Samoan tālā",
+    "coordinates": [
+      -13.58333333,
+      -172.33333333
+    ],
+    "funFact": "A fascinating country in Polynesia, home to around 0.2 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -13.82,
+      -171.77
+    ]
+  },
+  {
+    "id": "SMR",
+    "name": "San Marino",
+    "capital": "City of San Marino",
+    "flag": "🇸🇲",
+    "flagCode": "sm",
+    "population": 34132,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Italian"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      43.76666666,
+      12.41666666
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ITA"
+    ],
+    "capitalCoords": [
+      43.94,
+      12.45
+    ]
+  },
+  {
+    "id": "STP",
+    "name": "São Tomé and Príncipe",
+    "capital": "São Tomé",
+    "flag": "🇸🇹",
+    "flagCode": "st",
+    "population": 209607,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "Portuguese"
+    ],
+    "currency": "São Tomé and Príncipe dobra",
+    "coordinates": [
+      1,
+      7
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 0.2 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      0.34,
+      6.73
+    ]
+  },
+  {
+    "id": "SAU",
+    "name": "Saudi Arabia",
+    "capital": "Riyadh",
+    "flag": "🇸🇦",
+    "flagCode": "sa",
+    "population": 35300280,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Saudi riyal",
+    "coordinates": [
+      25,
+      45
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 35.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "IRQ",
+      "JOR",
+      "KWT",
+      "OMN",
+      "QAT",
+      "ARE",
+      "YEM"
+    ],
+    "capitalCoords": [
+      24.65,
+      46.7
+    ]
+  },
+  {
+    "id": "SEN",
+    "name": "Senegal",
+    "capital": "Dakar",
+    "flag": "🇸🇳",
+    "flagCode": "sn",
+    "population": 18593258,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      14,
+      -14
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 18.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GMB",
+      "GIN",
+      "GNB",
+      "MLI",
+      "MRT"
+    ],
+    "capitalCoords": [
+      14.73,
+      -17.63
+    ]
+  },
+  {
+    "id": "SRB",
+    "name": "Serbia",
+    "capital": "Belgrade",
+    "flag": "🇷🇸",
+    "flagCode": "rs",
+    "population": 6567783,
+    "region": "Southeast Europe",
+    "continent": "Europe",
+    "languages": [
+      "Serbian"
+    ],
+    "currency": "Serbian dinar",
+    "coordinates": [
+      44,
+      21
+    ],
+    "funFact": "A fascinating country in Southeast Europe, home to around 6.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BIH",
+      "BGR",
+      "HRV",
+      "HUN",
+      "UNK",
+      "MKD",
+      "MNE",
+      "ROU"
+    ],
+    "capitalCoords": [
+      44.83,
+      20.5
+    ]
+  },
+  {
+    "id": "SYC",
+    "name": "Seychelles",
+    "capital": "Victoria",
+    "flag": "🇸🇨",
+    "flagCode": "sc",
+    "population": 122729,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Seychellois Creole",
+      "English",
+      "French"
+    ],
+    "currency": "Seychellois rupee",
+    "coordinates": [
+      -4.58333333,
+      55.66666666
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -4.62,
+      55.45
+    ]
+  },
+  {
+    "id": "SLE",
+    "name": "Sierra Leone",
+    "capital": "Freetown",
+    "flag": "🇸🇱",
+    "flagCode": "sl",
+    "population": 9077691,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "Leone",
+    "coordinates": [
+      8.5,
+      -11.5
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 9.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "GIN",
+      "LBR"
+    ],
+    "capitalCoords": [
+      8.48,
+      -13.23
+    ]
+  },
+  {
+    "id": "SGP",
+    "name": "Singapore",
+    "capital": "Singapore",
+    "flag": "🇸🇬",
+    "flagCode": "sg",
+    "population": 6110200,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "English",
+      "Chinese",
+      "Malay",
+      "Tamil"
+    ],
+    "currency": "Singapore dollar",
+    "coordinates": [
+      1.36666666,
+      103.8
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 6.1 million people.",
+    "difficulty": "medium",
+    "borders": [],
+    "capitalCoords": [
+      1.28,
+      103.85
+    ]
+  },
+  {
+    "id": "SVK",
+    "name": "Slovakia",
+    "capital": "Bratislava",
+    "flag": "🇸🇰",
+    "flagCode": "sk",
+    "population": 5413813,
+    "region": "Central Europe",
+    "continent": "Europe",
+    "languages": [
+      "Slovak"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      48.66666666,
+      19.5
+    ],
+    "funFact": "A fascinating country in Central Europe, home to around 5.4 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AUT",
+      "CZE",
+      "HUN",
+      "POL",
+      "UKR"
+    ],
+    "capitalCoords": [
+      48.15,
+      17.12
+    ]
+  },
+  {
+    "id": "SVN",
+    "name": "Slovenia",
+    "capital": "Ljubljana",
+    "flag": "🇸🇮",
+    "flagCode": "si",
+    "population": 2130638,
+    "region": "Central Europe",
+    "continent": "Europe",
+    "languages": [
+      "Slovene"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      46.11666666,
+      14.81666666
+    ],
+    "funFact": "A fascinating country in Central Europe, home to around 2.1 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "AUT",
+      "HRV",
+      "ITA",
+      "HUN"
+    ],
+    "capitalCoords": [
+      46.05,
+      14.52
+    ]
+  },
+  {
+    "id": "SLB",
+    "name": "Solomon Islands",
+    "capital": "Honiara",
+    "flag": "🇸🇧",
+    "flagCode": "sb",
+    "population": 750325,
+    "region": "Melanesia",
+    "continent": "Oceania",
+    "languages": [
+      "English"
+    ],
+    "currency": "Solomon Islands dollar",
+    "coordinates": [
+      -8,
+      159
+    ],
+    "funFact": "A fascinating country in Melanesia, home to around 0.8 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -9.43,
+      159.95
+    ]
+  },
+  {
+    "id": "SOM",
+    "name": "Somalia",
+    "capital": "Mogadishu",
+    "flag": "🇸🇴",
+    "flagCode": "so",
+    "population": 19655000,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "Somali"
+    ],
+    "currency": "Somali shilling",
+    "coordinates": [
+      10,
+      49
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 19.7 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DJI",
+      "ETH",
+      "KEN"
+    ],
+    "capitalCoords": [
+      2.07,
+      45.33
+    ]
+  },
+  {
+    "id": "ZAF",
+    "name": "South Africa",
+    "capital": "Pretoria",
+    "flag": "🇿🇦",
+    "flagCode": "za",
+    "population": 63100945,
+    "region": "Southern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Afrikaans",
+      "English",
+      "Southern Ndebele",
+      "Northern Sotho",
+      "Southern Sotho",
+      "Swazi",
+      "Tswana",
+      "Tsonga",
+      "Venda",
+      "Xhosa",
+      "Zulu"
+    ],
+    "currency": "South African rand",
+    "coordinates": [
+      -29,
+      24
+    ],
+    "funFact": "A fascinating country in Southern Africa, home to around 63.1 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BWA",
+      "LSO",
+      "MOZ",
+      "NAM",
+      "SWZ",
+      "ZWE"
+    ],
+    "capitalCoords": [
+      -25.7,
+      28.22
+    ]
+  },
+  {
+    "id": "KOR",
+    "name": "South Korea",
+    "capital": "Seoul",
+    "flag": "🇰🇷",
+    "flagCode": "kr",
+    "population": 51159889,
+    "region": "Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Korean"
+    ],
+    "currency": "South Korean won",
+    "coordinates": [
+      37,
+      127.5
+    ],
+    "funFact": "A fascinating country in Eastern Asia, home to around 51.2 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "PRK"
+    ],
+    "capitalCoords": [
+      37.55,
+      126.98
+    ]
+  },
+  {
+    "id": "SSD",
+    "name": "South Sudan",
+    "capital": "Juba",
+    "flag": "🇸🇸",
+    "flagCode": "ss",
+    "population": 15786898,
+    "region": "Middle Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "South Sudanese pound",
+    "coordinates": [
+      7,
+      30
+    ],
+    "funFact": "A fascinating country in Middle Africa, home to around 15.8 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "CAF",
+      "COD",
+      "ETH",
+      "KEN",
+      "SDN",
+      "UGA"
+    ],
+    "capitalCoords": [
+      4.85,
+      31.62
+    ]
+  },
+  {
+    "id": "ESP",
+    "name": "Spain",
+    "capital": "Madrid",
+    "flag": "🇪🇸",
+    "flagCode": "es",
+    "population": 49315949,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Spanish",
+      "Catalan",
+      "Basque",
+      "Galician"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      40,
+      -4
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 49.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AND",
+      "FRA",
+      "GIB",
+      "PRT",
+      "MAR"
+    ],
+    "capitalCoords": [
+      40.4,
+      -3.68
+    ]
+  },
+  {
+    "id": "LKA",
+    "name": "Sri Lanka",
+    "capital": "Sri Jayawardenepura Kotte",
+    "flag": "🇱🇰",
+    "flagCode": "lk",
+    "population": 21763170,
+    "region": "Southern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Sinhala",
+      "Tamil"
+    ],
+    "currency": "Sri Lankan rupee",
+    "coordinates": [
+      7,
+      81
+    ],
+    "funFact": "A fascinating country in Southern Asia, home to around 21.8 million people.",
+    "difficulty": "medium",
+    "borders": [],
+    "capitalCoords": [
+      6.89,
+      79.9
+    ]
+  },
+  {
+    "id": "SDN",
+    "name": "Sudan",
+    "capital": "Khartoum",
+    "flag": "🇸🇩",
+    "flagCode": "sd",
+    "population": 51662000,
+    "region": "Northern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic",
+      "English"
+    ],
+    "currency": "Sudanese pound",
+    "coordinates": [
+      15,
+      30
+    ],
+    "funFact": "A fascinating country in Northern Africa, home to around 51.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "CAF",
+      "TCD",
+      "EGY",
+      "ERI",
+      "ETH",
+      "LBY",
+      "SSD"
+    ],
+    "capitalCoords": [
+      15.6,
+      32.53
+    ]
+  },
+  {
+    "id": "SUR",
+    "name": "Suriname",
+    "capital": "Paramaribo",
+    "flag": "🇸🇷",
+    "flagCode": "sr",
+    "population": 616500,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Dutch"
+    ],
+    "currency": "Surinamese dollar",
+    "coordinates": [
+      4,
+      -56
+    ],
+    "funFact": "A fascinating country in South America, home to around 0.6 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "BRA",
+      "GUF",
+      "GUY"
+    ],
+    "capitalCoords": [
+      5.83,
+      -55.17
+    ]
+  },
+  {
+    "id": "SWE",
+    "name": "Sweden",
+    "capital": "Stockholm",
+    "flag": "🇸🇪",
+    "flagCode": "se",
+    "population": 10605098,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Swedish"
+    ],
+    "currency": "Swedish krona",
+    "coordinates": [
+      62,
+      15
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 10.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "FIN",
+      "NOR"
+    ],
+    "capitalCoords": [
+      59.33,
+      18.05
+    ]
+  },
+  {
+    "id": "CHE",
+    "name": "Switzerland",
+    "capital": "Bern",
+    "flag": "🇨🇭",
+    "flagCode": "ch",
+    "population": 9082848,
+    "region": "Western Europe",
+    "continent": "Europe",
+    "languages": [
+      "French",
+      "Swiss German",
+      "Italian",
+      "Romansh"
+    ],
+    "currency": "Swiss franc",
+    "coordinates": [
+      47,
+      8
+    ],
+    "funFact": "A fascinating country in Western Europe, home to around 9.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AUT",
+      "FRA",
+      "ITA",
+      "LIE",
+      "DEU"
+    ],
+    "capitalCoords": [
+      46.92,
+      7.47
+    ]
+  },
+  {
+    "id": "SYR",
+    "name": "Syria",
+    "capital": "Damascus",
+    "flag": "🇸🇾",
+    "flagCode": "sy",
+    "population": 25620000,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Syrian pound",
+    "coordinates": [
+      35,
+      38
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 25.6 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "IRQ",
+      "ISR",
+      "JOR",
+      "LBN",
+      "TUR"
+    ],
+    "capitalCoords": [
+      33.5,
+      36.3
+    ]
+  },
+  {
+    "id": "TJK",
+    "name": "Tajikistan",
+    "capital": "Dushanbe",
+    "flag": "🇹🇯",
+    "flagCode": "tj",
+    "population": 10499000,
+    "region": "Central Asia",
+    "continent": "Asia",
+    "languages": [
+      "Russian",
+      "Tajik"
+    ],
+    "currency": "Tajikistani somoni",
+    "coordinates": [
+      39,
+      71
+    ],
+    "funFact": "A fascinating country in Central Asia, home to around 10.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AFG",
+      "CHN",
+      "KGZ",
+      "UZB"
+    ],
+    "capitalCoords": [
+      38.55,
+      68.77
+    ]
+  },
+  {
+    "id": "TZA",
+    "name": "Tanzania",
+    "capital": "Dodoma",
+    "flag": "🇹🇿",
+    "flagCode": "tz",
+    "population": 68153004,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Swahili"
+    ],
+    "currency": "Tanzanian shilling",
+    "coordinates": [
+      -6,
+      35
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 68.2 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BDI",
+      "COD",
+      "KEN",
+      "MWI",
+      "MOZ",
+      "RWA",
+      "UGA",
+      "ZMB"
+    ],
+    "capitalCoords": [
+      -6.16,
+      35.75
+    ]
+  },
+  {
+    "id": "THA",
+    "name": "Thailand",
+    "capital": "Bangkok",
+    "flag": "🇹🇭",
+    "flagCode": "th",
+    "population": 65859640,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Thai"
+    ],
+    "currency": "Thai baht",
+    "coordinates": [
+      15,
+      100
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 65.9 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "MMR",
+      "KHM",
+      "LAO",
+      "MYS"
+    ],
+    "capitalCoords": [
+      13.75,
+      100.52
+    ]
+  },
+  {
+    "id": "TLS",
+    "name": "Timor-Leste",
+    "capital": "Dili",
+    "flag": "🇹🇱",
+    "flagCode": "tl",
+    "population": 1391221,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Portuguese",
+      "Tetum"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      -8.83333333,
+      125.91666666
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 1.4 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "IDN"
+    ],
+    "capitalCoords": [
+      -8.58,
+      125.6
+    ]
+  },
+  {
+    "id": "TGO",
+    "name": "Togo",
+    "capital": "Lomé",
+    "flag": "🇹🇬",
+    "flagCode": "tg",
+    "population": 8095498,
+    "region": "Western Africa",
+    "continent": "Africa",
+    "languages": [
+      "French"
+    ],
+    "currency": "West African CFA franc",
+    "coordinates": [
+      8,
+      1.16666666
+    ],
+    "funFact": "A fascinating country in Western Africa, home to around 8.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BEN",
+      "BFA",
+      "GHA"
+    ],
+    "capitalCoords": [
+      6.14,
+      1.21
+    ]
+  },
+  {
+    "id": "TON",
+    "name": "Tonga",
+    "capital": "Nuku'alofa",
+    "flag": "🇹🇴",
+    "flagCode": "to",
+    "population": 100179,
+    "region": "Polynesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Tongan"
+    ],
+    "currency": "Tongan paʻanga",
+    "coordinates": [
+      -20,
+      -175
+    ],
+    "funFact": "A fascinating country in Polynesia, home to around 0.1 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -21.13,
+      -175.2
+    ]
+  },
+  {
+    "id": "TTO",
+    "name": "Trinidad and Tobago",
+    "capital": "Port of Spain",
+    "flag": "🇹🇹",
+    "flagCode": "tt",
+    "population": 1367764,
+    "region": "Caribbean",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "Trinidad and Tobago dollar",
+    "coordinates": [
+      10.6918,
+      -61.2225
+    ],
+    "funFact": "A fascinating country in Caribbean, home to around 1.4 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      10.65,
+      -61.52
+    ]
+  },
+  {
+    "id": "TUN",
+    "name": "Tunisia",
+    "capital": "Tunis",
+    "flag": "🇹🇳",
+    "flagCode": "tn",
+    "population": 11972169,
+    "region": "Northern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Tunisian dinar",
+    "coordinates": [
+      34,
+      9
+    ],
+    "funFact": "A fascinating country in Northern Africa, home to around 12.0 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "DZA",
+      "LBY"
+    ],
+    "capitalCoords": [
+      36.8,
+      10.18
+    ]
+  },
+  {
+    "id": "TUR",
+    "name": "Turkey",
+    "capital": "Ankara",
+    "flag": "🇹🇷",
+    "flagCode": "tr",
+    "population": 85664944,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Turkish"
+    ],
+    "currency": "Turkish lira",
+    "coordinates": [
+      39,
+      35
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 85.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "ARM",
+      "AZE",
+      "BGR",
+      "GEO",
+      "GRC",
+      "IRN",
+      "IRQ",
+      "SYR"
+    ],
+    "capitalCoords": [
+      39.93,
+      32.87
+    ]
+  },
+  {
+    "id": "TKM",
+    "name": "Turkmenistan",
+    "capital": "Ashgabat",
+    "flag": "🇹🇲",
+    "flagCode": "tm",
+    "population": 7057841,
+    "region": "Central Asia",
+    "continent": "Asia",
+    "languages": [
+      "Russian",
+      "Turkmen"
+    ],
+    "currency": "Turkmenistan manat",
+    "coordinates": [
+      40,
+      60
+    ],
+    "funFact": "A fascinating country in Central Asia, home to around 7.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AFG",
+      "IRN",
+      "KAZ",
+      "UZB"
+    ],
+    "capitalCoords": [
+      37.95,
+      58.38
+    ]
+  },
+  {
+    "id": "TUV",
+    "name": "Tuvalu",
+    "capital": "Funafuti",
+    "flag": "🇹🇻",
+    "flagCode": "tv",
+    "population": 10643,
+    "region": "Polynesia",
+    "continent": "Oceania",
+    "languages": [
+      "English",
+      "Tuvaluan"
+    ],
+    "currency": "Australian dollar",
+    "coordinates": [
+      -8,
+      178
+    ],
+    "funFact": "A fascinating country in Polynesia, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -8.52,
+      179.22
+    ]
+  },
+  {
+    "id": "UGA",
+    "name": "Uganda",
+    "capital": "Kampala",
+    "flag": "🇺🇬",
+    "flagCode": "ug",
+    "population": 45905417,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English",
+      "Swahili"
+    ],
+    "currency": "Ugandan shilling",
+    "coordinates": [
+      1,
+      32
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 45.9 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "COD",
+      "KEN",
+      "RWA",
+      "SSD",
+      "TZA"
+    ],
+    "capitalCoords": [
+      0.32,
+      32.55
+    ]
+  },
+  {
+    "id": "UKR",
+    "name": "Ukraine",
+    "capital": "Kyiv",
+    "flag": "🇺🇦",
+    "flagCode": "ua",
+    "population": 32862000,
+    "region": "Eastern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Ukrainian"
+    ],
+    "currency": "Ukrainian hryvnia",
+    "coordinates": [
+      49,
+      32
+    ],
+    "funFact": "A fascinating country in Eastern Europe, home to around 32.9 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "BLR",
+      "HUN",
+      "MDA",
+      "POL",
+      "ROU",
+      "RUS",
+      "SVK"
+    ],
+    "capitalCoords": [
+      50.43,
+      30.52
+    ]
+  },
+  {
+    "id": "ARE",
+    "name": "United Arab Emirates",
+    "capital": "Abu Dhabi",
+    "flag": "🇦🇪",
+    "flagCode": "ae",
+    "population": 11294243,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "United Arab Emirates dirham",
+    "coordinates": [
+      24,
+      54
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 11.3 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "OMN",
+      "SAU"
+    ],
+    "capitalCoords": [
+      24.47,
+      54.37
+    ]
+  },
+  {
+    "id": "GBR",
+    "name": "United Kingdom",
+    "capital": "London",
+    "flag": "🇬🇧",
+    "flagCode": "gb",
+    "population": 69281437,
+    "region": "Northern Europe",
+    "continent": "Europe",
+    "languages": [
+      "English"
+    ],
+    "currency": "British pound",
+    "coordinates": [
+      54,
+      -2
+    ],
+    "funFact": "A fascinating country in Northern Europe, home to around 69.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "IRL"
+    ],
+    "capitalCoords": [
+      51.5,
+      -0.08
+    ]
+  },
+  {
+    "id": "USA",
+    "name": "United States",
+    "capital": "Washington, D.C.",
+    "flag": "🇺🇸",
+    "flagCode": "us",
+    "population": 340110988,
+    "region": "North America",
+    "continent": "Americas",
+    "languages": [
+      "English"
+    ],
+    "currency": "United States dollar",
+    "coordinates": [
+      38,
+      -97
+    ],
+    "funFact": "The world's largest economy by nominal GDP.",
+    "difficulty": "easy",
+    "borders": [
+      "CAN",
+      "MEX"
+    ],
+    "capitalCoords": [
+      38.89,
+      -77.05
+    ]
+  },
+  {
+    "id": "URY",
+    "name": "Uruguay",
+    "capital": "Montevideo",
+    "flag": "🇺🇾",
+    "flagCode": "uy",
+    "population": 3499451,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Uruguayan peso",
+    "coordinates": [
+      -33,
+      -56
+    ],
+    "funFact": "A fascinating country in South America, home to around 3.5 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ARG",
+      "BRA"
+    ],
+    "capitalCoords": [
+      -34.85,
+      -56.17
+    ]
+  },
+  {
+    "id": "UZB",
+    "name": "Uzbekistan",
+    "capital": "Tashkent",
+    "flag": "🇺🇿",
+    "flagCode": "uz",
+    "population": 37859698,
+    "region": "Central Asia",
+    "continent": "Asia",
+    "languages": [
+      "Russian",
+      "Uzbek"
+    ],
+    "currency": "Uzbekistani soʻm",
+    "coordinates": [
+      41,
+      64
+    ],
+    "funFact": "A fascinating country in Central Asia, home to around 37.9 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "AFG",
+      "KAZ",
+      "KGZ",
+      "TJK",
+      "TKM"
+    ],
+    "capitalCoords": [
+      41.32,
+      69.25
+    ]
+  },
+  {
+    "id": "VUT",
+    "name": "Vanuatu",
+    "capital": "Port Vila",
+    "flag": "🇻🇺",
+    "flagCode": "vu",
+    "population": 321409,
+    "region": "Melanesia",
+    "continent": "Oceania",
+    "languages": [
+      "Bislama",
+      "English",
+      "French"
+    ],
+    "currency": "Vanuatu vatu",
+    "coordinates": [
+      -16,
+      167
+    ],
+    "funFact": "A fascinating country in Melanesia, home to around 0.3 million people.",
+    "difficulty": "hard",
+    "borders": [],
+    "capitalCoords": [
+      -17.73,
+      168.32
+    ]
+  },
+  {
+    "id": "VAT",
+    "name": "Vatican City",
+    "capital": "Vatican City",
+    "flag": "🇻🇦",
+    "flagCode": "va",
+    "population": 882,
+    "region": "Southern Europe",
+    "continent": "Europe",
+    "languages": [
+      "Italian",
+      "Latin"
+    ],
+    "currency": "euro",
+    "coordinates": [
+      41.9,
+      12.45
+    ],
+    "funFact": "A fascinating country in Southern Europe, home to around 0.0 million people.",
+    "difficulty": "hard",
+    "borders": [
+      "ITA"
+    ],
+    "capitalCoords": [
+      41.9,
+      12.45
+    ]
+  },
+  {
+    "id": "VEN",
+    "name": "Venezuela",
+    "capital": "Caracas",
+    "flag": "🇻🇪",
+    "flagCode": "ve",
+    "population": 28517000,
+    "region": "South America",
+    "continent": "Americas",
+    "languages": [
+      "Spanish"
+    ],
+    "currency": "Venezuelan bolívar soberano",
+    "coordinates": [
+      8,
+      -66
+    ],
+    "funFact": "A fascinating country in South America, home to around 28.5 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BRA",
+      "COL",
+      "GUY"
+    ],
+    "similarTo": "COL",
+    "capitalCoords": [
+      10.48,
+      -66.87
+    ]
+  },
+  {
+    "id": "VNM",
+    "name": "Vietnam",
+    "capital": "Hanoi",
+    "flag": "🇻🇳",
+    "flagCode": "vn",
+    "population": 101343800,
+    "region": "South-Eastern Asia",
+    "continent": "Asia",
+    "languages": [
+      "Vietnamese"
+    ],
+    "currency": "Vietnamese đồng",
+    "coordinates": [
+      16.16666666,
+      107.83333333
+    ],
+    "funFact": "A fascinating country in South-Eastern Asia, home to around 101.3 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "KHM",
+      "CHN",
+      "LAO"
+    ],
+    "capitalCoords": [
+      21.03,
+      105.85
+    ]
+  },
+  {
+    "id": "YEM",
+    "name": "Yemen",
+    "capital": "Sana'a",
+    "flag": "🇾🇪",
+    "flagCode": "ye",
+    "population": 32684503,
+    "region": "Western Asia",
+    "continent": "Asia",
+    "languages": [
+      "Arabic"
+    ],
+    "currency": "Yemeni rial",
+    "coordinates": [
+      15,
+      48
+    ],
+    "funFact": "A fascinating country in Western Asia, home to around 32.7 million people.",
+    "difficulty": "easy",
+    "borders": [
+      "OMN",
+      "SAU"
+    ],
+    "capitalCoords": [
+      15.37,
+      44.19
+    ]
+  },
+  {
+    "id": "ZMB",
+    "name": "Zambia",
+    "capital": "Lusaka",
+    "flag": "🇿🇲",
+    "flagCode": "zm",
+    "population": 19693423,
+    "region": "Eastern Africa",
+    "continent": "Africa",
+    "languages": [
+      "English"
+    ],
+    "currency": "Zambian kwacha",
+    "coordinates": [
+      -15,
+      30
+    ],
+    "funFact": "A fascinating country in Eastern Africa, home to around 19.7 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "AGO",
+      "BWA",
+      "COD",
+      "MWI",
+      "MOZ",
+      "NAM",
+      "TZA",
+      "ZWE"
+    ],
+    "capitalCoords": [
+      -15.42,
+      28.28
+    ]
+  },
+  {
+    "id": "ZWE",
+    "name": "Zimbabwe",
+    "capital": "Harare",
+    "flag": "🇿🇼",
+    "flagCode": "zw",
+    "population": 17073087,
+    "region": "Southern Africa",
+    "continent": "Africa",
+    "languages": [
+      "Chibarwe",
+      "English",
+      "Kalanga",
+      "Khoisan",
+      "Ndau",
+      "Northern Ndebele",
+      "Chewa",
+      "Shona",
+      "Sotho",
+      "Tonga",
+      "Tswana",
+      "Tsonga",
+      "Venda",
+      "Xhosa",
+      "Zimbabwean Sign Language"
+    ],
+    "currency": "Zimbabwean dollar",
+    "coordinates": [
+      -20,
+      30
+    ],
+    "funFact": "A fascinating country in Southern Africa, home to around 17.1 million people.",
+    "difficulty": "medium",
+    "borders": [
+      "BWA",
+      "MOZ",
+      "ZAF",
+      "ZMB"
+    ],
+    "capitalCoords": [
+      -17.82,
+      31.03
+    ]
+  }
+]
