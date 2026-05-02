@@ -78,13 +78,13 @@ export default function CapitalQuiz() {
   }
 
   return (
-    <div className={`relative min-h-screen ${subMode === 'locate' ? 'bg-[#050508] overflow-hidden' : 'bg-[#050508] overflow-y-auto pt-24 pb-8'} flex flex-col items-center px-4`}>
+    <div className={`relative h-[100dvh] flex flex-col items-center px-4 overflow-visible ${subMode === 'locate' ? 'bg-[#050508]' : 'bg-[#050508] pt-20 pb-4'}`}>
       <Confetti active={showConfetti} />
 
       {/* Tabs / Mode Selector (Header) */}
       {!isFinished && (
-        <div className={`flex flex-col items-center gap-6 mb-8 w-full max-w-lg z-20 ${subMode === 'locate' ? 'absolute top-20 left-1/2 -translate-x-1/2' : ''}`}>
-          <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+        <div className={`flex flex-col items-center gap-3 sm:gap-6 mb-4 sm:mb-8 w-full max-w-lg z-20 shrink-0 ${subMode === 'locate' ? 'absolute top-20 left-1/2 -translate-x-1/2' : ''}`}>
+          <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10 scale-90 sm:scale-100">
             <button
               onClick={() => setSubMode('country-to-capital')}
               className={`px-3 py-1.5 text-xs sm:text-sm rounded-full font-medium transition-all ${
@@ -115,7 +115,7 @@ export default function CapitalQuiz() {
 
       {/* Main HUD */}
       {!isFinished && currentCountry && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute top-20 left-6 z-20 flex flex-col md:flex-row gap-4">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute top-16 left-4 z-20 flex gap-2 sm:gap-4 scale-90 sm:scale-100 origin-top-left pointer-events-none">
           <div className="glass-card px-4 py-2 flex items-center justify-center font-mono text-white/50 text-sm">
             {questionCount} / {maxQuestions}
           </div>
@@ -129,7 +129,7 @@ export default function CapitalQuiz() {
       {!isFinished && currentCountry && (
         <>
           {subMode === 'locate' ? (
-            <div className="absolute inset-0 z-10 w-full h-full">
+            <div className="absolute inset-0 z-10 w-full h-full overflow-visible">
               <div className="absolute top-36 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center">
                 <span className="font-inter text-sm text-[#8B8FA8] bg-black/40 px-4 py-1.5 rounded-full backdrop-blur-md">
                   Click where <strong className="text-white ml-1">{currentCountry.capital}</strong> is located
@@ -148,18 +148,17 @@ export default function CapitalQuiz() {
             <motion.div
               key={currentCountry.id + subMode}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              className="w-full max-w-lg flex flex-col items-center mt-12 z-10 relative"
+              className="w-full max-w-lg flex flex-col items-center justify-center mt-4 sm:mt-12 z-10 relative flex-1 min-h-0"
             >
-              <div className="glass-card w-full text-center p-8 mb-8 border-t-2 border-t-white/10">
-                <h2 className="font-grotesk text-[28px] font-bold text-white mb-4 leading-tight">
+              <div className="glass-card w-full text-center p-6 sm:p-8 mb-4 sm:mb-8 border-t-2 border-t-white/10 shrink-0">
+                <h2 className="font-grotesk text-[20px] sm:text-[28px] font-bold text-white mb-2 sm:mb-4 leading-tight">
                   {subMode === 'country-to-capital' 
                     ? `What is the capital of ${currentCountry.name}?` 
                     : `${currentCountry.capital} is the capital of which country?`}
                 </h2>
               </div>
               
-              {/* We reuse the AnswerInput as a standalone field without its own wrapper card since we have one. Actually AnswerInput brings its own card. That's fine, we will let it float. */}
-              <div className="w-full relative h-[300px]">
+              <div className="w-full relative h-[250px] sm:h-[300px] shrink-0">
                 <AnswerInput
                   isHardMode={true} // Strictly dropdown text input per instruction
                   toggleMode={() => {}} // Disabled toggle

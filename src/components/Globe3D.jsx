@@ -29,6 +29,7 @@ export default function Globe3D({
   height,
   showBorders = false,
   atmosphereAltitude = 0.15,
+  onGlobeReady,
 }) {
   const { geoData, countries } = useWorldData()
   const countryProgress = useGameStore(s => s.countryProgress) || {}
@@ -52,7 +53,21 @@ export default function Globe3D({
     // Initial camera position
     globe.pointOfView({ altitude: 2 }, 0)
     setReady(true)
-  }, [interactive, globeRef])
+    if (typeof onGlobeReady === 'function') {
+      onGlobeReady()
+    }
+  }, [interactive, globeRef, onGlobeReady])
+
+  /* ── Cleanup on unmount ─────────────────────────────── */
+  useEffect(() => {
+    return () => {
+      if (globeRef.current) {
+        globeRef.current.renderer()?.dispose()
+        globeRef.current.scene()?.clear()
+        globeRef.current.controls()?.dispose()
+      }
+    }
+  }, [globeRef])
 
   /* ── Pause auto-rotate on interaction ─────────────────── */
   const handlePolygonHover = useCallback((feature) => {

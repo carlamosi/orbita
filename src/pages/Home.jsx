@@ -22,11 +22,16 @@ export default function Home() {
   const scrollIndicatorRef = useRef(null);
   const scrollTextRef = useRef(null);
   const globeGLRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
 
   // States with hysteresis references to prevent rapid flipping
   const [showBorders, setShowBorders] = useState(false);
   const [atmosphereAltitude, setAtmosphereAltitude] = useState(0.15);
+  const [globeReady, setGlobeReady] = useState(false);
   const stateRefs = useRef({ showBorders: false, atmos: 0.15 });
+
+  let cachedAutoRotate = useRef(null);
+  let cachedEnabled = useRef(null);
 
   useScrollProgress((progress) => {
     // 1. Globe Transforms
@@ -68,19 +73,26 @@ export default function Home() {
     if (progress > t2 && progress <= t4) alt = mapProgress(progress, t2, t3, 2.0, 1.2, easeQuart);
     if (progress > t4) alt = mapProgress(progress, t4, 1.0, 1.2, 2.0, easeQuart);
     
+    if (!globeReady) return;
+
     if (globeGLRef.current) {
-      try {
-        // Safe check for pointOfView to avoid errors before ready
-        if (globeGLRef.current.pointOfView) {
-          globeGLRef.current.pointOfView({ altitude: alt }, 0);
+      if (globeGLRef.current.pointOfView) {
+        globeGLRef.current.pointOfView({ altitude: alt }, 0);
+      }
+      
+      const ctrl = globeGLRef.current.controls();
+      if (ctrl) {
+        const shouldRotate = progress < 0.45;
+        const shouldEnable = progress < 0.20;
+
+        if (cachedAutoRotate.current !== shouldRotate) {
+          ctrl.autoRotate = shouldRotate;
+          cachedAutoRotate.current = shouldRotate;
         }
-        
-        const ctrl = globeGLRef.current.controls();
-        if (ctrl) {
-           ctrl.autoRotate = progress < 0.40;
+        if (cachedEnabled.current !== shouldEnable) {
+          ctrl.enabled = shouldEnable;
+          cachedEnabled.current = shouldEnable;
         }
-      } catch (e) {
-        // Ignore errors during immediate mount
       }
     }
 
@@ -142,7 +154,7 @@ export default function Home() {
     <main className="relative w-full h-[380vh] bg-[#050508]">
       
       {/* ── Fixed/Sticky Overlay Base ── */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden">
+      <div className="sticky top-0 w-full h-screen overflow-visible">
         
         {/* ── Starfield Background ── */}
         <div ref={starfieldRef} className="absolute top-0 left-0 w-full h-[150vh] z-0 pointer-events-none will-change-transform">
@@ -167,7 +179,7 @@ export default function Home() {
           <div className="will-change-transform flex items-center justify-center w-full h-full" style={{ perspective: "1000px" }}>
             <div 
               ref={globeWrapperRef} 
-              className="relative w-[140vmin] h-[140vmin] sm:w-[110vmin] sm:h-[110vmin] will-change-transform"
+              className="relative w-[140vmin] h-[140vmin] sm:w-[110vmin] sm:h-[110vmin] will-change-transform origin-center transition-none"
             >
               {/* Outer glow effect */}
               <div 
@@ -193,6 +205,7 @@ export default function Home() {
                   globeRefExternal={globeGLRef}
                   showBorders={showBorders}
                   atmosphereAltitude={atmosphereAltitude}
+                  onGlobeReady={() => setGlobeReady(true)}
                 />
               </motion.div>
             </div>

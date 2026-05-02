@@ -72,6 +72,8 @@ export function useCountryGame(mode = 'find', customPool = null) {
   const handleAnswer = (isCorrect, answerId = null) => {
     if (!currentCountry) return
 
+    const confType = mode === 'flag' ? 'flagConf' : mode === 'capital' ? 'capitalConf' : 'locationConf'
+
     if (isCorrect) {
       setCombo(c => c + 1)
       setScore(s => s + 10 + (combo * 2)) // bonus points for combo
@@ -79,15 +81,15 @@ export function useCountryGame(mode = 'find', customPool = null) {
       else playCorrect()
       
       // Update store confidence
-      updateProgress(currentCountry.id, mode === 'find' ? 'locationConf' : 'nameConf', 15)
+      updateProgress(currentCountry.id, confType, 15)
     } else {
       setCombo(0)
       playWrong()
       // Log wrong
-      updateProgress(currentCountry.id, mode === 'find' ? 'locationConf' : 'nameConf', -10, true)
+      updateProgress(currentCountry.id, confType, -10, true)
       if (answerId) {
         // Punish the wrongly selected country too playfully
-        updateProgress(answerId, mode === 'find' ? 'locationConf' : 'nameConf', -5, true)
+        updateProgress(answerId, confType, -5, true)
       }
     }
   }

@@ -119,7 +119,7 @@ export default function Explorer() {
   }, [isBorderViewActive, exactData])
 
   return (
-    <div className="relative h-screen bg-[#050508] flex flex-col overflow-hidden pt-14">
+    <div className="relative h-screen bg-[#050508] flex flex-col pt-14 overflow-visible">
       
       {/* ── Top Filter Bar ── */}
       <div className="relative z-30 h-16 bg-[#050508]/80 backdrop-blur-md border-b border-white/10 px-6 flex items-center justify-between gap-4">
@@ -165,7 +165,7 @@ export default function Explorer() {
       <div className="flex-1 flex w-full relative">
         
         {/* Globe 65% width */}
-        <div className="w-[65%] h-full relative flex items-center justify-center">
+        <div className="w-[65%] h-full relative flex items-center justify-center overflow-visible">
             <Globe3D
               globeRefExternal={globeRef}
               interactive={true}

@@ -36,13 +36,20 @@ export const useGameStore = create(
         }),
 
         incrementStreak: () => set((state) => {
-          const today = new Date().toDateString()
-          // If already played today, don't double streak
-          if (state.lastSession === today) return state
+          const today = new Date().toISOString().split('T')[0]
+          const last = state.lastSession
+          if (last === today) return state
 
-          // Very simple streak logic (could be improved with strict date diffs)
+          let newStreak = 1
+          if (last) {
+            const diffDays = Math.round(
+              (new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24)
+            )
+            newStreak = diffDays === 1 ? state.streak + 1 : 1
+          }
+
           return {
-            streak: state.streak + 1,
+            streak: newStreak,
             lastSession: today,
             totalSessions: state.totalSessions + 1
           }

@@ -5,21 +5,21 @@ import { useEffect, useRef } from 'react';
  * Using requestAnimationFrame for 60fps performance without triggering React state re-renders.
  */
 export function useScrollProgress(callback) {
-  const requestRef = useRef(null);
-
   useEffect(() => {
+    let rafId;
+
     const handleScroll = () => {
-      if (!requestRef.current) {
-        requestRef.current = requestAnimationFrame(() => {
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
-          
-          if (callback) {
-            callback(progress);
-          }
-          requestRef.current = null;
-        });
+      if (rafId) {
+        cancelAnimationFrame(rafId);
       }
+      rafId = requestAnimationFrame(() => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+        
+        if (callback) {
+          callback(progress);
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -28,8 +28,8 @@ export function useScrollProgress(callback) {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
       }
     };
   }, [callback]);

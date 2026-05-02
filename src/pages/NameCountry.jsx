@@ -84,7 +84,7 @@ export default function NameCountry() {
   }
 
   return (
-    <div className="relative min-h-screen bg-space overflow-hidden flex flex-col">
+    <div className="relative min-h-screen bg-space flex flex-col overflow-visible">
       {/* HUD: Score & Progress */}
       {!isFinished && currentCountry && (
         <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="absolute top-20 left-6 z-20 flex gap-4">
@@ -98,7 +98,7 @@ export default function NameCountry() {
       )}
 
       {/* Main Layout */}
-      <div className="relative flex-1">
+      <div className="relative flex-1 w-full h-full overflow-visible">
         <Globe3D
           interactive={false} // User doesn't click globe to answer
           selectedCountry={!processing ? geoFeature : null} // Keep zoomed, but unselected color during processing handled by customColors

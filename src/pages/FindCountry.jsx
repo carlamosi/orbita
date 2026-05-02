@@ -55,13 +55,13 @@ export default function FindCountry() {
   }
 
   return (
-    <div className="relative min-h-screen bg-space overflow-hidden flex flex-col">
+    <div className="relative h-[100dvh] bg-space flex flex-col overflow-visible">
       {/* ── Ambient Glows ── */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet/5 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan/5 blur-[100px] pointer-events-none" />
 
       {/* ── Main Game Layout ── */}
-      <div className="relative flex-1">
+      <div className="relative flex-1 w-full h-full overflow-visible">
         <AnimatePresence>
           {!isFinished && currentCountry && (
             <QuestionCard

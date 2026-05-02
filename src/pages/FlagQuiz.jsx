@@ -117,14 +117,14 @@ export default function FlagQuiz() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#050508] overflow-hidden flex flex-col items-center pt-24 pb-8 px-4">
+    <div className="relative h-[100dvh] bg-[#050508] overflow-hidden flex flex-col items-center pt-20 pb-4 px-4">
       {/* Confetti Explosion Layer */}
       <Confetti active={showConfetti} />
 
       {/* Toggles (Header) */}
       {!isFinished && (
-        <div className="flex flex-col items-center gap-6 mb-8 w-full max-w-lg z-20">
-          <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+        <div className="flex flex-col items-center gap-3 sm:gap-6 mb-4 sm:mb-8 w-full max-w-lg z-20 shrink-0">
+          <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10 scale-90 sm:scale-100">
             <button
               onClick={() => setSubMode('flag-to-country')}
               className={`px-4 py-1.5 text-sm rounded-full font-medium transition-all ${
@@ -159,7 +159,7 @@ export default function FlagQuiz() {
 
       {/* Main HUD */}
       {!isFinished && currentCountry && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute top-20 left-6 z-20 flex gap-4">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute top-16 left-4 z-20 flex gap-2 sm:gap-4 scale-90 sm:scale-100 origin-top-left pointer-events-none">
           <div className="glass-card px-4 py-2 flex items-center justify-center font-mono text-white/50 text-sm">
             {questionCount} / {maxQuestions}
           </div>
@@ -177,36 +177,36 @@ export default function FlagQuiz() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="w-full max-w-lg flex flex-col items-center z-10"
+            className="w-full max-w-lg flex flex-col items-center justify-center z-10 flex-1 min-h-0"
           >
             {subMode === 'flag-to-country' ? (
               // Mode A
-              <>
-                <div className="w-[320px] h-[213px] rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/10 mb-8 relative bg-white/5">
+              <div className="w-full flex flex-col items-center max-h-full">
+                <div className="w-full max-w-[240px] sm:max-w-[320px] aspect-[3/2] shrink-0 rounded-xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-white/10 mb-4 sm:mb-6 relative bg-white/5">
                   <img src={`https://flagcdn.com/w320/${currentCountry.flagCode}.png`} alt={`Identify this flag`} className="w-full h-full object-cover" />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+                <div className="flex flex-col w-full gap-2 sm:gap-3 max-w-md shrink overflow-y-visible">
                   {options.map((opt, idx) => (
                     <button
                       key={opt.id}
                       disabled={processing}
                       onClick={() => handleSelect(opt.id)}
-                      className={`group/btn relative py-4 px-4 rounded-xl border text-sm font-inter transition-all duration-300 text-center glass-card ${getBtnClassText(opt.id)}`}
+                      className={`group/btn relative py-2.5 sm:py-3.5 px-4 rounded-xl border text-sm font-inter transition-all duration-300 text-center glass-card ${getBtnClassText(opt.id)}`}
                       aria-label={`Option ${idx + 1}: ${opt.name}`}
                     >
                       {opt.name}
-                      {!hasUsedKeyboard && <span className="absolute top-1 right-2 text-[10px] font-mono text-[#8B8FA8] opacity-0 group-hover/btn:opacity-100 transition-opacity">[{idx+1}]</span>}
+                      {!hasUsedKeyboard && <span className="absolute top-1/2 -translate-y-1/2 right-3 text-[10px] font-mono text-[#8B8FA8] opacity-0 group-hover/btn:opacity-100 transition-opacity">[{idx+1}]</span>}
                     </button>
                   ))}
                 </div>
-              </>
+              </div>
             ) : (
               // Mode B
-              <>
-                <h2 className="font-grotesk text-[36px] font-bold text-white text-center mb-8 drop-shadow-xl">
+              <div className="w-full flex flex-col items-center max-h-full">
+                <h2 className="font-grotesk text-[24px] sm:text-[32px] font-bold text-white text-center mb-4 sm:mb-8 drop-shadow-xl shrink-0">
                   {currentCountry.name}
                 </h2>
-                <div className="grid grid-cols-2 gap-4 w-full max-w-md">
+                <div className="grid grid-cols-2 gap-2 sm:gap-4 w-full max-w-md shrink">
                   {options.map((opt, idx) => (
                     <button
                       key={opt.id}
@@ -216,11 +216,11 @@ export default function FlagQuiz() {
                       aria-label={`Option ${idx + 1}: Flag of ${opt.name}`}
                     >
                       <img src={`https://flagcdn.com/w320/${opt.flagCode}.png`} alt={`Flag of ${opt.name}`} className="w-full h-full object-cover" />
-                      {!hasUsedKeyboard && <span className="absolute top-2 right-2 bg-black/60 px-1.5 py-0.5 rounded text-[10px] font-mono text-[#8B8FA8] opacity-0 group-hover/btn:opacity-100 transition-opacity">[{idx+1}]</span>}
+                      {!hasUsedKeyboard && <span className="absolute top-1.5 right-1.5 bg-black/60 px-1.5 py-0.5 rounded text-[9px] font-mono text-[#8B8FA8] opacity-0 group-hover/btn:opacity-100 transition-opacity">[{idx+1}]</span>}
                     </button>
                   ))}
                 </div>
-              </>
+              </div>
             )}
           </motion.div>
         )}

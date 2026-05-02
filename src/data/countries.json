@@ -86,7 +86,6 @@
       "TUN",
       "LBY",
       "NER",
-      "ESH",
       "MRT",
       "MLI",
       "MAR"
@@ -705,7 +704,6 @@
       "ARG",
       "BOL",
       "COL",
-      "GUF",
       "GUY",
       "PRY",
       "PER",
@@ -1072,14 +1070,12 @@
       "AFG",
       "BTN",
       "MMR",
-      "HKG",
       "IND",
       "KAZ",
       "NPL",
       "PRK",
       "KGZ",
       "LAO",
-      "MAC",
       "MNG",
       "PAK",
       "RUS",
@@ -1489,7 +1485,6 @@
     "borders": [
       "ISR",
       "LBY",
-      "PSE",
       "SDN"
     ],
     "capitalCoords": [
@@ -2391,7 +2386,6 @@
       "EGY",
       "JOR",
       "LBN",
-      "PSE",
       "SYR"
     ],
     "capitalCoords": [
@@ -2537,7 +2531,6 @@
     "borders": [
       "IRQ",
       "ISR",
-      "PSE",
       "SAU",
       "SYR"
     ],
@@ -3212,8 +3205,7 @@
     "borders": [
       "DZA",
       "MLI",
-      "SEN",
-      "ESH"
+      "SEN"
     ],
     "capitalCoords": [
       18.07,
@@ -3438,7 +3430,6 @@
     "difficulty": "easy",
     "borders": [
       "DZA",
-      "ESH",
       "ESP"
     ],
     "capitalCoords": [
@@ -4871,7 +4862,6 @@
     "borders": [
       "AND",
       "FRA",
-      "GIB",
       "PRT",
       "MAR"
     ],
@@ -4961,7 +4951,6 @@
     "difficulty": "hard",
     "borders": [
       "BRA",
-      "GUF",
       "GUY"
     ],
     "capitalCoords": [
