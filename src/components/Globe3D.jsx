@@ -109,7 +109,7 @@ export default function Globe3D({
       animate={{ opacity: ready ? 1 : 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}
       // Use standard generic width/height here so parent flex can resize easily if needed
-      style={{ width, height, position: 'relative' }}
+      style={{ width, height, position: 'relative', overflow: 'visible' }}
     >
       {!ready && <GlobeSkeleton />}
       <GlobeGL

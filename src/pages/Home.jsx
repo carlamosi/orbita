@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect } from 'react'
+import { useMemo, useRef, useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Globe3D from '../components/Globe3D'
@@ -32,8 +32,9 @@ export default function Home() {
 
   let cachedAutoRotate = useRef(null);
   let cachedEnabled = useRef(null);
+  const cachedAlt = useRef(2.0);
 
-  useScrollProgress((progress) => {
+  const handleScrollProgress = useCallback((progress) => {
     // 1. Globe Transforms
     // Timings
     const t1 = 0.20;
@@ -58,14 +59,9 @@ export default function Home() {
     if (progress > t3 && progress <= t4) y = mapProgress(progress, t3, t4, 0, 25, easeQuart);
     if (progress > t4) y = mapProgress(progress, t4, 1.0, 25, 0, easeQuart);
 
-    // Tilt (X Axis)
-    let tilt = 0;
-    if (progress > t1 && progress <= t4) tilt = mapProgress(progress, t1, t2, 0, 25, easeQuart);
-    if (progress > t4) tilt = mapProgress(progress, t4, 1.0, 25, 0, easeQuart);
-
     // Apply to DOM directly (bypassing React)
     if (globeWrapperRef.current) {
-      globeWrapperRef.current.style.transform = `translateX(${x}vw) translateY(${y}vh) scale(${scale}) rotateX(${tilt}deg)`;
+      globeWrapperRef.current.style.transform = `translateX(${x}vw) translateY(${y}vh) scale(${scale})`;
     }
 
     // Altitude Zoom via Globe Ref
@@ -77,7 +73,10 @@ export default function Home() {
 
     if (globeGLRef.current) {
       if (globeGLRef.current.pointOfView) {
-        globeGLRef.current.pointOfView({ altitude: alt }, 0);
+        if (Math.abs(cachedAlt.current - alt) > 0.001) {
+          globeGLRef.current.pointOfView({ altitude: alt }, 0);
+          cachedAlt.current = alt;
+        }
       }
       
       const ctrl = globeGLRef.current.controls();
@@ -136,7 +135,20 @@ export default function Home() {
       setAtmosphereAltitude(0.15);
     }
 
-  });
+  }, [globeReady]);
+
+  useScrollProgress(handleScrollProgress);
+
+  const [globeSize, setGlobeSize] = useState(600);
+  useEffect(() => {
+    const update = () => {
+      const vmin = Math.min(window.innerWidth, window.innerHeight);
+      setGlobeSize(vmin * 1.1);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   // Pure CSS Starfield (120 stars)
   const stars = useMemo(() => {
@@ -176,10 +188,10 @@ export default function Home() {
         {/* ── Giant Globe ── */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none -translate-y-[5vh]">
           {/* Performance wrapped container */}
-          <div className="will-change-transform flex items-center justify-center w-full h-full" style={{ perspective: "1000px" }}>
+          <div className="will-change-transform flex items-center justify-center w-full h-full" style={{ perspective: "1000px", overflow: "visible" }}>
             <div 
               ref={globeWrapperRef} 
-              className="relative w-[140vmin] h-[140vmin] sm:w-[110vmin] sm:h-[110vmin] will-change-transform origin-center transition-none"
+              className="relative w-[140vmin] h-[140vmin] sm:w-[110vmin] sm:h-[110vmin] will-change-transform origin-center transition-none overflow-visible"
             >
               {/* Outer glow effect */}
               <div 
@@ -197,11 +209,12 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 2, ease: "easeOut" }}
                 className="absolute inset-0 w-full h-full"
+                style={{ overflow: 'visible' }}
               >
                 <Globe3D
                   interactive={false}
-                  width="100%"
-                  height="100%"
+                  width={globeSize}
+                  height={globeSize}
                   globeRefExternal={globeGLRef}
                   showBorders={showBorders}
                   atmosphereAltitude={atmosphereAltitude}
@@ -214,10 +227,10 @@ export default function Home() {
 
         {/* ── Hero Text Overlay (Section 1) ── */}
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-start pointer-events-none">
-          <div className="h-[48%] mt-[4%]" />
+          <div className="h-[38%] mt-[2%]" />
           
           <div ref={heroTextRef} className="relative flex flex-col items-center text-center w-full max-w-4xl px-4 pointer-events-auto will-change-transform">
-            <div className="absolute inset-0 bg-radial-[circle_at_center] from-[#050508]/60 to-transparent blur-3xl -z-10" />
+            <div className="absolute inset-0 bg-radial-[circle_at_center] from-[#050508]/80 to-transparent blur-[80px] -z-10" />
 
             <motion.p
               initial={{ opacity: 0 }}
@@ -232,8 +245,8 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-              className="font-grotesk text-[40px] sm:text-[72px] font-bold text-white leading-[1.1]"
-              style={{ textShadow: '0 0 60px rgba(108,99,255,0.4)' }}
+              className="font-grotesk text-[48px] sm:text-[88px] font-bold text-white leading-[1.1]"
+              style={{ textShadow: '0 0 40px rgba(108,99,255,0.6), 0 0 120px rgba(108,99,255,0.2)' }}
             >
               Master every corner<br />of the world.
             </motion.h1>
@@ -261,6 +274,16 @@ export default function Home() {
                   hover:scale-105 hover:shadow-[0_0_36px_rgba(108,99,255,0.8),0_0_64px_rgba(108,99,255,0.4)]
                 ">
                   Start Exploring →
+                </button>
+              </Link>
+              <Link to="/progress">
+                <button className="
+                  bg-transparent border border-white/15 backdrop-blur-sm
+                  text-white font-inter text-[15px]
+                  px-8 py-3.5 rounded-full transition-all duration-300
+                  hover:border-[#6C63FF] hover:bg-white/5
+                ">
+                  View Progress
                 </button>
               </Link>
             </motion.div>
