@@ -44,6 +44,14 @@ export default function Globe3D({
     const globe = globeRef.current
     if (!globe) return
 
+    // Make the WebGL canvas background transparent so the sphere is never
+    // clipped inside a visible rectangle
+    const renderer = globe.renderer()
+    if (renderer) {
+      renderer.setClearColor(0x000000, 0)  // fully transparent
+      renderer.domElement.style.background = 'transparent'
+    }
+
     // Auto-rotate
     globe.controls().autoRotate      = true
     globe.controls().autoRotateSpeed = 0.5
@@ -108,8 +116,15 @@ export default function Globe3D({
       initial={{ opacity: 0 }}
       animate={{ opacity: ready ? 1 : 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}
-      // Use standard generic width/height here so parent flex can resize easily if needed
-      style={{ width, height, position: 'relative', overflow: 'visible' }}
+      style={{
+        width,
+        height,
+        position: 'relative',
+        overflow: 'visible',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
       {!ready && <GlobeSkeleton />}
       <GlobeGL
