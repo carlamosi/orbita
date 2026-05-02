@@ -16,11 +16,15 @@ export default function ScrollSection4() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="font-grotesk text-[80px] font-bold text-white leading-tight mb-12"
+          className="font-grotesk text-[72px] font-bold text-white leading-tight mb-16"
           style={{ textShadow: '0 0 80px #6C63FF, 0 0 160px rgba(108,99,255,0.4)' }}
         >
           Your world.<br />Fully explored.
         </motion.h2>
+
+        <motion.p className="font-inter text-[18px] text-[#8B8FA8] mb-10">
+          Start with one country. End up knowing them all.
+        </motion.p>
 
         <Link to="/explorer">
           <motion.button
@@ -35,7 +39,7 @@ export default function ScrollSection4() {
               y: { duration: 0.8, delay: 0.2 },
               boxShadow: { repeat: Infinity, duration: 2, ease: "easeInOut" } 
             }}
-            className="font-grotesk text-[18px] font-bold text-white px-12 py-[18px] rounded-full bg-[#6C63FF] hover:bg-[#5b54ff] transition-colors"
+            className="font-grotesk text-[18px] font-bold text-white px-14 py-5 rounded-full bg-[#6C63FF] hover:bg-[#5b54ff] transition-colors"
           >
             Begin Your Journey →
           </motion.button>
@@ -45,7 +49,7 @@ export default function ScrollSection4() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-inter text-[13px] text-[#8B8FA8] mt-6 opacity-60"
+          className="font-inter text-[13px] text-[#8B8FA8] mt-8 opacity-60"
         >
           No account needed. Just you and the world.
         </motion.p>

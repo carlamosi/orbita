@@ -44,55 +44,53 @@ export default function ScrollSection2() {
   ];
 
   return (
-    <div className="absolute top-[100vh] left-0 w-full h-[100vh] pointer-events-none flex items-center justify-end pr-[10vw]">
+    <div className="absolute top-[100vh] left-0 w-full h-[100vh] flex items-center justify-center pointer-events-none px-8">
+      
       <div 
         ref={containerRef}
-        className="w-[35%] min-w-[300px] flex flex-col items-start"
+        className="flex flex-col items-center text-center max-w-3xl"
       >
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={inView ? { opacity: 1, y: 0 } : {}}
-           transition={{ duration: 0.6 }}
+        {/* Eyebrow */}
+        <p className="font-mono text-[11px] tracking-[0.25em] text-[#6C63FF] uppercase mb-16">
+          WHAT YOU'LL MASTER
+        </p>
+
+        {/* 2x2 Stats Grid — NOT a list */}
+        <div className="grid grid-cols-2 gap-x-24 gap-y-16 w-full mb-16">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.15 }}
+              className="flex flex-col items-center gap-2"
+            >
+              <div className="font-grotesk text-[80px] font-bold text-white leading-none"
+                style={{ textShadow: '0 0 40px rgba(108,99,255,0.5)' }}>
+                <AnimatedCounter end={s.value} suffix={s.suffix || ""} />
+              </div>
+              <div className="font-inter text-[16px] text-[#8B8FA8] uppercase tracking-[0.1em] text-[11px]">
+                {s.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <motion.div className="w-64 h-[1px] bg-gradient-to-r from-transparent via-[#6C63FF] to-transparent mb-8"
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.2, delay: 0.8 }}
+        />
+
+        {/* Subtext */}
+        <motion.p className="font-inter text-[18px] text-[#8B8FA8] leading-relaxed"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1 }}
         >
-          <p className="font-mono text-[11px] tracking-[0.2em] text-[#6C63FF] uppercase mb-12">
-            WHAT YOU'LL MASTER
-          </p>
-
-          <div className="flex flex-col gap-8 w-full">
-            {stats.map((s, i) => (
-              <motion.div 
-                key={s.label}
-                initial={{ opacity: 0, x: 20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.15 + 0.2 }}
-                className="flex items-baseline gap-6"
-              >
-                <div className="font-grotesk text-[64px] font-bold text-white w-[140px]" style={{ textShadow: '0 0 30px rgba(255,255,255,0.3)' }}>
-                  <AnimatedCounter end={s.value} suffix={s.suffix || ""} />
-                </div>
-                <div className="font-inter text-[18px] text-[#8B8FA8]">
-                  {s.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div 
-             initial={{ scaleX: 0 }}
-             animate={inView ? { scaleX: 1 } : {}}
-             transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-             className="w-full h-[1px] bg-gradient-to-r from-[#6C63FF] to-transparent mt-12 origin-left"
-          />
-
-          <motion.p 
-             initial={{ opacity: 0 }}
-             animate={inView ? { opacity: 1 } : {}}
-             transition={{ duration: 0.8, delay: 1 }}
-             className="font-inter text-[16px] text-[#8B8FA8] max-w-[320px] mt-6 leading-relaxed"
-          >
-            Every border. Every capital. Every flag.
-          </motion.p>
-        </motion.div>
+          Every border. Every capital. Every flag.
+        </motion.p>
       </div>
     </div>
   );

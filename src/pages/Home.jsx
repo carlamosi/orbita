@@ -139,11 +139,11 @@ export default function Home() {
 
   useScrollProgress(handleScrollProgress);
 
-  const [globeSize, setGlobeSize] = useState(600);
+  const [globeSize, setGlobeSize] = useState(0);
   useEffect(() => {
     const update = () => {
       const vmin = Math.min(window.innerWidth, window.innerHeight);
-      setGlobeSize(vmin * 1.1);
+      setGlobeSize(Math.round(vmin * 1.1));
     };
     update();
     window.addEventListener('resize', update);
@@ -163,7 +163,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="relative w-full h-[380vh] bg-[#050508]">
+    <main className="relative w-full h-[380vh] bg-[#050508]" style={{ overflow: 'visible' }}>
       
       {/* ── Fixed/Sticky Overlay Base ── */}
       <div className="sticky top-0 w-full h-screen overflow-visible">
@@ -211,7 +211,7 @@ export default function Home() {
                 className="absolute inset-0 w-full h-full"
                 style={{ overflow: 'visible' }}
               >
-                <Globe3D
+                {globeSize > 0 && <Globe3D
                   interactive={false}
                   width={globeSize}
                   height={globeSize}
@@ -219,7 +219,7 @@ export default function Home() {
                   showBorders={showBorders}
                   atmosphereAltitude={atmosphereAltitude}
                   onGlobeReady={() => setGlobeReady(true)}
-                />
+                />}
               </motion.div>
             </div>
           </div>
@@ -227,10 +227,16 @@ export default function Home() {
 
         {/* ── Hero Text Overlay (Section 1) ── */}
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-start pointer-events-none">
-          <div className="h-[38%] mt-[2%]" />
+          <div className="h-[35%]" />
           
           <div ref={heroTextRef} className="relative flex flex-col items-center text-center w-full max-w-4xl px-4 pointer-events-auto will-change-transform">
             <div className="absolute inset-0 bg-radial-[circle_at_center] from-[#050508]/80 to-transparent blur-[80px] -z-10" />
+
+            <div className="absolute inset-0 -z-10 rounded-3xl"
+              style={{
+                background: 'radial-gradient(ellipse 80% 60% at center, rgba(5,5,8,0.7) 0%, transparent 100%)',
+              }}
+            />
 
             <motion.p
               initial={{ opacity: 0 }}
@@ -245,7 +251,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-              className="font-grotesk text-[48px] sm:text-[88px] font-bold text-white leading-[1.1]"
+              className="font-grotesk text-[52px] sm:text-[88px] font-bold text-white leading-[1.1]"
               style={{ textShadow: '0 0 40px rgba(108,99,255,0.6), 0 0 120px rgba(108,99,255,0.2)' }}
             >
               Master every corner<br />of the world.
