@@ -27,6 +27,8 @@ export default function Globe3D({
   globeRefExternal,
   width,
   height,
+  showBorders = false,
+  atmosphereAltitude = 0.15,
 }) {
   const { geoData, countries } = useWorldData()
   const countryProgress = useGameStore(s => s.countryProgress) || {}
@@ -103,7 +105,7 @@ export default function Globe3D({
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         backgroundImageUrl={null}
         atmosphereColor="#00D4FF"
-        atmosphereAltitude={0.15}
+        atmosphereAltitude={atmosphereAltitude}
         /* ── Country polygons ── */
         polygonsData={geoData?.features || []}
         polygonsTransitionDuration={300}
@@ -137,6 +139,9 @@ export default function Globe3D({
           if (customColors[cid]?.stroke) return customColors[cid].stroke
           if (d === selectedCountry) return '#6C63FF'
           if (d === hoveredCountry) return '#00D4FF'
+          
+          if (showBorders) return 'rgba(108,99,255,0.6)'
+          
           return 'rgba(255,255,255,0.1)'
         }}
         polygonLabel={null}

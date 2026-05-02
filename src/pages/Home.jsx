@@ -1,9 +1,131 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Globe3D from '../components/Globe3D'
+import { useScrollProgress } from '../hooks/useScrollProgress'
+import ScrollSection2 from '../components/ScrollSection2'
+import ScrollSection3 from '../components/ScrollSection3'
+import ScrollSection4 from '../components/ScrollSection4'
+
+const easeQuart = (t) => 1 - Math.pow(1 - t, 4);
+
+function mapProgress(p, pMin, pMax, outMin, outMax, ease = t => t) {
+  if (p <= pMin) return outMin;
+  if (p >= pMax) return outMax;
+  return outMin + (outMax - outMin) * ease((p - pMin) / (pMax - pMin));
+}
 
 export default function Home() {
+  const globeWrapperRef = useRef(null);
+  const heroTextRef = useRef(null);
+  const starfieldRef = useRef(null);
+  const scrollIndicatorRef = useRef(null);
+  const scrollTextRef = useRef(null);
+  const globeGLRef = useRef(null);
+
+  // States with hysteresis references to prevent rapid flipping
+  const [showBorders, setShowBorders] = useState(false);
+  const [atmosphereAltitude, setAtmosphereAltitude] = useState(0.15);
+  const stateRefs = useRef({ showBorders: false, atmos: 0.15 });
+
+  useScrollProgress((progress) => {
+    // 1. Globe Transforms
+    // Timings
+    const t1 = 0.20;
+    const t2 = 0.45;
+    const t3 = 0.70;
+    const t4 = 0.85;
+
+    // Scale
+    let scale = 1.0;
+    if (progress > t1 && progress <= t3) scale = mapProgress(progress, t1, t2, 1.0, 0.636, easeQuart); // 110 to 70vmin
+    if (progress > t3 && progress <= t4) scale = mapProgress(progress, t3, t4, 0.636, 0.454, easeQuart); // 70 to 50vmin
+    if (progress > t4) scale = mapProgress(progress, t4, 1.0, 0.454, 1.0, easeQuart); // back to 110vmin
+
+    // X Translation
+    let x = 0;
+    if (progress > t1 && progress <= t3) x = mapProgress(progress, t1, t2, 0, -20, easeQuart);
+    if (progress > t3 && progress <= t4) x = mapProgress(progress, t3, t4, -20, -35, easeQuart);
+    if (progress > t4) x = mapProgress(progress, t4, 1.0, -35, 0, easeQuart);
+
+    // Y Translation
+    let y = 0;
+    if (progress > t3 && progress <= t4) y = mapProgress(progress, t3, t4, 0, 25, easeQuart);
+    if (progress > t4) y = mapProgress(progress, t4, 1.0, 25, 0, easeQuart);
+
+    // Tilt (X Axis)
+    let tilt = 0;
+    if (progress > t1 && progress <= t4) tilt = mapProgress(progress, t1, t2, 0, 25, easeQuart);
+    if (progress > t4) tilt = mapProgress(progress, t4, 1.0, 25, 0, easeQuart);
+
+    // Apply to DOM directly (bypassing React)
+    if (globeWrapperRef.current) {
+      globeWrapperRef.current.style.transform = `translateX(${x}vw) translateY(${y}vh) scale(${scale}) rotateX(${tilt}deg)`;
+    }
+
+    // Altitude Zoom via Globe Ref
+    let alt = 2.0;
+    if (progress > t2 && progress <= t4) alt = mapProgress(progress, t2, t3, 2.0, 1.2, easeQuart);
+    if (progress > t4) alt = mapProgress(progress, t4, 1.0, 1.2, 2.0, easeQuart);
+    
+    if (globeGLRef.current) {
+      try {
+        // Safe check for pointOfView to avoid errors before ready
+        if (globeGLRef.current.pointOfView) {
+          globeGLRef.current.pointOfView({ altitude: alt }, 0);
+        }
+        
+        const ctrl = globeGLRef.current.controls();
+        if (ctrl) {
+           ctrl.autoRotate = progress < 0.40;
+        }
+      } catch (e) {
+        // Ignore errors during immediate mount
+      }
+    }
+
+    // 2. Hero Text Fade
+    const textOp = mapProgress(progress, 0, 0.25, 1, 0);
+    const textY = mapProgress(progress, 0, 0.25, 0, -60);
+    if (heroTextRef.current) {
+      heroTextRef.current.style.opacity = textOp;
+      heroTextRef.current.style.transform = `translateY(${textY}px)`;
+      // disable pointer events if hidden
+      heroTextRef.current.style.pointerEvents = textOp < 0.1 ? 'none' : 'auto';
+    }
+
+    // 3. Scroll Indicator Fade
+    const indicatorOp = mapProgress(progress, 0, 0.15, 1, 0);
+    const indicatorTextOp = mapProgress(progress, 0, 0.05, 1, 0);
+    if (scrollIndicatorRef.current) scrollIndicatorRef.current.style.opacity = indicatorOp;
+    if (scrollTextRef.current) scrollTextRef.current.style.opacity = indicatorTextOp;
+
+    // 4. Starfield Parallax
+    const maxScrollPx = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const starY = -(progress * maxScrollPx * 0.3);
+    if (starfieldRef.current) {
+      starfieldRef.current.style.transform = `translateY(${starY}px)`;
+    }
+
+    // 5. Hysteresis State Updates (Borders & Glow)
+    if (progress > 0.45 && !stateRefs.current.showBorders) {
+      stateRefs.current.showBorders = true;
+      setShowBorders(true);
+    } else if (progress < 0.42 && stateRefs.current.showBorders) {
+      stateRefs.current.showBorders = false;
+      setShowBorders(false);
+    }
+
+    if (progress > 0.85 && stateRefs.current.atmos !== 0.35) {
+      stateRefs.current.atmos = 0.35;
+      setAtmosphereAltitude(0.35);
+    } else if (progress < 0.82 && stateRefs.current.atmos !== 0.15) {
+      stateRefs.current.atmos = 0.15;
+      setAtmosphereAltitude(0.15);
+    }
+
+  });
+
   // Pure CSS Starfield (120 stars)
   const stars = useMemo(() => {
     return Array.from({ length: 120 }).map((_, i) => ({
@@ -17,155 +139,143 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="relative w-full h-screen overflow-hidden bg-[#050508]">
-      {/* ── Starfield Background ── */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {stars.map(s => (
-          <div
-            key={s.id}
-            className="absolute bg-white rounded-full"
-            style={{
-              top: s.top,
-              left: s.left,
-              width: s.size,
-              height: s.size,
-              animation: `twinkle ${s.duration} ease-in-out ${s.delay} infinite`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Massive Globe (Centered, size 110vmin) ── */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none -translate-y-[5vh]">
+    <main className="relative w-full h-[380vh] bg-[#050508]">
+      
+      {/* ── Fixed/Sticky Overlay Base ── */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden">
         
-        {/* Globe Glow Wrapper */}
-        <div className="relative w-[140vmin] h-[140vmin] sm:w-[110vmin] sm:h-[110vmin]">
-          
-          {/* Outer glow effect */}
-          <div 
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: 'radial-gradient(circle at center, rgba(108,99,255,0.15) 0%, transparent 60%)',
-              filter: 'blur(80px)'
-            }}
-          />
-
-          {/* Globe Component wrapper */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
-            className="absolute inset-0 w-full h-full"
-          >
-            <Globe3D
-              interactive={false}
-              // Force 100% width and height string bypassing generic default height
-              width="100%"
-              height="100%"
+        {/* ── Starfield Background ── */}
+        <div ref={starfieldRef} className="absolute top-0 left-0 w-full h-[150vh] z-0 pointer-events-none will-change-transform">
+          {stars.map(s => (
+            <div
+              key={s.id}
+              className="absolute bg-white rounded-full"
+              style={{
+                top: s.top,
+                left: s.left,
+                width: s.size,
+                height: s.size,
+                animation: `twinkle ${s.duration} ease-in-out ${s.delay} infinite`
+              }}
             />
-          </motion.div>
-        
+          ))}
         </div>
-      </div>
 
-      {/* ── Bottom Gradient Overlay ── */}
-      <div className="absolute bottom-0 inset-x-0 h-[200px] bg-gradient-to-t from-[#050508] to-transparent z-20 pointer-events-none" />
+        {/* ── Giant Globe ── */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none -translate-y-[5vh]">
+          {/* Performance wrapped container */}
+          <div className="will-change-transform flex items-center justify-center w-full h-full" style={{ perspective: "1000px" }}>
+            <div 
+              ref={globeWrapperRef} 
+              className="relative w-[140vmin] h-[140vmin] sm:w-[110vmin] sm:h-[110vmin] will-change-transform"
+            >
+              {/* Outer glow effect */}
+              <div 
+                className="absolute inset-0 rounded-full transition-opacity duration-1000"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(108,99,255,0.15) 0%, transparent 60%)',
+                  filter: 'blur(80px)',
+                  opacity: atmosphereAltitude > 0.15 ? 2.5 : 1 // intensify CSS glow along with GlobeGL param
+                }}
+              />
 
-      {/* ── Text Overlay (Above Globe) ── */}
-      <div className="absolute inset-0 z-30 flex flex-col items-center justify-start pointer-events-none">
-        
-        {/* Helper div to push text vertically to top: 52% approx */}
-        <div className="h-[48%] mt-[4%]" />
-        
-        {/* Subtle radial gradient behind text for contrast */}
-        <div className="relative flex flex-col items-center text-center w-full max-w-4xl px-4 pointer-events-auto">
-          <div className="absolute inset-0 bg-radial-[circle_at_center] from-[#050508]/60 to-transparent blur-3xl -z-10" />
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="font-inter text-[13px] tracking-[0.15em] text-[#8B8FA8] uppercase mb-4"
-          >
-            Geography · Capitals · Flags · History
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-            className="font-grotesk text-[40px] sm:text-[72px] font-bold text-white leading-[1.1]"
-            style={{ textShadow: '0 0 60px rgba(108,99,255,0.4)' }}
-          >
-            Master every corner<br />of the world.
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1, duration: 0.8 }}
-            className="font-inter text-[16px] sm:text-[18px] text-[#8B8FA8] mt-4"
-          >
-            195 countries. Every capital. Every flag. All yours.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-center gap-4 mt-9"
-          >
-            <Link to="/explorer">
-              <button className="
-                bg-[#6C63FF] text-white font-grotesk text-[15px] font-semibold
-                px-8 py-3.5 rounded-full transition-all duration-300
-                shadow-[0_0_24px_rgba(108,99,255,0.6),0_0_48px_rgba(108,99,255,0.2)]
-                hover:scale-105 hover:shadow-[0_0_36px_rgba(108,99,255,0.8),0_0_64px_rgba(108,99,255,0.4)]
-              ">
-                Start Exploring →
-              </button>
-            </Link>
-
-            <Link to="/progress">
-              <motion.button
+              {/* Globe Component wrapper */}
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                className="
-                  bg-transparent border border-white/15 backdrop-blur-sm
-                  text-white font-inter text-[15px]
-                  px-8 py-3.5 rounded-full transition-all duration-300
-                  hover:border-[#6C63FF] hover:bg-white/5
-                "
+                transition={{ duration: 2, ease: "easeOut" }}
+                className="absolute inset-0 w-full h-full"
               >
-                View Progress
-              </motion.button>
-            </Link>
-          </motion.div>
-        
+                <Globe3D
+                  interactive={false}
+                  width="100%"
+                  height="100%"
+                  globeRefExternal={globeGLRef}
+                  showBorders={showBorders}
+                  atmosphereAltitude={atmosphereAltitude}
+                />
+              </motion.div>
+            </div>
+          </div>
         </div>
+
+        {/* ── Hero Text Overlay (Section 1) ── */}
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-start pointer-events-none">
+          <div className="h-[48%] mt-[4%]" />
+          
+          <div ref={heroTextRef} className="relative flex flex-col items-center text-center w-full max-w-4xl px-4 pointer-events-auto will-change-transform">
+            <div className="absolute inset-0 bg-radial-[circle_at_center] from-[#050508]/60 to-transparent blur-3xl -z-10" />
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="font-inter text-[13px] tracking-[0.15em] text-[#8B8FA8] uppercase mb-4"
+            >
+              Geography · Capitals · Flags · History
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
+              className="font-grotesk text-[40px] sm:text-[72px] font-bold text-white leading-[1.1]"
+              style={{ textShadow: '0 0 60px rgba(108,99,255,0.4)' }}
+            >
+              Master every corner<br />of the world.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1, duration: 0.8 }}
+              className="font-inter text-[16px] sm:text-[18px] text-[#8B8FA8] mt-4"
+            >
+              195 countries. Every capital. Every flag. All yours.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              className="flex flex-col sm:flex-row items-center gap-4 mt-9"
+            >
+              <Link to="/explorer">
+                <button className="
+                  bg-[#6C63FF] text-white font-grotesk text-[15px] font-semibold
+                  px-8 py-3.5 rounded-full transition-all duration-300
+                  shadow-[0_0_24px_rgba(108,99,255,0.6),0_0_48px_rgba(108,99,255,0.2)]
+                  hover:scale-105 hover:shadow-[0_0_36px_rgba(108,99,255,0.8),0_0_64px_rgba(108,99,255,0.4)]
+                ">
+                  Start Exploring →
+                </button>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── Scroll Indicator Upgrade ── */}
+        <div ref={scrollIndicatorRef} className="absolute bottom-8 inset-x-0 z-30 flex flex-col items-center gap-3 pointer-events-none will-change-transform">
+          <span ref={scrollTextRef} className="font-inter text-[12px] text-[#8B8FA8] opacity-50 will-change-transform transition-opacity">
+            Scroll to explore
+          </span>
+          <div className="relative w-[1px] h-[40px] bg-white/30 overflow-hidden">
+            <motion.div 
+              className="absolute top-0 left-0 w-full h-[6px] bg-white rounded-full bg-gradient-to-b from-transparent via-[#6C63FF] to-white"
+              animate={{ y: [-10, 45] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            />
+          </div>
+        </div>
+
       </div>
 
-      {/* ── Scroll To Explore Indicator ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 inset-x-0 z-30 flex flex-col items-center gap-2 pointer-events-none"
-      >
-        <span className="font-inter text-[12px] text-[#8B8FA8] opacity-50">
-          Scroll to explore
-        </span>
-        <motion.div
-          animate={{ opacity: [0.3, 1, 0.3], y: [0, 4, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="text-[#8B8FA8] opacity-50"
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </motion.div>
-      </motion.div>
+      {/* ── Scroll Sections (Overlays absolute mapped inside the 380vh scrollable parent wrapper) ── */}
+      <div className="absolute top-0 left-0 w-full h-[380vh] z-20 pointer-events-none">
+         <ScrollSection2 />
+         <ScrollSection3 />
+         <ScrollSection4 />
+      </div>
 
     </main>
   )
