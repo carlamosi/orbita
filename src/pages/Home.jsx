@@ -16,7 +16,8 @@ function mapProgress(p, pMin, pMax, outMin, outMax, ease = t => t) {
 }
 
 export default function Home() {
-  const globeWrapperRef = useRef(null);
+  const globeWrapperRef = useRef(null); // clipped canvas (circle)
+  const globeGlowRef    = useRef(null); // CSS glow (follows same transform)
   const heroTextRef = useRef(null);
   const starfieldRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
@@ -64,10 +65,9 @@ export default function Home() {
     if (progress > t3 && progress <= t4) y = mapProgress(progress, t3, t4, 0, 20, easeQuart);
     if (progress > t4) y = mapProgress(progress, t4, 1.0, 20, 0, easeQuart);
 
-    if (globeWrapperRef.current) {
-      globeWrapperRef.current.style.transform =
-        `translateX(${x}vw) translateY(${y}vh) scale(${scale})`;
-    }
+    const transform = `translateX(${x}vw) translateY(${y}vh) scale(${scale})`;
+    if (globeWrapperRef.current) globeWrapperRef.current.style.transform = transform;
+    if (globeGlowRef.current)    globeGlowRef.current.style.transform    = transform;
 
     // Altitude zoom
     let alt = 2.0;
@@ -171,39 +171,44 @@ export default function Home() {
         className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none"
         style={{ overflow: 'visible' }}
       >
-        {/* Transform anchor — this is what the scroll callback moves */}
+        {/* ── CSS Glow — separate div, same transform as wrapper ──
+            Lives OUTSIDE the circle-clipped canvas div so the blur
+            bleeds freely without being cut by overflow:hidden */}
+        <div
+          ref={globeGlowRef}
+          className="absolute transition-opacity duration-1000"
+          style={{
+            width:           globeSize || 600,
+            height:          globeSize || 600,
+            borderRadius:    '50%',
+            background:      'radial-gradient(circle at center, rgba(108,99,255,0.28) 0%, transparent 65%)',
+            filter:          'blur(55px)',
+            opacity:         atmosphereAltitude > 0.15 ? 1.6 : 1,
+            pointerEvents:   'none',
+            transformOrigin: 'center center',
+          }}
+        />
+
+        {/* ── Canvas wrapper — border-radius:50% + overflow:hidden clips the
+            WebGL rectangle to a perfect circle. NO will-change here so
+            the compositing layer doesn't pre-clip the blur above. ── */}
         <div
           ref={globeWrapperRef}
-          className="will-change-transform origin-center transition-none relative"
           style={{
-            width:    globeSize || '110vmin',
-            height:   globeSize || '110vmin',
-            overflow: 'visible',
+            position:        'relative',
+            width:           globeSize || 600,
+            height:          globeSize || 600,
+            borderRadius:    '50%',
+            overflow:        'hidden',
+            transformOrigin: 'center center',
+            flexShrink:      0,
           }}
         >
-          {/* Purple glow halo */}
-          <div
-            className="absolute inset-0 rounded-full pointer-events-none transition-opacity duration-1000"
-            style={{
-              background: 'radial-gradient(circle at center, rgba(108,99,255,0.18) 0%, transparent 65%)',
-              filter: 'blur(60px)',
-              opacity: atmosphereAltitude > 0.15 ? 2 : 1,
-            }}
-          />
-
-          {/* Globe canvas — centered via absolute inset-0 */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2.5, ease: 'easeOut' }}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'visible',
-            }}
+            style={{ position: 'absolute', inset: 0 }}
           >
             {globeSize > 0 && (
               <Globe3D

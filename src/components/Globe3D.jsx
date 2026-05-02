@@ -44,13 +44,18 @@ export default function Globe3D({
     const globe = globeRef.current
     if (!globe) return
 
-    // Make the WebGL canvas background transparent so the sphere is never
-    // clipped inside a visible rectangle
+    // ── CRITICAL: make the WebGL canvas transparent ──
+    // react-globe.gl defaults to alpha:false; even with our rendererConfig
+    // prop we also set it imperatively here as a safety net.
     const renderer = globe.renderer()
     if (renderer) {
-      renderer.setClearColor(0x000000, 0)  // fully transparent
-      renderer.domElement.style.background = 'transparent'
+      renderer.setClearColor(0x000000, 0)   // transparent
+      renderer.setClearAlpha(0)
+      renderer.domElement.style.background        = 'transparent'
+      renderer.domElement.style.backgroundColor   = 'transparent'
     }
+    // Remove scene background so nothing is painted behind the sphere
+    globe.scene().background = null
 
     // Auto-rotate
     globe.controls().autoRotate      = true
@@ -131,6 +136,8 @@ export default function Globe3D({
         ref={globeRef}
         width={typeof width === 'number' ? width : undefined}
         height={typeof height === 'number' ? height : undefined}
+        /* ── Renderer: alpha:true is the ONLY way to get a transparent canvas ── */
+        rendererConfig={{ antialias: true, alpha: true }}
         /* ── Globe visuals ── */
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         backgroundImageUrl={null}
