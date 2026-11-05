@@ -1,20 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function CircleTimer({ durationSeconds, onComplete, isRunning }) {
   const [timeLeft, setTimeLeft] = useState(durationSeconds)
 
+  // Latest onComplete without restarting the interval (SRS-6: parents pass a new
+  // function on every render, which used to reset the 1 s tick on every answer).
+  const onCompleteRef = useRef(onComplete)
   useEffect(() => {
-    if (!isRunning || timeLeft <= 0) {
-      if (timeLeft === 0 && isRunning) onComplete?.()
-      return
-    }
+    onCompleteRef.current = onComplete
+  })
 
+  useEffect(() => {
+    if (!isRunning) return
     const intervalId = setInterval(() => {
-      setTimeLeft(t => t - 1)
+      setTimeLeft(t => (t > 0 ? t - 1 : 0))
     }, 1000)
-
     return () => clearInterval(intervalId)
-  }, [isRunning, timeLeft, onComplete])
+  }, [isRunning])
+
+  useEffect(() => {
+    if (isRunning && timeLeft === 0) onCompleteRef.current?.()
+  }, [isRunning, timeLeft])
 
   const size = 120
   const strokeWidth = 8

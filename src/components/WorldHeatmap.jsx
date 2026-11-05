@@ -30,7 +30,7 @@ export default function WorldHeatmap() {
     const avg = (prog.locationConf + prog.capitalConf + prog.flagConf) / 3
     // scale is roughly 0-100, but the prompt said "confidence: 0, 1-2, 3-4, 5+" wait... "confidence >= 3 all categories"
     // Wait, the prompt said: 0, 1-2, 3-4, 5+ 
-    // In our updateProgress, we added Math.max(0, ... prev[type] + delta), so score is 0-100.
+    // Confidence values are 0-100.
     // If the prompt assumed 0-5 scale, 100/20 = 5. Let's map 0-100 to 0-5.
     const confScale = avg / 20 
 

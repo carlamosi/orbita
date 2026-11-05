@@ -6,11 +6,12 @@ import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useMemo } from 'react'
+import DayComplete from '../components/DayComplete'
 
 export default function FindCountry() {
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
   } = useCountryGame('find')
 
   const [colors, setColors] = useState({})
@@ -31,7 +32,7 @@ export default function FindCountry() {
     if (cid === currentCountry.id) {
       // Correct
       setColors({ [cid]: { cap: 'rgba(0, 255, 178, 0.4)', stroke: '#00FFB2', altitude: 0.02 } })
-      handleAnswer(true)
+      handleAnswer(true, null, { hintUsed: showHint, inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setShowHint(false)
@@ -44,7 +45,7 @@ export default function FindCountry() {
         [cid]: { cap: 'rgba(255, 107, 107, 0.5)', stroke: '#FF6B6B', altitude: 0.02 },
         [currentCountry.id]: { cap: 'rgba(255, 165, 0, 0.5)', stroke: '#FFA500', altitude: 0.02 }
       })
-      handleAnswer(false, cid)
+      handleAnswer(false, cid, { hintUsed: showHint, inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setShowHint(false)
@@ -97,6 +98,8 @@ export default function FindCountry() {
           height="100%"
         />
       </div>
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* ── Session End Overlay ── */}
       <AnimatePresence>

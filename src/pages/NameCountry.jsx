@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 import { Globe3D, AnswerInput, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
+import DayComplete from '../components/DayComplete'
 
 export default function NameCountry() {
   const { countries, geoData } = useWorldData()
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
   } = useCountryGame('name')
 
   const [isHardMode, setIsHardMode] = useState(false)
@@ -53,7 +54,7 @@ export default function NameCountry() {
 
     if (isCorrect) {
       setColors({ [cid]: { cap: 'rgba(0, 255, 178, 0.4)', stroke: '#00FFB2', altitude: 0.02 } })
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: isHardMode ? 'typed' : 'choice' })
       setTimeout(() => {
         setColors({})
         setSelectedOption(null)
@@ -73,7 +74,7 @@ export default function NameCountry() {
       }
       setColors(newColors)
       
-      handleAnswer(false, wrongId)
+      handleAnswer(false, wrongId, { inputKind: isHardMode ? 'typed' : 'choice' })
       setTimeout(() => {
         setColors({})
         setSelectedOption(null)
@@ -120,6 +121,8 @@ export default function NameCountry() {
           )}
         </AnimatePresence>
       </div>
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* Session End Overlay */}
       <AnimatePresence>

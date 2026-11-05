@@ -130,51 +130,6 @@ describe('useGameStore v2', () => {
     expect(store.getState().cards['TCD:loc'].wrong).toBe(4)
   })
 
-  describe('deprecated adapters (removed in Task 7)', () => {
-    it('updateProgress ignores the distractor call (isWrong with delta -5)', () => {
-      const { actions } = store.getState()
-      actions.updateProgress('TCD', 'locationConf', -10, true)
-      actions.updateProgress('NER', 'locationConf', -5, true)
-      const s = store.getState()
-      expect(s.cards['NER:loc']).toBeUndefined()
-      expect(s.reviewLog.map((e) => e[0])).toEqual(['TCD:loc'])
-      expect(Object.values(s.daily)[0]).toEqual({ reviews: 1, new: 1 })
-      expect(s.countryProgress.TCD.timesWrong).toBe(1)
-    })
-
-    it('updateProgress maps type to category and isWrong to Again/Good', () => {
-      const { actions } = store.getState()
-      actions.updateProgress('ESP', 'locationConf', 15)
-      actions.updateProgress('FRA', 'capitalConf', -10, true)
-      actions.updateProgress('ITA', 'flagConf', 15)
-      const log = store.getState().reviewLog
-      expect(log.map((e) => [e[0], e[1]])).toEqual([
-        ['ESP:loc', Rating.Good],
-        ['FRA:cap', Rating.Again],
-        ['ITA:flag', Rating.Good],
-      ])
-    })
-
-    it('incrementStreak counts a session; logSession does not double count', () => {
-      const { actions } = store.getState()
-      actions.logSession('find', 10)
-      actions.incrementStreak()
-      expect(store.getState().totalSessions).toBe(1)
-      expect(store.getState().streak).toBe(1)
-    })
-
-    it('unlockChallenge("perfect_X") unlocks perfect continent X; speed and flag adapters work', () => {
-      const { actions } = store.getState()
-      actions.unlockChallenge('perfect_Africa', true)
-      actions.addSpeedScore(42, '7/8', 12, 'Africa')
-      actions.incrementFlagSessions()
-      const s = store.getState()
-      expect(s.challenges.perfectContinents).toEqual({ Africa: true })
-      expect(s.speedRoundBests[0]).toMatchObject({ score: 42, continent: 'Africa' })
-      expect(s.flagSessionsCompleted).toBe(1)
-    })
-  })
-
   it('initial state is a fresh v2 with the UI read fields', () => {
     const s = store.getState()
     const fresh = freshV2(T0)

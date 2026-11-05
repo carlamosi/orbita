@@ -29,6 +29,7 @@ vi.mock('../components/CircleTimer', () => ({
 }))
 
 import { useGameStore } from '../store/useGameStore'
+import { Rating } from '../srs/scheduler.js'
 import SpeedRound from '../pages/SpeedRound.jsx'
 
 const initial = useGameStore.getState()
@@ -39,8 +40,9 @@ describe('SRS-5: Speed Round must record answers in progress, session log and st
     document.body.innerHTML = ''
     useGameStore.setState({
       ...initial,
-      streak: 0, lastSession: null, totalSessions: 0, countryProgress: {},
-      activityLog: [], dailyActivity: {}, speedRoundBests: [],
+      cards: {}, reviewLog: [], daily: {}, confusions: {}, speedRoundBests: [],
+      stats: { ...initial.stats, streak: 0, lastSessionDay: null, totalSessions: 0 },
+      countryProgress: {}, dailyActivity: {}, streak: 0, totalSessions: 0,
     })
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2026-11-05T12:00:00+01:00'))
@@ -77,11 +79,18 @@ describe('SRS-5: Speed Round must record answers in progress, session log and st
     expect(s.speedRoundBests[0]?.score).toBe(150)
     expect(s.speedRoundBests[0]?.fraction).toBe('15/15')
 
-    // Expected correct behaviour (fails if bug exists)
+    // Every answer is rated (timed => Good) on the card the question tests
+    // (capital_to_name -> cap), and the session counts for streak and activity.
+    expect.soft(s.cards['ESP:cap'], 'card for answered country').toBeDefined()
+    expect.soft(s.reviewLog.length, 'reviewLog entries').toBe(15)
+    expect.soft(s.reviewLog.every((e) => e[0] === 'ESP:cap' && e[1] === Rating.Good), 'timed ratings').toBe(true)
     expect.soft(s.countryProgress.ESP, 'countryProgress for answered country').toBeDefined()
     expect.soft(Object.keys(s.dailyActivity).length, 'dailyActivity entries').toBeGreaterThan(0)
     expect.soft(s.totalSessions, 'totalSessions').toBeGreaterThan(0)
     expect.soft(s.streak, 'streak').toBeGreaterThan(0)
+    const stored = JSON.parse(localStorage.getItem('orbita-v2')).state
+    expect.soft(stored.cards['ESP:cap'], 'persisted card').toBeDefined()
+    expect.soft(stored.stats.totalSessions, 'persisted totalSessions').toBe(1)
     act(() => root.unmount())
   })
 })

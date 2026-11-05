@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import React, { act } from 'react'
 import { createRoot } from 'react-dom/client'
+import { State } from '../srs/scheduler.js'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
@@ -32,13 +33,24 @@ function renderHookOnce(cb) {
   return { result, unmount: () => act(() => root.unmount()) }
 }
 
+const DAY = 86400000
+
 describe('SRS-2: question selection should prioritise weak countries', () => {
   beforeEach(() => {
     localStorage.clear()
+    const now = Date.now()
     useGameStore.setState({
-      countryProgress: {
-        TCD: { locationConf: 0, capitalConf: 0, flagConf: 0, timesWrong: 3 },       // failed 3 times
-        FRA: { locationConf: 100, capitalConf: 100, flagConf: 100, timesWrong: 0 }, // mastered
+      cards: {
+        // Failed 3 times, overdue Review card.
+        'TCD:loc': {
+          due: now - DAY, stability: 1, difficulty: 8, scheduled_days: 1, learning_steps: 0,
+          reps: 6, lapses: 3, state: State.Review, last_review: now - 2 * DAY, wrong: 3,
+        },
+        // Mastered, next review months away.
+        'FRA:loc': {
+          due: now + 100 * DAY, stability: 200, difficulty: 2, scheduled_days: 120, learning_steps: 0,
+          reps: 10, lapses: 0, state: State.Review, last_review: now - 20 * DAY, wrong: 0,
+        },
       },
     })
   })
@@ -55,9 +67,8 @@ describe('SRS-2: question selection should prioritise weak countries', () => {
     }
     expect(picked).toBe(N) // sanity: the hook really produced a question each time
     const ratio = chad / N
-    console.log(`Chad picked ${chad}/${N} = ${(ratio * 100).toFixed(1)}%`)
-    // With SRS / weak-point weighting, a country failed 3x with 0 confidence must
-    // dominate over a 100%-mastered one. Uniform Math.random() gives ~50%.
+    // With SRS, an overdue card failed 3x comes before a mastered one.
+    // Uniform Math.random() gives ~50%.
     expect(ratio).toBeGreaterThan(0.7)
   })
 })

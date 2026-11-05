@@ -33,31 +33,38 @@ vi.mock('../hooks/useSounds', () => ({
 import { useGameStore } from '../store/useGameStore'
 import { useCountryGame } from '../hooks/useCountryGame'
 
+const readV2 = () => JSON.parse(localStorage.getItem('orbita-v2')).state
+
 describe('SRS-4: wrong answer must not penalize the clicked (unasked) country', () => {
   beforeEach(() => {
     localStorage.clear()
-    useGameStore.setState({ countryProgress: {} })
+    useGameStore.setState({ cards: {}, confusions: {}, reviewLog: [], daily: {} })
   })
 
-  it('asked Chad, clicked Niger: only Chad is penalized', () => {
+  it('asked Chad, clicked Niger: only Chad is rated, Niger is recorded as a confusion', () => {
     const { result } = renderHook(() => useCountryGame('find'))
     expect(result.current.currentCountry?.id).toBe('TCD')
 
     act(() => { result.current.handleAnswer(false, 'NER') })
 
-    const progress = useGameStore.getState().countryProgress
-    // Asked country is penalized (expected)
-    expect(progress.TCD.timesWrong).toBe(1)
-    // Unasked, clicked country must remain untouched
-    expect(progress.NER).toBeUndefined()
+    const s = useGameStore.getState()
+    // Asked country is rated (Again)
+    expect(s.cards['TCD:loc'].wrong).toBe(1)
+    expect(s.reviewLog.map((e) => e[0])).toEqual(['TCD:loc'])
+    // Unasked, clicked country is never rated
+    expect(s.cards['NER:loc']).toBeUndefined()
+    expect(s.confusions['TCD:loc']).toEqual({ NER: 1 })
 
-    const stored = JSON.parse(localStorage.getItem('orbita-storage'))
-    expect(stored.state.countryProgress.NER).toBeUndefined()
+    expect(readV2().cards['NER:loc']).toBeUndefined()
+    expect(readV2().confusions['TCD:loc']).toEqual({ NER: 1 })
   })
 
-  it('clicking a polygon id not in the dataset must not create a progress entry', () => {
+  it('clicking a polygon id not in the dataset must not create a card or a confusion', () => {
     const { result } = renderHook(() => useCountryGame('find'))
     act(() => { result.current.handleAnswer(false, '-99') })
-    expect(useGameStore.getState().countryProgress['-99']).toBeUndefined()
+    const s = useGameStore.getState()
+    expect(s.cards['-99:loc']).toBeUndefined()
+    expect(s.confusions['TCD:loc']).toBeUndefined()
+    expect(s.cards['TCD:loc'].wrong).toBe(1)
   })
 })

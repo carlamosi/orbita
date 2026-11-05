@@ -5,6 +5,7 @@ import { Confetti, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
+import DayComplete from '../components/DayComplete'
 
 export default function FlagQuiz() {
   const { countries } = useWorldData()
@@ -20,8 +21,8 @@ export default function FlagQuiz() {
 
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
-  } = useCountryGame('flag', pool)
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
+  } = useCountryGame('flag', { pool })
 
   const [processing, setProcessing] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
@@ -68,7 +69,7 @@ export default function FlagQuiz() {
     setSelectedOption(cid)
 
     if (cid === currentCountry.id) {
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: 'choice' })
       setShowConfetti(true)
       setTimeout(() => {
         setShowConfetti(false)
@@ -77,7 +78,7 @@ export default function FlagQuiz() {
         nextQuestion()
       }, 1500)
     } else {
-      handleAnswer(false, cid)
+      handleAnswer(false, cid, { inputKind: 'choice' })
       setTimeout(() => {
         setSelectedOption(null)
         setProcessing(false)
@@ -226,6 +227,8 @@ export default function FlagQuiz() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* Session End Overlay */}
       <AnimatePresence>

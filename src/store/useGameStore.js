@@ -28,7 +28,6 @@ const V2_FIELDS = [
   'challenges',
   'settings',
 ]
-const CAT = { locationConf: 'loc', capitalConf: 'cap', flagConf: 'flag' }
 
 const pickV2 = (s) => Object.fromEntries(V2_FIELDS.map((k) => [k, s[k]]))
 
@@ -58,7 +57,7 @@ const statusFields = (status) => ({ storageStatus: status, needsReload: status =
 
 export const useGameStore = create(
   persist(
-    (set, get) => {
+    (set) => {
       const answer = (cardId, rating, nowMs, { latencyMs = null } = {}) =>
         set((s) => {
           const prev = s.cards[cardId] || newCard(nowMs)
@@ -150,33 +149,6 @@ export const useGameStore = create(
         addSpeedScore,
         unlockPerfectContinent,
         incrementFlagSessions,
-
-        actions: {
-          // DEPRECATED: removed in Task 7
-          updateProgress: (countryId, type, delta, isWrong = false) => {
-            const cat = CAT[type]
-            if (!cat) return
-            // useCountryGame's distractor penalty (-5): the unasked country is not rated.
-            if (isWrong && delta === -5) return
-            answer(`${countryId}:${cat}`, isWrong ? Rating.Again : Rating.Good, Date.now(), {
-              latencyMs: null,
-            })
-          },
-          // DEPRECATED: removed in Task 7 (finishSession, via incrementStreak, counts the session)
-          logSession: () => {},
-          // DEPRECATED: removed in Task 7
-          incrementStreak: () => finishSession(null, null, Date.now()),
-          // DEPRECATED: removed in Task 7
-          incrementFlagSessions: () => get().incrementFlagSessions(),
-          // DEPRECATED: removed in Task 7
-          addSpeedScore: (...args) => get().addSpeedScore(...args),
-          // DEPRECATED: removed in Task 7
-          unlockChallenge: (key) => {
-            if (typeof key === 'string' && key.startsWith('perfect_') && key.length > 8) {
-              unlockPerfectContinent(key.slice(8))
-            }
-          },
-        },
       }
     },
     {

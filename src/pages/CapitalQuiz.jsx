@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Globe3D, Confetti, Button, AnswerInput } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
+import DayComplete from '../components/DayComplete'
 
 export default function CapitalQuiz() {
   const { countries, geoData } = useWorldData()
@@ -11,7 +12,7 @@ export default function CapitalQuiz() {
 
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
   } = useCountryGame('capital')
 
   const [processing, setProcessing] = useState(false)
@@ -32,7 +33,7 @@ export default function CapitalQuiz() {
     }
 
     if (isCorrect) {
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: 'typed' })
       setShowConfetti(true)
       setTimeout(() => {
         setShowConfetti(false)
@@ -40,7 +41,11 @@ export default function CapitalQuiz() {
         nextQuestion()
       }, 1500)
     } else {
-      handleAnswer(false)
+      // The typed answer names another country (by capital or by name): a confusion.
+      const typed = answerStr.toLowerCase().trim()
+      const field = subMode === 'country-to-capital' ? 'capital' : 'name'
+      const chosen = countries?.find(c => typeof c[field] === 'string' && c[field].toLowerCase().trim() === typed)
+      handleAnswer(false, chosen?.id ?? null, { inputKind: 'typed' })
       setTimeout(() => {
         setProcessing(false)
         nextQuestion()
@@ -57,7 +62,7 @@ export default function CapitalQuiz() {
 
     if (cid === currentCountry.id) {
       setColors({ [cid]: { cap: 'rgba(0, 255, 178, 0.4)', stroke: '#00FFB2', altitude: 0.02 } })
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setProcessing(false)
@@ -68,7 +73,7 @@ export default function CapitalQuiz() {
         [cid]: { cap: 'rgba(255, 107, 107, 0.5)', stroke: '#FF6B6B', altitude: 0.02 },
         [currentCountry.id]: { cap: 'rgba(255, 165, 0, 0.5)', stroke: '#FFA500', altitude: 0.02 }
       })
-      handleAnswer(false, cid)
+      handleAnswer(false, cid, { inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setProcessing(false)
@@ -180,6 +185,8 @@ export default function CapitalQuiz() {
           )}
         </>
       )}
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* Session End Overlay */}
       <AnimatePresence>
