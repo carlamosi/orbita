@@ -1,4 +1,3 @@
-import { useWorldData } from '../context/WorldDataContext'
 
 export default function CountryList({ countries, onSelectCountry, selectedCountryId }) {
   if (!countries) return null

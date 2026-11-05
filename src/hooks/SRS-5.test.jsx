@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client'
 import { MemoryRouter } from 'react-router-dom'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
-process.env.TZ = 'Europe/Madrid'
 
 const COUNTRIES = [
   { id: 'ESP', name: 'Spain', capital: 'Madrid', flagCode: 'es', continent: 'Europe' },

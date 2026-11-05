@@ -131,7 +131,7 @@ export function useCountryGame(mode = 'find', { pool: customPool = null, now = D
   useEffect(() => {
     if (poolKey === null) return
     startDue()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- rebuild only when the pool or category changes, not on every startDue identity
   }, [poolKey, cat])
 
   // A question answered after the tab was hidden has no meaningful latency.

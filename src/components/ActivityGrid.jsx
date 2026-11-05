@@ -12,7 +12,7 @@ function shade(count) {
 }
 
 export default function ActivityGrid({ now = Date.now }) {
-  const dailyActivity = useGameStore(s => s.dailyActivity) || {}
+  const dailyActivity = useGameStore(s => s.dailyActivity)
   const [hovered, setHovered] = useState(null)
 
   const days = useMemo(() => {
@@ -20,11 +20,12 @@ export default function ActivityGrid({ now = Date.now }) {
     // DST shifts never skip or repeat a day.
     const todayMs = Date.parse(`${localDayKey(now())}T00:00:00Z`)
     const elements = []
+    const activity = dailyActivity || {}
 
     // 52 weeks * 7 days = 364 days.
     for (let i = 363; i >= 0; i--) {
       const dateStr = new Date(todayMs - i * 86400000).toISOString().split('T')[0]
-      const count = dailyActivity[dateStr] || 0
+      const count = activity[dateStr] || 0
       elements.push({ date: dateStr, count, bg: shade(count) })
     }
     return elements

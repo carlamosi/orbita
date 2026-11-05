@@ -15,7 +15,7 @@ export default function FindCountry() {
   // Only countries with a shape on the globe can be asked.
   const pool = useMemo(() => locatablePool(countries, shapeIds), [countries, shapeIds])
   const {
-    currentCountry, score, combo, questionCount, maxQuestions,
+    currentCountry, score, questionCount, maxQuestions,
     isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
   } = useCountryGame('find', { pool })
 

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useWorldData } from '../context/WorldDataContext'
 
@@ -13,26 +13,20 @@ export default function AnswerInput({
 }) {
   const { countries } = useWorldData()
   const [inputVal, setInputVal] = useState('')
-  const [suggestions, setSuggestions] = useState([])
 
-  // Hard mode dropdown filtering
-  useEffect(() => {
-    if (!inputVal.trim()) {
-      setSuggestions([])
-      return
-    }
-    const filtered = countries
+  // Hard mode dropdown filtering (derived from the input, no state needed)
+  const suggestions = useMemo(() => {
+    if (!inputVal.trim()) return []
+    return countries
       .filter(c => {
         const val = c[searchField]
         return typeof val === 'string' && val.toLowerCase().includes(inputVal.toLowerCase())
       })
       .slice(0, 6)
-    setSuggestions(filtered)
   }, [inputVal, countries, searchField])
 
   const handleSuggestionClick = (nameOrCapital) => {
     setInputVal('')
-    setSuggestions([])
     onSubmit(nameOrCapital)
   }
 

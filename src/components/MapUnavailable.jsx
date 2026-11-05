@@ -14,6 +14,7 @@ export default function MapUnavailable({ className = '' }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- small predicate kept next to the component that uses it
 export function isMapDown({ geoError, geoData, isLoading }) {
   return Boolean(geoError) || (isLoading === false && !geoData)
 }

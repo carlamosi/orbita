@@ -113,7 +113,6 @@ export default function Progress({ now = Date.now }) {
     if (!countries) return { mastered: 0, categoryAvgs: {}, regions: [] }
     
     let masteredCount = 0
-    let totalScore = 0
     let categories = { location: 0, capital: 0, flag: 0 }
     let counts = 0
     
@@ -174,7 +173,7 @@ export default function Progress({ now = Date.now }) {
   const weakSpots = useMemo(() => {
     if (!countries) return []
     return Object.entries(countryProgress)
-      .filter(([_, prog]) => prog.timesWrong > 0)
+      .filter(([, prog]) => prog.timesWrong > 0)
       .sort((a,b) => b[1].timesWrong - a[1].timesWrong)
       .slice(0, 8)
       .map(([cid, prog]) => {

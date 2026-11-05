@@ -131,6 +131,7 @@ export default function SpeedRound() {
       '4': () => handleAnswer(currentQ.options[3].id),
       'Enter': () => { if (!isRunning && !isFinished) startGame() }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- handlers are recreated every render; keyboard map refreshes only on run/question change
   }, [isRunning, currentQ])
 
   useKeyboard(keyboardHandlers)
@@ -169,15 +170,6 @@ export default function SpeedRound() {
     if (activeContinent !== 'all' && wrongCount === 0 && correctCount > 0) {
       unlockPerfectContinent(activeContinent)
     }
-  }
-
-  // Helper for Sound Triggers
-  const triggerFeedback = (isCorrect) => {
-    if (isCorrect) playCorrect()
-    else playWrong()
-    
-    setFlash(true)
-    setTimeout(() => setFlash(false), 50)
   }
 
   return (

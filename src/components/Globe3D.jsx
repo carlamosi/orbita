@@ -77,6 +77,7 @@ export default function Globe3D({
       if (globeRef.current) {
         globeRef.current.renderer()?.dispose()
         globeRef.current.scene()?.clear()
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- need the live globe instance at unmount, not the one at mount
         globeRef.current.controls()?.dispose()
       }
     }

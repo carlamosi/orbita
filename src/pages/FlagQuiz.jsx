@@ -103,6 +103,7 @@ export default function FlagQuiz() {
       '3': () => handleSelect(options[2].id),
       '4': () => handleSelect(options[3].id),
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- handleSelect is recreated every render; handlers refresh only when the key-relevant state changes
   }, [processing, isFinished, options])
 
   useKeyboard(keyboardHandlers)

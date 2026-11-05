@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Globe3D, AnswerInput, Button } from '../components'
@@ -36,12 +36,14 @@ export default function NameCountry() {
     if (!currentCountry || !countries) return []
     const wrong = []
     while(wrong.length < 3) {
+      // eslint-disable-next-line react-hooks/purity -- random distractors, memoised per question
       const rnd = countries[Math.floor(Math.random() * countries.length)]
       if (rnd.id !== currentCountry.id && !wrong.find(c => c.id === rnd.id)) {
         wrong.push(rnd)
       }
     }
     // Shuffle with correct
+    // eslint-disable-next-line react-hooks/purity -- random option order, memoised per question
     return [currentCountry, ...wrong].sort(() => Math.random() - 0.5)
   }, [currentCountry, countries])
 

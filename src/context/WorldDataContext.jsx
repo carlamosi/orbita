@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react'
 import countriesStaticData from '../data/countries.json'
 
+/* eslint-disable react-refresh/only-export-components -- context module also exports its hook and pure helpers; splitting files would churn imports */
 const WorldDataContext = createContext()
 
 const GEOJSON_URL = 'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson'

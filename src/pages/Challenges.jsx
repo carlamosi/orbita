@@ -57,7 +57,6 @@ export default function Challenges() {
   }, [countries, shapeIds, countryProgress])
 
   // Continents list
-  const continents = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'] // Adjust to standard 5/6 as needed, we use 6:
   // Using 6 for filtering: 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
 
   return (

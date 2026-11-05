@@ -21,30 +21,40 @@ vi.mock('../components', () => ({
   Button: ({ children, ...p }) => <button {...p}>{children}</button>,
 }))
 
-import FlagQuiz from '../pages/FlagQuiz.jsx'
+import FlagQuiz from './FlagQuiz.jsx'
 
-describe('SRS-1: FlagQuiz mounts', () => {
+function mountFlagQuiz() {
+  let error = null
+  const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
+  try {
+    const root = createRoot(document.body.appendChild(document.createElement('div')))
+    act(() => {
+      root.render(
+        <MemoryRouter initialEntries={['/flag']}>
+          <FlagQuiz />
+        </MemoryRouter>
+      )
+    })
+  } catch (e) {
+    error = e
+  }
+  spy.mockRestore()
+  return error
+}
+
+describe('FlagQuiz mounts (SRS-1 / BUG-01)', () => {
   beforeEach(() => {
     localStorage.clear()
     document.body.innerHTML = ''
   })
 
   it('renders without throwing (React hooks must be imported)', () => {
-    let error = null
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
-    try {
-      const root = createRoot(document.body.appendChild(document.createElement('div')))
-      act(() => {
-        root.render(
-          <MemoryRouter initialEntries={['/flag']}>
-            <FlagQuiz />
-          </MemoryRouter>
-        )
-      })
-    } catch (e) {
-      error = e
-    }
-    spy.mockRestore()
-    expect(error?.toString() ?? null).toBeNull()
+    expect(mountFlagQuiz()?.toString() ?? null).toBeNull()
+  })
+
+  it('does not fail with a ReferenceError (/flag page)', () => {
+    const error = mountFlagQuiz()
+    expect(error?.message ?? '').not.toMatch(/is not defined/)
+    expect(error).toBeNull()
   })
 })
