@@ -14,6 +14,6 @@ export function toRating({ correct, latencyMs, hintUsed, inputKind, timed, state
   if (latencyMs == null) return Rating.Good
   const [fast, slow] = THRESHOLDS[inputKind] || THRESHOLDS.choice
   if (latencyMs > slow) return Rating.Hard
-  if (latencyMs < fast && state !== State.New && state !== State.Learning) return Rating.Easy
+  if (latencyMs <= fast && state === State.Review) return Rating.Easy
   return Rating.Good
 }
