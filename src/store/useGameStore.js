@@ -137,6 +137,10 @@ export const useGameStore = create(
           }),
         )
 
+      // Replaces the v2 state with an already merged one (progress import).
+      const importState = (v2) =>
+        set((s) => withDerived(s, pickV2(v2)))
+
       const fresh = freshV2(Date.now())
       return {
         ...fresh,
@@ -149,6 +153,7 @@ export const useGameStore = create(
         addSpeedScore,
         unlockPerfectContinent,
         incrementFlagSessions,
+        importState,
       }
     },
     {

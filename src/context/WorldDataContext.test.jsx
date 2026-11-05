@@ -29,6 +29,7 @@ afterEach(() => {
 describe('normalizeGeoId', () => {
   it('maps SDS to SSD and leaves other ids alone', () => {
     expect(normalizeGeoId('SDS')).toBe('SSD')
+    expect(normalizeGeoId('OSA')).toBe('UNK')
     expect(normalizeGeoId('ESP')).toBe('ESP')
   })
 })

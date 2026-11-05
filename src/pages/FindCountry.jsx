@@ -7,9 +7,11 @@ import { useWorldData, locatablePool } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useMemo } from 'react'
 import DayComplete from '../components/DayComplete'
+import MapUnavailable, { isMapDown } from '../components/MapUnavailable'
 
 export default function FindCountry() {
-  const { countries, shapeIds } = useWorldData()
+  const { countries, shapeIds, geoData, geoError, isLoading } = useWorldData()
+  const mapDown = isMapDown({ geoError, geoData, isLoading })
   // Only countries with a shape on the globe can be asked.
   const pool = useMemo(() => locatablePool(countries, shapeIds), [countries, shapeIds])
   const {
@@ -56,6 +58,10 @@ export default function FindCountry() {
         nextQuestion()
       }, 2000)
     }
+  }
+
+  if (mapDown) {
+    return <div className="min-h-[100dvh] bg-space flex items-center justify-center"><MapUnavailable /></div>
   }
 
   return (

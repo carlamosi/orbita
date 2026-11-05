@@ -5,9 +5,11 @@ import { Globe3D, AnswerInput, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
 import DayComplete from '../components/DayComplete'
+import MapUnavailable, { isMapDown } from '../components/MapUnavailable'
 
 export default function NameCountry() {
-  const { countries, geoData } = useWorldData()
+  const { countries, geoData, geoError, isLoading } = useWorldData()
+  const mapDown = isMapDown({ geoError, geoData, isLoading })
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
     isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
@@ -82,6 +84,10 @@ export default function NameCountry() {
         nextQuestion()
       }, 2000)
     }
+  }
+
+  if (mapDown) {
+    return <div className="min-h-screen bg-space flex items-center justify-center"><MapUnavailable /></div>
   }
 
   return (

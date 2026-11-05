@@ -5,6 +5,7 @@ import { Confetti, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
+import { safeGet } from '../hooks/safeStorage'
 import DayComplete from '../components/DayComplete'
 import { useGameStore } from '../store/useGameStore'
 import { similarPool } from './similarPool'
@@ -35,12 +36,12 @@ export default function FlagQuiz() {
   const [selectedOption, setSelectedOption] = useState(null)
   
   const [hasUsedKeyboard, setHasUsedKeyboard] = useState(() => 
-    localStorage.getItem('orbita-has-used-keyboard') === 'true'
+    safeGet('orbita-has-used-keyboard') === 'true'
   )
 
   useEffect(() => {
     const checkKbd = () => {
-      if (localStorage.getItem('orbita-has-used-keyboard') === 'true') {
+      if (safeGet('orbita-has-used-keyboard') === 'true') {
         setHasUsedKeyboard(true)
       }
     }

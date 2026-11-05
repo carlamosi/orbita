@@ -7,7 +7,7 @@ const GEOJSON_URL = 'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/m
 
 // The GeoJSON uses a few ids that differ from the dataset (ISO3). Only unambiguous
 // ones are mapped; features without a usable id (-99) stay as they are.
-const GEO_ID_ALIASES = { SDS: 'SSD' }
+const GEO_ID_ALIASES = { SDS: 'SSD', OSA: 'UNK' }
 
 export function normalizeGeoId(id) {
   return GEO_ID_ALIASES[id] || id
