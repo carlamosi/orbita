@@ -4,6 +4,7 @@ import { useGameStore } from '../store/useGameStore'
 import { useSounds } from './useSounds'
 import { buildSession } from '../srs/selector.js'
 import { toRating } from '../srs/rating.js'
+import { State, retrievability } from '../srs/scheduler.js'
 import datasetCountries from '../data/countries.json'
 
 // Card category each mode tests.
@@ -13,17 +14,41 @@ const INPUT_KIND = { find: 'globe', name: 'choice', flag: 'choice', capital: 'ty
 // Modes asked on the globe need a GeoJSON shape for the country.
 const NEEDS_SHAPE = new Set(['find', 'name'])
 const PRACTICE_SIZE = 20
+const PRACTICE_MIN = 5
 
 const VALID_IDS = new Set(datasetCountries.map((c) => c.id))
 const featureId = (f) => f.id || f.properties?.iso_a3 || f.properties?.ISO_A3
 
-// Free practice: random picks over the pool, ignoring due-ness. Answers are still rated.
-function practiceSession(pool, cat, rng) {
-  return pool
-    .map((c) => ({ c, r: rng() }))
-    .sort((a, b) => a.r - b.r)
-    .slice(0, PRACTICE_SIZE)
-    .map(({ c }) => ({ cardId: `${c.id}:${cat}`, iso3: c.id, isNew: false, practice: true }))
+// Free practice (today's session is empty). Draws from cards already seen in this
+// category, lowest retrievability first, so it never spends the daily new-card quota.
+// Only when fewer than PRACTICE_MIN seen cards exist it tops up with random unseen
+// countries up to PRACTICE_MIN. Answers are still rated.
+function practiceSession(cards, pool, cat, nowMs, rng) {
+  const unique = [...new Map(pool.map((c) => [c.id, c])).values()]
+  const seen = []
+  const unseen = []
+  for (const c of unique) {
+    const card = cards?.[`${c.id}:${cat}`]
+    if (card && card.state !== State.New) seen.push({ c, r: retrievability(card, nowMs) })
+    else unseen.push({ c, r: rng() })
+  }
+  seen.sort((a, b) => a.r - b.r)
+  const picked = seen.slice(0, PRACTICE_SIZE)
+  if (picked.length < PRACTICE_MIN) {
+    unseen.sort((a, b) => a.r - b.r)
+    picked.push(...unseen.slice(0, PRACTICE_MIN - picked.length))
+  }
+  // No two consecutive questions about the same country.
+  const out = []
+  const queue = picked.map(({ c }) => c.id)
+  while (queue.length > 0) {
+    const last = out.length ? out[out.length - 1].iso3 : null
+    const i = queue.findIndex((id) => id !== last)
+    if (i === -1) break
+    const [iso3] = queue.splice(i, 1)
+    out.push({ cardId: `${iso3}:${cat}`, iso3, isNew: false, practice: true })
+  }
+  return out
 }
 
 export function useCountryGame(mode = 'find', { pool: customPool = null, now = Date.now, rng = Math.random } = {}) {
@@ -178,7 +203,7 @@ export function useCountryGame(mode = 'find', { pool: customPool = null, now = D
 
   const startPractice = () => {
     if (!pool || pool.length === 0) return
-    start(practiceSession(pool, cat, rngRef.current), true)
+    start(practiceSession(useGameStore.getState().cards, pool, cat, nowRef.current(), rngRef.current), true)
   }
 
   return {

@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { createElement, act } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Rating } from '../srs/scheduler.js'
+import { Rating, State } from '../srs/scheduler.js'
+import datasetCountries from '../data/countries.json'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
@@ -111,6 +112,66 @@ describe('useCountryGame with FSRS sessions', () => {
     act(() => { result.current.handleAnswer(false, asked) })
     expect(useGameStore.getState().confusions).toEqual({})
     unmount()
+  })
+
+  describe('free practice draws from seen cards', () => {
+    const POOL = datasetCountries.slice(0, 40)
+    const DAY = 86400000
+    const reviewCard = (stability) => ({
+      due: T0 + 100 * DAY, stability, difficulty: 5, scheduled_days: 100, learning_steps: 0,
+      reps: 4, lapses: 0, state: State.Review, last_review: T0 - 10 * DAY, wrong: 0,
+    })
+
+    function playPractice(pool) {
+      const { result, unmount } = renderHook(() => useCountryGame('flag', { pool, now }))
+      act(() => { result.current.startPractice() })
+      expect(result.current.isPractice).toBe(true)
+      const asked = []
+      for (let i = 0; i < 50 && !result.current.isFinished; i++) {
+        asked.push(result.current.currentCountry.id)
+        act(() => { result.current.handleAnswer(true) })
+        act(() => { result.current.nextQuestion() })
+      }
+      const max = result.current.maxQuestions
+      unmount()
+      return { asked, max }
+    }
+
+    it('30 seen Review cards: 20 practice items, all seen, lowest retrievability first', () => {
+      const cards = {}
+      // Lower stability -> lower retrievability after the same 10 days.
+      POOL.slice(0, 30).forEach((c, i) => { cards[`${c.id}:flag`] = reviewCard(i + 1) })
+      useGameStore.setState({ cards })
+      const { asked, max } = playPractice(POOL)
+      expect(max).toBe(20)
+      expect(asked).toEqual(POOL.slice(0, 20).map((c) => c.id))
+    })
+
+    it('fresh user: exactly 5 practice items', () => {
+      const { asked, max } = playPractice(POOL)
+      expect(max).toBe(5)
+      expect(asked).toHaveLength(5)
+      expect(new Set(asked).size).toBe(5)
+    })
+
+    it('3 seen cards: the 3 seen first, topped up to 5 with unseen countries', () => {
+      useGameStore.setState({
+        cards: { [`${POOL[7].id}:flag`]: reviewCard(1), [`${POOL[3].id}:flag`]: reviewCard(50), [`${POOL[9].id}:flag`]: reviewCard(5) },
+      })
+      const { asked } = playPractice(POOL)
+      expect(asked).toHaveLength(5)
+      expect(asked.slice(0, 3)).toEqual([POOL[7].id, POOL[9].id, POOL[3].id])
+    })
+
+    it('never asks the same country twice in a row, even with duplicates in the pool', () => {
+      const pool = [POOL[0], POOL[0], POOL[1], POOL[1], POOL[2]]
+      useGameStore.setState({
+        cards: { [`${POOL[0].id}:flag`]: reviewCard(1), [`${POOL[1].id}:flag`]: reviewCard(2) },
+      })
+      const { asked } = playPractice(pool)
+      expect(asked.length).toBeGreaterThan(0)
+      for (let i = 1; i < asked.length; i++) expect(asked[i]).not.toBe(asked[i - 1])
+    })
   })
 
   describe('empty session (nothing due, no new quota)', () => {
