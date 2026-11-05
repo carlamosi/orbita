@@ -6,18 +6,24 @@ import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
 import DayComplete from '../components/DayComplete'
+import { useGameStore } from '../store/useGameStore'
+import { similarPool } from './similarPool'
 
 export default function FlagQuiz() {
   const { countries } = useWorldData()
   const [subMode, setSubMode] = useState('flag-to-country') // 'flag-to-country' | 'country-to-flag'
   const [similarMode, setSimilarMode] = useState(false)
 
-  // Filter pool if similar flags mode is active
+  // Confusions are snapshotted when the toggle is switched on, so wrong answers during
+  // the session do not change the pool (which would restart it).
+  const [confusionsSnapshot, setConfusionsSnapshot] = useState({})
+
+  // Filter pool if similar flags mode is active (similarTo links plus flag confusions)
   const pool = useMemo(() => {
     if (!countries) return []
     if (!similarMode) return countries
-    return countries.filter(c => !!c.similarTo)
-  }, [countries, similarMode])
+    return similarPool(countries, confusionsSnapshot)
+  }, [countries, similarMode, confusionsSnapshot])
 
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
@@ -147,6 +153,15 @@ export default function FlagQuiz() {
           
           {/* Similar Flags Challenge Match Checkbox */}
           <label className="flex items-center gap-2 cursor-pointer group">
+            <input
+              type="checkbox"
+              className="sr-only"
+              checked={similarMode}
+              onChange={e => {
+                if (e.target.checked) setConfusionsSnapshot(useGameStore.getState().confusions || {})
+                setSimilarMode(e.target.checked)
+              }}
+            />
             <div className={`w-4 h-4 rounded tap-transparent border flex items-center justify-center transition-all ${
               similarMode ? 'bg-violet border-violet' : 'border-white/20 group-hover:border-white/50'
             }`}>

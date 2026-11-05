@@ -6,14 +6,24 @@ import { useGameStore } from '../store/useGameStore'
 import WorldHeatmap from '../components/WorldHeatmap'
 import ActivityGrid from '../components/ActivityGrid'
 import Button from '../components/Button'
+import { MASTERED } from '../srs/conf'
+import { localDayKey, daysBetween } from '../srs/dayKey'
 
-export default function Progress() {
+export default function Progress({ now = Date.now }) {
   const { countries } = useWorldData()
-  const { streak, totalSessions, countryProgress } = useGameStore()
+  const { totalSessions, countryProgress, reviewLog, stats } = useGameStore()
+
+  // A streak is only alive if the last session was today or yesterday.
+  const streak = stats.lastSessionDay && daysBetween(stats.lastSessionDay, localDayKey(now())) > 1 ? 0 : stats.streak
+
+  // Avg Accuracy: share of reviews rated above Again.
+  const accuracy = reviewLog.length > 0
+    ? Math.round((reviewLog.filter(e => e[1] > 1).length / reviewLog.length) * 100)
+    : 0
 
   // Calculate masteries
   const metrics = useMemo(() => {
-    if (!countries) return { mastered: 0, accuracy: 0, categoryAvgs: {}, regions: [] }
+    if (!countries) return { mastered: 0, categoryAvgs: {}, regions: [] }
     
     let masteredCount = 0
     let totalScore = 0
@@ -26,7 +36,7 @@ export default function Progress() {
 
     Object.entries(countryProgress).forEach(([cid, prog]) => {
       // is mastered?
-      if (prog.locationConf >= 60 && prog.capitalConf >= 60 && prog.flagConf >= 60) {
+      if (prog.locationConf >= MASTERED && prog.capitalConf >= MASTERED && prog.flagConf >= MASTERED) {
          masteredCount++
       }
 
@@ -64,7 +74,6 @@ export default function Progress() {
 
     return {
       mastered: masteredCount,
-      accuracy: counts > 0 ? ((categories.location + categories.capital + categories.flag) / (3 * counts)).toFixed(1) : 0,
       categoryAvgs: {
         location: counts > 0 ? (categories.location / counts) : 0,
         capital: counts > 0 ? (categories.capital / counts) : 0,
@@ -119,7 +128,7 @@ export default function Progress() {
            {/* Accuracy (Cyan) */}
            <div className="glass-card p-6 border-b-2 border-[#00D4FF]">
              <div className="text-sm font-inter text-[#8B8FA8] uppercase tracking-wider mb-2">Avg Accuracy</div>
-             <div className="text-4xl font-mono text-white drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">{metrics.accuracy}%</div>
+             <div className="text-4xl font-mono text-white drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">{accuracy}%</div>
            </div>
         </div>
 

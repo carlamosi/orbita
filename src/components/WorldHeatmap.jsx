@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { geoMercator, geoPath } from 'd3-geo'
 import { useWorldData } from '../context/WorldDataContext'
 import { useGameStore } from '../store/useGameStore'
+import { MASTERED } from '../srs/conf'
 
 export default function WorldHeatmap() {
   const { geoData } = useWorldData()
@@ -21,34 +22,20 @@ export default function WorldHeatmap() {
     return <div className="w-full h-full min-h-[300px] flex items-center justify-center text-white/50 animate-pulse">Loading map...</div>
   }
 
-  // Calculate score color based on progress matrix
-  const getColor = (cid) => {
+  const getStatus = (cid) => {
     const prog = countryProgress[cid]
-    if (!prog) return '#1a1a2e' // unseen
-    
-    // Average confidence across domains
-    const avg = (prog.locationConf + prog.capitalConf + prog.flagConf) / 3
-    // scale is roughly 0-100, but the prompt said "confidence: 0, 1-2, 3-4, 5+" wait... "confidence >= 3 all categories"
-    // Wait, the prompt said: 0, 1-2, 3-4, 5+ 
-    // Confidence values are 0-100.
-    // If the prompt assumed 0-5 scale, 100/20 = 5. Let's map 0-100 to 0-5.
-    const confScale = avg / 20 
-
-    if (confScale === 0) return '#1a1a2e'
-    if (confScale < 3) return '#1a1a6e'
-    if (confScale < 5) return '#003366'
-    return '#00FFB2' // Mastered
+    if (!prog) return 'unseen'
+    const { locationConf: l, capitalConf: c, flagConf: f } = prog
+    if (l >= MASTERED && c >= MASTERED && f >= MASTERED) return 'mastered'
+    const avg = (l + c + f) / 3
+    if (avg === 0) return 'unseen'
+    return avg >= MASTERED ? 'known' : 'learning'
   }
 
-  const getConfText = (cid) => {
-    const prog = countryProgress[cid]
-    if (!prog) return 'Unseen'
-    const avg = (prog.locationConf + prog.capitalConf + prog.flagConf) / 3
-    const confScale = avg / 20
-    if (confScale >= 5) return 'Mastered'
-    if (confScale >= 3) return 'Known'
-    return 'Learning'
-  }
+  const COLORS = { unseen: '#1a1a2e', learning: '#1a1a6e', known: '#003366', mastered: '#00FFB2' }
+  const LABELS = { unseen: 'Unseen', learning: 'Learning', known: 'Known', mastered: 'Mastered' }
+  const getColor = (cid) => COLORS[getStatus(cid)]
+  const getConfText = (cid) => LABELS[getStatus(cid)]
 
   return (
     <div className="relative w-full aspect-[2/1] bg-[#0d0d1a] rounded-xl border border-white/5 overflow-hidden">

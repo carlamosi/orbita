@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { useWorldData } from '../context/WorldDataContext'
+import { MASTERED } from '../srs/conf'
 import Button from '../components/Button'
 
 function ChallengeCard({ title, description, icon, progress, isLocked, isCompleted, onStart, lockedReason }) {
@@ -41,7 +42,7 @@ export default function Challenges() {
 
   // 1. Mastered countries
   const masteredCount = useMemo(() => {
-    return Object.values(countryProgress).filter(p => p.locationConf >= 60 && p.capitalConf >= 60 && p.flagConf >= 60).length
+    return Object.values(countryProgress).filter(p => p.locationConf >= MASTERED && p.capitalConf >= MASTERED && p.flagConf >= MASTERED).length
   }, [countryProgress])
 
   // Continents list
