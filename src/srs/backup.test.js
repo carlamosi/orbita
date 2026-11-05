@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { exportProgress, importProgress } from './backup.js'
+import { exportProgress, importProgress, BackupError } from './backup.js'
 import { freshV2 } from './migrate.js'
 import { newCard } from './scheduler.js'
 
@@ -56,10 +56,53 @@ describe('backup', () => {
     ['bad state', withCards({ 'ESP:loc': { ...good(), state: 7 } }), /invalid cards/],
     ['bad lastSessionDay', JSON.stringify({ ...sample(), stats: { ...sample().stats, lastSessionDay: '9999-12-31' } }), /invalid date/],
     ['garbage lastSessionDay', JSON.stringify({ ...sample(), stats: { ...sample().stats, lastSessionDay: 'zzzz' } }), /invalid date/],
+    ['lastSessionDay tomorrow', JSON.stringify({ ...sample(), stats: { ...sample().stats, lastSessionDay: '2026-11-06' } }), /invalid date/],
+    ['reviewed card with stability 0', withCards({ 'ESP:loc': { ...good(), state: 2, stability: 0 } }), /invalid cards/],
+    ['reviewed card with negative stability', withCards({ 'ESP:loc': { ...good(), state: 2, stability: -1 } }), /invalid cards/],
+    ['missing scheduled_days', withCards({ 'ESP:loc': { ...good(), scheduled_days: undefined } }), /invalid cards/],
+    ['null scheduled_days', withCards({ 'ESP:loc': { ...good(), scheduled_days: null } }), /invalid cards/],
+    ['non-numeric learning_steps', withCards({ 'ESP:loc': { ...good(), learning_steps: 'x' } }), /invalid cards/],
+    ['null learning_steps', withCards({ 'ESP:loc': { ...good(), learning_steps: null } }), /invalid cards/],
   ])('rejects %s and leaves current untouched', (_n, json, re) => {
     const current = sample()
     const before = JSON.stringify(current)
     expect(() => importProgress(json, current, Date.parse('2026-11-05T12:00:00Z'))).toThrow(re)
     expect(JSON.stringify(current)).toBe(before)
+  })
+
+  it('accepts lastSessionDay today and a New card (stability 0) without learning_steps', () => {
+    const nowMs = Date.parse('2026-11-05T12:00:00Z')
+    const { learning_steps: _drop, ...noSteps } = good()
+    const json = JSON.stringify({ ...sample(), cards: { 'ESP:loc': good(), 'FRA:cap': noSteps } })
+    expect(() => importProgress(json, freshV2(1000), nowMs)).not.toThrow()
+  })
+
+  it('rejects a backup larger than 5 MB before parsing it', () => {
+    const current = sample()
+    const before = JSON.stringify(current)
+    const huge = JSON.stringify({ ...sample(), pad: 'x'.repeat(5 * 1024 * 1024) })
+    expect(() => importProgress(huge, current)).toThrow(BackupError)
+    expect(() => importProgress(huge, current)).toThrow('This backup file is too large.')
+    expect(JSON.stringify(current)).toBe(before)
+  })
+
+  it('exports only v2 fields (no derived UI fields, status or actions)', () => {
+    const state = {
+      ...sample(),
+      countryProgress: { ESP: { locationConf: 80, capitalConf: 0, flagConf: 0, timesWrong: 0 } },
+      dailyActivity: { '2026-11-05': 1 },
+      streak: 2,
+      totalSessions: 3,
+      flagSessionsCompleted: 1,
+      storageStatus: 'ok',
+      needsReload: false,
+      answer: () => {},
+    }
+    const out = JSON.parse(exportProgress(state))
+    for (const k of ['countryProgress', 'storageStatus', 'needsReload', 'dailyActivity', 'streak', 'totalSessions', 'flagSessionsCompleted', 'answer']) {
+      expect(out).not.toHaveProperty(k)
+    }
+    expect(Object.keys(out).sort()).toEqual(Object.keys(freshV2(0)).sort())
+    expect(out.schema).toBe(2)
   })
 })

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { useWorldData } from '../context/WorldDataContext'
-import { MASTERED } from '../srs/conf'
+import { isMastered } from '../srs/conf'
 import Button from '../components/Button'
 
 function ChallengeCard({ title, description, icon, progress, isLocked, isCompleted, onStart, lockedReason }) {
@@ -42,17 +42,14 @@ export default function Challenges() {
 
   // 1. Mastered countries
   const masteredCount = useMemo(() => {
-    return Object.values(countryProgress).filter(p => p.locationConf >= MASTERED && p.capitalConf >= MASTERED && p.flagConf >= MASTERED).length
+    return Object.values(countryProgress).filter(isMastered).length
   }, [countryProgress])
 
   // Countries without a globe shape cannot be located, so show how many of the locatable ones are mastered.
   const locatable = useMemo(() => {
     if (!countries || !shapeIds || shapeIds.size === 0) return null
     const ids = countries.filter(c => shapeIds.has(c.id)).map(c => c.id)
-    const mastered = ids.filter(id => {
-      const p = countryProgress[id]
-      return p && p.locationConf >= MASTERED && p.capitalConf >= MASTERED && p.flagConf >= MASTERED
-    }).length
+    const mastered = ids.filter(id => isMastered(countryProgress[id])).length
     return { mastered, total: ids.length }
   }, [countries, shapeIds, countryProgress])
 

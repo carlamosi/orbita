@@ -312,6 +312,19 @@ describe('createV2Storage + store', () => {
     expect(store.getState().needsReload).toBe(true)
   })
 
+  it('stored version 3 with a non-object state: needsReload, no quarantine, no writes', async () => {
+    const future = JSON.stringify({ version: 3, state: 'compressed-string' })
+    localStorage.setItem(KEY, future)
+    const spy = vi.spyOn(Storage.prototype, 'setItem')
+    const store = await loadStore()
+    store.getState().answer('ESP:loc', Rating.Good, T0, { latencyMs: null })
+
+    expect(store.getState().needsReload).toBe(true)
+    expect(localStorage.getItem(KEY)).toBe(future)
+    expect(Object.keys(localStorage).some((k) => k.includes('-corrupt-'))).toBe(false)
+    expect(spy).not.toHaveBeenCalled()
+  })
+
   it('a newer bundle writing version 3 mid-session flips needsReload and stops writes', async () => {
     const store = await loadStore()
     store.getState().answer('ESP:loc', Rating.Good, T0, { latencyMs: null })

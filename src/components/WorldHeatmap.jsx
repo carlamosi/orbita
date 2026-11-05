@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { geoMercator, geoPath } from 'd3-geo'
 import { useWorldData } from '../context/WorldDataContext'
 import { useGameStore } from '../store/useGameStore'
-import { MASTERED } from '../srs/conf'
+import { MASTERED, isMastered } from '../srs/conf'
 
 export default function WorldHeatmap() {
   const { geoData } = useWorldData()
@@ -25,8 +25,8 @@ export default function WorldHeatmap() {
   const getStatus = (cid) => {
     const prog = countryProgress[cid]
     if (!prog) return 'unseen'
+    if (isMastered(prog)) return 'mastered'
     const { locationConf: l, capitalConf: c, flagConf: f } = prog
-    if (l >= MASTERED && c >= MASTERED && f >= MASTERED) return 'mastered'
     const avg = (l + c + f) / 3
     if (avg === 0) return 'unseen'
     return avg >= MASTERED ? 'known' : 'learning'

@@ -6,10 +6,11 @@ import { useGameStore } from '../store/useGameStore'
 import WorldHeatmap from '../components/WorldHeatmap'
 import ActivityGrid from '../components/ActivityGrid'
 import Button from '../components/Button'
-import { MASTERED } from '../srs/conf'
+import { isMastered } from '../srs/conf'
 import { localDayKey, daysBetween } from '../srs/dayKey'
 import { State } from '../srs/scheduler'
 import { exportProgress, importProgress, BackupError } from '../srs/backup'
+import { storageMessage } from '../components/storageMessage'
 
 const CAT_ROUTE = { loc: '/find', cap: '/capital', flag: '/flag' }
 const CAT_LABEL = { loc: 'location', cap: 'capital', flag: 'flag' }
@@ -28,6 +29,7 @@ export default function Progress({ now = Date.now }) {
   const { countries } = useWorldData()
   const { totalSessions, countryProgress, reviewLog, stats, cards, confusions } = useGameStore()
   const [importError, setImportError] = useState(null)
+  const [importOk, setImportOk] = useState(false)
   const fileRef = useRef(null)
 
   // Ask the browser not to evict our storage. Result and errors are irrelevant.
@@ -93,8 +95,13 @@ export default function Progress({ now = Date.now }) {
       const text = await readFile(file)
       const merged = importProgress(text, useGameStore.getState())
       useGameStore.getState().importState(merged)
-      setImportError(null)
+      // The import lives in memory either way; only claim success if it was saved.
+      const { storageStatus, needsReload } = useGameStore.getState()
+      const warning = storageMessage(storageStatus, needsReload)
+      setImportError(warning)
+      setImportOk(!warning)
     } catch (err) {
+      setImportOk(false)
       setImportError(err instanceof BackupError ? err.message : 'This file could not be imported.')
     }
     try { input.value = '' } catch { /* ignore */ }
@@ -122,7 +129,7 @@ export default function Progress({ now = Date.now }) {
 
     Object.entries(countryProgress).forEach(([cid, prog]) => {
       // is mastered?
-      if (prog.locationConf >= MASTERED && prog.capitalConf >= MASTERED && prog.flagConf >= MASTERED) {
+      if (isMastered(prog)) {
          masteredCount++
       }
 
@@ -350,6 +357,7 @@ export default function Progress({ now = Date.now }) {
             <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={handleImport} />
           </div>
           {importError && <p role="alert" className="text-sm text-[#FF6B6B]">{importError}</p>}
+          {importOk && <p role="status" className="text-sm text-[#00FFB2]">Progress imported.</p>}
         </div>
 
       </div>

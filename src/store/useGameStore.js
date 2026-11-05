@@ -12,24 +12,11 @@ import {
   capDaily,
   capConfusionRow,
   topSpeedBests,
+  pickV2,
 } from './storageV2.js'
 
 const KEY = 'orbita-v2'
 const LEGACY_KEY = 'orbita-storage'
-const V2_FIELDS = [
-  'schema',
-  'meta',
-  'cards',
-  'reviewLog',
-  'confusions',
-  'daily',
-  'stats',
-  'speedRoundBests',
-  'challenges',
-  'settings',
-]
-
-const pickV2 = (s) => Object.fromEntries(V2_FIELDS.map((k) => [k, s[k]]))
 
 // Read-only fields the UI consumes (plain state, recomputed on every set so
 // selectors re-render).

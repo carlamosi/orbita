@@ -14,6 +14,23 @@ export const MAX_DAYS = 400
 export const MAX_CONFUSIONS = 5
 export const MAX_SPEED_BESTS = 10
 
+// Top-level StateV2 fields (the keys of freshV2). Persistence and backups keep
+// only these; everything else in the store is derived UI state or actions.
+export const V2_FIELDS = [
+  'schema',
+  'meta',
+  'cards',
+  'reviewLog',
+  'confusions',
+  'daily',
+  'stats',
+  'speedRoundBests',
+  'challenges',
+  'settings',
+]
+
+export const pickV2 = (s) => Object.fromEntries(V2_FIELDS.map((k) => [k, s[k]]))
+
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
 const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : 0)
 const round2 = (v) => (typeof v === 'number' && Number.isFinite(v) ? Math.round(v * 100) / 100 : v)
@@ -309,13 +326,15 @@ export function createV2Storage({
     } catch {
       parsed = null
     }
+    // A newer bundle may store a shape we do not understand (e.g. a non-object
+    // state): check the version before the shape, never quarantine or write it.
+    if (isObj(parsed) && tooNew(parsed)) {
+      setStatus('needsReload')
+      return { error: true }
+    }
     if (!isObj(parsed) || !isObj(parsed.state)) {
       // Copied aside: treat v2 as missing (re-migrate from legacy or start fresh).
       return quarantine(ls, key, raw) ? { missing: true } : { error: true }
-    }
-    if (tooNew(parsed)) {
-      setStatus('needsReload')
-      return { error: true }
     }
     return { state: parsed.state }
   }

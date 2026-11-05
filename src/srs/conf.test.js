@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { State, newCard } from './scheduler.js'
-import { cardConf, materializeProgress, MASTERED } from './conf.js'
+import { cardConf, materializeProgress, MASTERED, isMastered } from './conf.js'
 
 const T0 = Date.UTC(2026, 0, 10, 12, 0, 0)
 const DAY = 86400000
@@ -82,5 +82,20 @@ describe('materializeProgress: wrong counter', () => {
       T0,
     )
     expect(m.ESP.timesWrong).toBe(7)
+  })
+})
+
+describe('isMastered', () => {
+  it('requires all three categories >= MASTERED (not the average)', () => {
+    expect(isMastered({ locationConf: 60, capitalConf: 60, flagConf: 60 })).toBe(true)
+    expect(isMastered({ locationConf: 100, capitalConf: 100, flagConf: 59 })).toBe(false)
+    // average 73, one category below the threshold
+    expect(isMastered({ locationConf: 100, capitalConf: 100, flagConf: 20 })).toBe(false)
+  })
+
+  it('missing progress is not mastered', () => {
+    expect(isMastered(undefined)).toBe(false)
+    expect(isMastered(null)).toBe(false)
+    expect(isMastered({})).toBe(false)
   })
 })

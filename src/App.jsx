@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import PageWrapper from './components/PageWrapper'
 import Navbar from './components/Navbar'
+import StorageBanner from './components/StorageBanner'
 import Home from './pages/Home'
 import Explorer from './pages/Explorer'
 import Progress from './pages/Progress'
@@ -33,6 +34,7 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-[#050508] text-white">
       <Navbar />
+      <StorageBanner />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/"           element={<PageWrapper><Home /></PageWrapper>} />

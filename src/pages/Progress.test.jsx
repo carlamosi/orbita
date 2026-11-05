@@ -148,12 +148,29 @@ describe('Progress and heatmap', () => {
   it('import of a valid file merges into the store', async () => {
     vi.useRealTimers()
     const root = render(<Progress />)
-    const imported = { ...useGameStore.getState(), cards: { 'ESP:loc': { ...newCard(1000), state: 2, last_review: 5, reps: 1 } } }
+    const imported = { ...useGameStore.getState(), cards: { 'ESP:loc': { ...newCard(1000), state: 2, stability: 3, last_review: 5, reps: 1 } } }
     const json = JSON.stringify({ schema: 2, cards: imported.cards })
     const input = document.querySelector('input[type="file"]')
     Object.defineProperty(input, 'files', { value: [new File([json], 'x.json')], configurable: true })
     await act(async () => { input.dispatchEvent(new Event('change', { bubbles: true })); await new Promise((r) => setTimeout(r, 50)) })
     expect(Object.keys(useGameStore.getState().cards)).toContain('ESP:loc')
+    expect(document.querySelector('[role="status"]').textContent).toBe('Progress imported.')
+    expect(document.querySelector('[role="alert"]')).toBeNull()
+    act(() => root.unmount())
+  })
+
+  it('import while storage is not writable warns instead of claiming success', async () => {
+    vi.useRealTimers()
+    useGameStore.setState({ storageStatus: 'unavailable', needsReload: false })
+    const root = render(<Progress />)
+    const json = JSON.stringify({ schema: 2, cards: { 'ESP:loc': { ...newCard(1000), state: 2, stability: 3, last_review: 5, reps: 1 } } })
+    const input = document.querySelector('input[type="file"]')
+    Object.defineProperty(input, 'files', { value: [new File([json], 'x.json')], configurable: true })
+    await act(async () => { input.dispatchEvent(new Event('change', { bubbles: true })); await new Promise((r) => setTimeout(r, 50)) })
+    expect(document.querySelector('[role="alert"]').textContent).toBe(
+      "Your progress can't be saved in this browser right now. Export a backup from Progress to keep it.",
+    )
+    expect(document.body.textContent).not.toContain('Progress imported.')
     act(() => root.unmount())
   })
 

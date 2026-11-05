@@ -2,6 +2,12 @@ import { State, retrievability } from './scheduler.js'
 
 export const MASTERED = 60
 
+// A country is mastered when every category (location, capital, flag) is
+// >= MASTERED. One shared rule for the globe, the heatmap, Progress and Challenges.
+export function isMastered(p) {
+  return !!p && p.locationConf >= MASTERED && p.capitalConf >= MASTERED && p.flagConf >= MASTERED
+}
+
 const FIELD = { loc: 'locationConf', cap: 'capitalConf', flag: 'flagConf' }
 const STABILITY_REF = Math.log(1 + 21)
 
