@@ -4,6 +4,7 @@ import { useWorldData } from '../context/WorldDataContext'
 import { useGameStore } from '../store/useGameStore'
 import { useSounds } from '../hooks/useSounds'
 import { useKeyboard } from '../hooks/useKeyboard'
+import { safeGet } from '../hooks/safeStorage'
 import CircleTimer from '../components/CircleTimer'
 import Button from '../components/Button'
 import { toRating } from '../srs/rating.js'
@@ -21,9 +22,15 @@ const clock = () => Date.now()
 
 export default function SpeedRound() {
   const [searchParams] = useSearchParams()
-  const activeContinent = searchParams.get('continent') || 'all'
+  const requestedContinent = searchParams.get('continent') || 'all'
 
   const { countries } = useWorldData()
+  // An unknown continent, or one with fewer than 4 countries, cannot fill the answer grid: use all.
+  const activeContinent = useMemo(() => {
+    if (requestedContinent === 'all' || !countries) return 'all'
+    const size = countries.filter(c => c.continent === requestedContinent || c.region === requestedContinent).length
+    return size >= 4 ? requestedContinent : 'all'
+  }, [requestedContinent, countries])
   const answer = useGameStore(s => s.answer)
   const recordConfusion = useGameStore(s => s.recordConfusion)
   const finishSession = useGameStore(s => s.finishSession)
@@ -33,7 +40,7 @@ export default function SpeedRound() {
   const { playCorrect, playWrong, playComplete } = useSounds()
 
   const [hasUsedKeyboard, setHasUsedKeyboard] = useState(() => 
-    localStorage.getItem('orbita-has-used-keyboard') === 'true'
+    safeGet('orbita-has-used-keyboard') === 'true'
   )
 
   const [isRunning, setIsRunning] = useState(false)
@@ -131,7 +138,7 @@ export default function SpeedRound() {
   useEffect(() => {
     // Refresh hasUsedKeyboard status when it changes in localStorage
     const checkKbd = () => {
-      if (localStorage.getItem('orbita-has-used-keyboard') === 'true') {
+      if (safeGet('orbita-has-used-keyboard') === 'true') {
         setHasUsedKeyboard(true)
       }
     }

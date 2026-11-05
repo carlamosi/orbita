@@ -3,16 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Globe3D, QuestionCard, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
-import { useWorldData } from '../context/WorldDataContext'
+import { useWorldData, locatablePool } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useMemo } from 'react'
 import DayComplete from '../components/DayComplete'
 
 export default function FindCountry() {
+  const { countries, shapeIds } = useWorldData()
+  // Only countries with a shape on the globe can be asked.
+  const pool = useMemo(() => locatablePool(countries, shapeIds), [countries, shapeIds])
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
     isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
-  } = useCountryGame('find')
+  } = useCountryGame('find', { pool })
 
   const [colors, setColors] = useState({})
   const [processing, setProcessing] = useState(false)

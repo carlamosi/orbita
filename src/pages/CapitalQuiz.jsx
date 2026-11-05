@@ -3,17 +3,22 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Globe3D, Confetti, Button, AnswerInput } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
-import { useWorldData } from '../context/WorldDataContext'
+import { useWorldData, locatablePool } from '../context/WorldDataContext'
 import DayComplete from '../components/DayComplete'
 
 export default function CapitalQuiz() {
-  const { countries, geoData } = useWorldData()
+  const { countries, geoData, shapeIds } = useWorldData()
   const [subMode, setSubMode] = useState('country-to-capital') // 'country-to-capital' | 'capital-to-country' | 'locate'
+  // The locate sub-mode asks on the globe: only countries with a shape. Text modes use everything.
+  const pool = useMemo(
+    () => (subMode === 'locate' ? locatablePool(countries, shapeIds) : null),
+    [subMode, countries, shapeIds]
+  )
 
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
     isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
-  } = useCountryGame('capital')
+  } = useCountryGame('capital', { pool })
 
   const [processing, setProcessing] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)

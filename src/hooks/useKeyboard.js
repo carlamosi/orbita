@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { safeSet } from './safeStorage'
 
 /**
  * useKeyboard
@@ -23,7 +24,7 @@ export function useKeyboard(handlers) {
         
         // Mark that user has used keyboard in localStorage
         if (['1', '2', '3', '4', 'Enter', 'ArrowUp', 'ArrowDown', 'h', 'H'].includes(e.key)) {
-          localStorage.setItem('orbita-has-used-keyboard', 'true')
+          safeSet('orbita-has-used-keyboard', 'true')
         }
         
         handler()

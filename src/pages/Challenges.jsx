@@ -37,13 +37,24 @@ function ChallengeCard({ title, description, icon, progress, isLocked, isComplet
 }
 
 export default function Challenges() {
-  const { countries } = useWorldData()
+  const { countries, shapeIds } = useWorldData()
   const { countryProgress, speedRoundBests, flagSessionsCompleted, challenges } = useGameStore()
 
   // 1. Mastered countries
   const masteredCount = useMemo(() => {
     return Object.values(countryProgress).filter(p => p.locationConf >= MASTERED && p.capitalConf >= MASTERED && p.flagConf >= MASTERED).length
   }, [countryProgress])
+
+  // Countries without a globe shape cannot be located, so show how many of the locatable ones are mastered.
+  const locatable = useMemo(() => {
+    if (!countries || !shapeIds || shapeIds.size === 0) return null
+    const ids = countries.filter(c => shapeIds.has(c.id)).map(c => c.id)
+    const mastered = ids.filter(id => {
+      const p = countryProgress[id]
+      return p && p.locationConf >= MASTERED && p.capitalConf >= MASTERED && p.flagConf >= MASTERED
+    }).length
+    return { mastered, total: ids.length }
+  }, [countries, shapeIds, countryProgress])
 
   // Continents list
   const continents = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'] // Adjust to standard 5/6 as needed, we use 6:
@@ -65,7 +76,9 @@ export default function Challenges() {
             title="The 195"
             description="Achieve mastery in all 195 countries across Geography, Flags, and Capitals."
             icon="🌍"
-            progress={`${masteredCount} / 195`}
+            progress={locatable
+              ? `${masteredCount} / 195 (${locatable.mastered} / ${locatable.total} locatable)`
+              : `${masteredCount} / 195`}
             isLocked={false}
             isCompleted={masteredCount >= 195}
             onStart={() => window.location.href = '/explorer'}

@@ -1,5 +1,6 @@
 import { Howl } from 'howler'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
+import { safeGet, safeSet } from './safeStorage'
 
 const SOUND_URLS = {
   correct: 'https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3',
@@ -10,7 +11,7 @@ const SOUND_URLS = {
 
 export function useSounds() {
   const [muted, setMuted] = useState(() => {
-    return localStorage.getItem('orbita-muted') === 'true'
+    return safeGet('orbita-muted') === 'true'
   })
 
   const [sounds] = useState(() => {
@@ -28,7 +29,7 @@ export function useSounds() {
   const toggleMute = useCallback(() => {
     setMuted(m => {
       const newMuted = !m
-      localStorage.setItem('orbita-muted', String(newMuted))
+      safeSet('orbita-muted', String(newMuted))
       return newMuted
     })
   }, [])
