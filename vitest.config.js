@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    // process.env.TZ in the setup file only applies reliably in forked processes.
+    pool: 'forks',
     setupFiles: ['src/test/setup.js'],
     include: ['src/**/*.test.{js,jsx}'],
   },
