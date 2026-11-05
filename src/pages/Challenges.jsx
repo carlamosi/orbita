@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { useWorldData } from '../context/WorldDataContext'
+import { isMastered } from '../srs/conf'
 import Button from '../components/Button'
 
 function ChallengeCard({ title, description, icon, progress, isLocked, isCompleted, onStart, lockedReason }) {
@@ -36,16 +37,23 @@ function ChallengeCard({ title, description, icon, progress, isLocked, isComplet
 }
 
 export default function Challenges() {
-  const { countries } = useWorldData()
+  const { countries, shapeIds } = useWorldData()
   const { countryProgress, speedRoundBests, flagSessionsCompleted, challenges } = useGameStore()
 
   // 1. Mastered countries
   const masteredCount = useMemo(() => {
-    return Object.values(countryProgress).filter(p => p.locationConf >= 60 && p.capitalConf >= 60 && p.flagConf >= 60).length
+    return Object.values(countryProgress).filter(isMastered).length
   }, [countryProgress])
 
+  // Countries without a globe shape cannot be located, so show how many of the locatable ones are mastered.
+  const locatable = useMemo(() => {
+    if (!countries || !shapeIds || shapeIds.size === 0) return null
+    const ids = countries.filter(c => shapeIds.has(c.id)).map(c => c.id)
+    const mastered = ids.filter(id => isMastered(countryProgress[id])).length
+    return { mastered, total: ids.length }
+  }, [countries, shapeIds, countryProgress])
+
   // Continents list
-  const continents = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'] // Adjust to standard 5/6 as needed, we use 6:
   // Using 6 for filtering: 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
 
   return (
@@ -64,7 +72,9 @@ export default function Challenges() {
             title="The 195"
             description="Achieve mastery in all 195 countries across Geography, Flags, and Capitals."
             icon="🌍"
-            progress={`${masteredCount} / 195`}
+            progress={locatable
+              ? `${masteredCount} / 195 (${locatable.mastered} / ${locatable.total} locatable)`
+              : `${masteredCount} / 195`}
             isLocked={false}
             isCompleted={masteredCount >= 195}
             onStart={() => window.location.href = '/explorer'}
@@ -132,7 +142,7 @@ export default function Challenges() {
             progress="0/1"
             isLocked={speedRoundBests.filter(s => s.continent !== 'all').length === 0}
             lockedReason="Attempt a Continent Speedrun first."
-            isCompleted={Object.keys(challenges || {}).some(k => k.startsWith('perfect_'))}
+            isCompleted={Object.values(challenges?.perfectContinents || {}).some(v => v === true)}
             onStart={() => {}}
           />
         </div>

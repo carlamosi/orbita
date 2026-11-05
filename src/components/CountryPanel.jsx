@@ -52,7 +52,6 @@ export default function CountryPanel({ country, onClose, isBorderViewActive, onT
   const name      = exactData?.name      || geoName
   const continent = exactData?.continent || p.continent || p.CONTINENT || ''
   const pop       = exactData?.population|| p.pop_est   || p.POP_EST   || 0
-  const flag      = exactData?.flagCode  || (exactData?.flag ? exactData.flag : '')
   const capital   = exactData?.capital   || 'N/A'
   const currency  = exactData?.currency  || 'N/A'
   const languages = exactData?.languages?.join(', ') || 'N/A'
@@ -68,6 +67,7 @@ export default function CountryPanel({ country, onClose, isBorderViewActive, onT
   // Artificial delay for skeleton demonstration or real fetch prep
   useEffect(() => {
     if (country) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- resets the skeleton each time a country is selected
       setIsDataLoaded(false)
       const timer = setTimeout(() => setIsDataLoaded(true), 300)
       return () => clearTimeout(timer)

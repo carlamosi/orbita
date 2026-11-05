@@ -4,20 +4,43 @@ import { useWorldData } from '../context/WorldDataContext'
 import { useGameStore } from '../store/useGameStore'
 import { useSounds } from '../hooks/useSounds'
 import { useKeyboard } from '../hooks/useKeyboard'
+import { safeGet } from '../hooks/safeStorage'
 import CircleTimer from '../components/CircleTimer'
 import Button from '../components/Button'
+import { toRating } from '../srs/rating.js'
+import countriesDataset from '../data/countries.json'
+
+// Card category each question type tests.
+const TYPE_CATEGORY = {
+  flag_to_name: 'flag',
+  name_to_flag: 'flag',
+  capital_to_name: 'cap',
+  name_to_capital: 'cap',
+}
+const VALID_IDS = new Set(countriesDataset.map((c) => c.id))
+const clock = () => Date.now()
 
 export default function SpeedRound() {
   const [searchParams] = useSearchParams()
-  const activeContinent = searchParams.get('continent') || 'all'
+  const requestedContinent = searchParams.get('continent') || 'all'
 
   const { countries } = useWorldData()
-  const addSpeedScore = useGameStore(s => s.actions.addSpeedScore)
+  // An unknown continent, or one with fewer than 4 countries, cannot fill the answer grid: use all.
+  const activeContinent = useMemo(() => {
+    if (requestedContinent === 'all' || !countries) return 'all'
+    const size = countries.filter(c => c.continent === requestedContinent || c.region === requestedContinent).length
+    return size >= 4 ? requestedContinent : 'all'
+  }, [requestedContinent, countries])
+  const answer = useGameStore(s => s.answer)
+  const recordConfusion = useGameStore(s => s.recordConfusion)
+  const finishSession = useGameStore(s => s.finishSession)
+  const addSpeedScore = useGameStore(s => s.addSpeedScore)
+  const unlockPerfectContinent = useGameStore(s => s.unlockPerfectContinent)
   const speedRoundBests = useGameStore(s => s.speedRoundBests) || []
   const { playCorrect, playWrong, playComplete } = useSounds()
 
   const [hasUsedKeyboard, setHasUsedKeyboard] = useState(() => 
-    localStorage.getItem('orbita-has-used-keyboard') === 'true'
+    safeGet('orbita-has-used-keyboard') === 'true'
   )
 
   const [isRunning, setIsRunning] = useState(false)
@@ -33,6 +56,9 @@ export default function SpeedRound() {
   const [currentQ, setCurrentQ] = useState(null)
   
   const bestScore = speedRoundBests[0]?.score || 0
+  // Best score before this round was saved: the end screen compares against it (BUG-13).
+  const [previousBest, setPreviousBest] = useState(0)
+  const shownAt = useRef(0)
 
   // Generator
   const generateQuestion = () => {
@@ -63,6 +89,11 @@ export default function SpeedRound() {
     setFlash(true)
     setTimeout(() => setFlash(false), 50)
     
+    showQuestion()
+  }
+
+  const showQuestion = () => {
+    shownAt.current = clock()
     setCurrentQ(generateQuestion())
   }
 
@@ -70,7 +101,14 @@ export default function SpeedRound() {
   const handleAnswer = (optCountryId) => {
     if (!currentQ) return
     const isCorrect = optCountryId === currentQ.target.id
-    
+
+    // Timed answers rate Good or Again only; the card is the one the question type tests.
+    const nowMs = clock()
+    const cardId = `${currentQ.target.id}:${TYPE_CATEGORY[currentQ.type]}`
+    const latencyMs = Math.max(0, nowMs - shownAt.current)
+    answer(cardId, toRating({ correct: isCorrect, timed: true, latencyMs, inputKind: 'choice' }), nowMs, { latencyMs })
+    if (!isCorrect && VALID_IDS.has(optCountryId)) recordConfusion(cardId, optCountryId)
+
     if (isCorrect) {
       setScore(s => s + 10)
       setCorrectCount(c => c + 1)
@@ -93,6 +131,7 @@ export default function SpeedRound() {
       '4': () => handleAnswer(currentQ.options[3].id),
       'Enter': () => { if (!isRunning && !isFinished) startGame() }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- handlers are recreated every render; keyboard map refreshes only on run/question change
   }, [isRunning, currentQ])
 
   useKeyboard(keyboardHandlers)
@@ -100,7 +139,7 @@ export default function SpeedRound() {
   useEffect(() => {
     // Refresh hasUsedKeyboard status when it changes in localStorage
     const checkKbd = () => {
-      if (localStorage.getItem('orbita-has-used-keyboard') === 'true') {
+      if (safeGet('orbita-has-used-keyboard') === 'true') {
         setHasUsedKeyboard(true)
       }
     }
@@ -114,7 +153,7 @@ export default function SpeedRound() {
     setWrongCount(0)
     setIsFinished(false)
     setIsRunning(true)
-    setCurrentQ(generateQuestion())
+    showQuestion()
   }
 
   const handleTimeUp = () => {
@@ -123,21 +162,14 @@ export default function SpeedRound() {
     playComplete()
     const total = correctCount + wrongCount
     const qpm = total // 60s game = 1 min
+    setPreviousBest(bestScore)
     addSpeedScore(score, `${correctCount}/${total}`, qpm, activeContinent)
-    
+    if (total > 0) finishSession('speed', score, clock())
+
     // If perfect continent (correct > 0 and no wrong)
     if (activeContinent !== 'all' && wrongCount === 0 && correctCount > 0) {
-      useGameStore.getState().actions.unlockChallenge(`perfect_${activeContinent}`, true)
+      unlockPerfectContinent(activeContinent)
     }
-  }
-
-  // Helper for Sound Triggers
-  const triggerFeedback = (isCorrect) => {
-    if (isCorrect) playCorrect()
-    else playWrong()
-    
-    setFlash(true)
-    setTimeout(() => setFlash(false), 50)
   }
 
   return (
@@ -233,7 +265,7 @@ export default function SpeedRound() {
       {/* -- END SCREEN -- */}
       {isFinished && (
         <div className="flex-1 flex flex-col items-center justify-center text-center">
-           {score > bestScore ? (
+           {score > previousBest ? (
              <div className="font-inter text-neon bg-neon/10 px-4 py-1 rounded-full mb-6 relative animate-pulse">🏆 New Record!</div>
            ) : (
              <div className="font-inter text-[#8B8FA8] mb-6">+{score} from your previous attempts</div>

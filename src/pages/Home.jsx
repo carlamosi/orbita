@@ -134,6 +134,7 @@ export default function Home() {
   useScrollProgress(handleScrollProgress);
 
   // Stars
+  /* eslint-disable react-hooks/purity -- decorative random starfield, computed once ([] deps) */
   const stars = useMemo(() =>
     Array.from({ length: 120 }).map((_, i) => ({
       id: i,
@@ -144,6 +145,7 @@ export default function Home() {
       delay: `${Math.random() * 4}s`,
     }))
   , []);
+  /* eslint-enable react-hooks/purity */
 
   return (
     <main className="relative w-full h-[380vh] bg-[#050508]">

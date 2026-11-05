@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useWorldData } from '../context/WorldDataContext'
@@ -6,17 +6,120 @@ import { useGameStore } from '../store/useGameStore'
 import WorldHeatmap from '../components/WorldHeatmap'
 import ActivityGrid from '../components/ActivityGrid'
 import Button from '../components/Button'
+import { isMastered } from '../srs/conf'
+import { localDayKey, daysBetween } from '../srs/dayKey'
+import { State } from '../srs/scheduler'
+import { exportProgress, importProgress, BackupError } from '../srs/backup'
+import { storageMessage } from '../components/storageMessage'
 
-export default function Progress() {
+const CAT_ROUTE = { loc: '/find', cap: '/capital', flag: '/flag' }
+const CAT_LABEL = { loc: 'location', cap: 'capital', flag: 'flag' }
+
+const readFile = (file) =>
+  typeof file.text === 'function'
+    ? file.text()
+    : new Promise((resolve, reject) => {
+        const r = new FileReader()
+        r.onload = () => resolve(String(r.result))
+        r.onerror = () => reject(r.error)
+        r.readAsText(file)
+      })
+
+export default function Progress({ now = Date.now }) {
   const { countries } = useWorldData()
-  const { streak, totalSessions, countryProgress } = useGameStore()
+  const { totalSessions, countryProgress, reviewLog, stats, cards, confusions } = useGameStore()
+  const [importError, setImportError] = useState(null)
+  const [importOk, setImportOk] = useState(false)
+  const fileRef = useRef(null)
+
+  // Ask the browser not to evict our storage. Result and errors are irrelevant.
+  useEffect(() => {
+    try {
+      Promise.resolve(navigator.storage?.persist?.()).catch(() => {})
+    } catch {
+      // ignore
+    }
+  }, [])
+
+  // Review queue: seen cards whose due time has come.
+  const { dueCount, dueRoute } = useMemo(() => {
+    const t = now()
+    const byCat = { loc: 0, cap: 0, flag: 0 }
+    let total = 0
+    for (const [id, c] of Object.entries(cards || {})) {
+      if (c && c.state !== State.New && c.due <= t) {
+        total++
+        const cat = id.split(':')[1]
+        if (cat in byCat) byCat[cat]++
+      }
+    }
+    const best = Object.keys(byCat).reduce((a, b) => (byCat[b] > byCat[a] ? b : a), 'loc')
+    return { dueCount: total, dueRoute: CAT_ROUTE[best] }
+  }, [cards, now])
+
+  // Top 3 confused pairs across all cards.
+  const topConfusions = useMemo(() => {
+    if (!countries) return []
+    const byId = new Map(countries.map((c) => [c.id, c]))
+    const pairs = []
+    for (const [cardId, row] of Object.entries(confusions || {})) {
+      const [iso, cat] = cardId.split(':')
+      const a = byId.get(iso)
+      if (!a || !row) continue
+      for (const [chosen, n] of Object.entries(row)) {
+        const b = byId.get(chosen)
+        if (b) pairs.push({ key: `${cardId}>${chosen}`, a: a.name, b: b.name, cat, n })
+      }
+    }
+    return pairs.sort((x, y) => y.n - x.n).slice(0, 3)
+  }, [confusions, countries])
+
+  const handleExport = () => {
+    const state = useGameStore.getState()
+    const blob = new Blob([exportProgress(state)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `orbita-progress-${localDayKey(now())}.json`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleImport = async (e) => {
+    const input = e.target
+    const file = input.files && input.files[0]
+    if (!file) return
+    try {
+      const text = await readFile(file)
+      const merged = importProgress(text, useGameStore.getState())
+      useGameStore.getState().importState(merged)
+      // The import lives in memory either way; only claim success if it was saved.
+      const { storageStatus, needsReload } = useGameStore.getState()
+      const warning = storageMessage(storageStatus, needsReload)
+      setImportError(warning)
+      setImportOk(!warning)
+    } catch (err) {
+      setImportOk(false)
+      setImportError(err instanceof BackupError ? err.message : 'This file could not be imported.')
+    }
+    try { input.value = '' } catch { /* ignore */ }
+  }
+
+  // A streak is only alive if the last session was today or yesterday.
+  const streak = stats.lastSessionDay && daysBetween(stats.lastSessionDay, localDayKey(now())) > 1 ? 0 : stats.streak
+
+  // Avg Accuracy: share of reviews rated above Again.
+  const accuracy = reviewLog.length > 0
+    ? Math.round((reviewLog.filter(e => e[1] > 1).length / reviewLog.length) * 100)
+    : 0
 
   // Calculate masteries
   const metrics = useMemo(() => {
-    if (!countries) return { mastered: 0, accuracy: 0, categoryAvgs: {}, regions: [] }
+    if (!countries) return { mastered: 0, categoryAvgs: {}, regions: [] }
     
     let masteredCount = 0
-    let totalScore = 0
     let categories = { location: 0, capital: 0, flag: 0 }
     let counts = 0
     
@@ -26,7 +129,7 @@ export default function Progress() {
 
     Object.entries(countryProgress).forEach(([cid, prog]) => {
       // is mastered?
-      if (prog.locationConf >= 60 && prog.capitalConf >= 60 && prog.flagConf >= 60) {
+      if (isMastered(prog)) {
          masteredCount++
       }
 
@@ -64,7 +167,6 @@ export default function Progress() {
 
     return {
       mastered: masteredCount,
-      accuracy: counts > 0 ? ((categories.location + categories.capital + categories.flag) / (3 * counts)).toFixed(1) : 0,
       categoryAvgs: {
         location: counts > 0 ? (categories.location / counts) : 0,
         capital: counts > 0 ? (categories.capital / counts) : 0,
@@ -78,7 +180,7 @@ export default function Progress() {
   const weakSpots = useMemo(() => {
     if (!countries) return []
     return Object.entries(countryProgress)
-      .filter(([_, prog]) => prog.timesWrong > 0)
+      .filter(([, prog]) => prog.timesWrong > 0)
       .sort((a,b) => b[1].timesWrong - a[1].timesWrong)
       .slice(0, 8)
       .map(([cid, prog]) => {
@@ -95,6 +197,25 @@ export default function Progress() {
         <div>
           <h1 className="font-grotesk text-4xl md:text-5xl font-bold text-white mb-2">My Progress</h1>
           <p className="font-inter text-[#8B8FA8]">Track your journey towards global mastery.</p>
+        </div>
+
+        {/* Review queue and confusions */}
+        <div className="glass-card p-6 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="font-inter text-white">
+              {dueCount === 0
+                ? 'Nothing to review today.'
+                : `You have ${dueCount} ${dueCount === 1 ? 'country' : 'countries'} to review today`}
+            </p>
+            {dueCount > 0 && (
+              <Link to={dueRoute}><Button variant="secondary">Review now</Button></Link>
+            )}
+          </div>
+          {topConfusions.map((p) => (
+            <p key={p.key} className="text-sm text-[#8B8FA8]">
+              You often confuse {p.a} and {p.b} <span className="text-xs">({CAT_LABEL[p.cat] || p.cat})</span>
+            </p>
+          ))}
         </div>
 
         {/* HUD - Stats Row */}
@@ -119,7 +240,7 @@ export default function Progress() {
            {/* Accuracy (Cyan) */}
            <div className="glass-card p-6 border-b-2 border-[#00D4FF]">
              <div className="text-sm font-inter text-[#8B8FA8] uppercase tracking-wider mb-2">Avg Accuracy</div>
-             <div className="text-4xl font-mono text-white drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">{metrics.accuracy}%</div>
+             <div className="text-4xl font-mono text-white drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">{accuracy}%</div>
            </div>
         </div>
 
@@ -225,7 +346,20 @@ export default function Progress() {
           </div>
 
         </div>
-        
+
+        {/* Backup */}
+        <div className="glass-card p-6 space-y-3">
+          <h2 className="font-grotesk text-xl font-bold">Backup</h2>
+          <p className="text-sm text-[#8B8FA8]">Your progress lives only in this browser. Export a copy to keep it safe.</p>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="secondary" onClick={handleExport}>Export progress</Button>
+            <Button variant="secondary" onClick={() => fileRef.current?.click()}>Import progress</Button>
+            <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={handleImport} />
+          </div>
+          {importError && <p role="alert" className="text-sm text-[#FF6B6B]">{importError}</p>}
+          {importOk && <p role="status" className="text-sm text-[#00FFB2]">Progress imported.</p>}
+        </div>
+
       </div>
     </div>
   )

@@ -3,16 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Globe3D, Confetti, Button, AnswerInput } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
-import { useWorldData } from '../context/WorldDataContext'
+import { useWorldData, locatablePool } from '../context/WorldDataContext'
+import DayComplete from '../components/DayComplete'
+import MapUnavailable, { isMapDown } from '../components/MapUnavailable'
 
 export default function CapitalQuiz() {
-  const { countries, geoData } = useWorldData()
+  const { countries, geoData, shapeIds, geoError, isLoading } = useWorldData()
+  const mapDown = isMapDown({ geoError, geoData, isLoading })
   const [subMode, setSubMode] = useState('country-to-capital') // 'country-to-capital' | 'capital-to-country' | 'locate'
+  // The locate sub-mode asks on the globe: only countries with a shape. Text modes use everything.
+  const pool = useMemo(
+    () => (subMode === 'locate' ? locatablePool(countries, shapeIds) : null),
+    [subMode, countries, shapeIds]
+  )
 
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
-  } = useCountryGame('capital')
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
+  } = useCountryGame('capital', { pool })
 
   const [processing, setProcessing] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
@@ -32,7 +40,7 @@ export default function CapitalQuiz() {
     }
 
     if (isCorrect) {
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: 'typed' })
       setShowConfetti(true)
       setTimeout(() => {
         setShowConfetti(false)
@@ -40,7 +48,11 @@ export default function CapitalQuiz() {
         nextQuestion()
       }, 1500)
     } else {
-      handleAnswer(false)
+      // The typed answer names another country (by capital or by name): a confusion.
+      const typed = answerStr.toLowerCase().trim()
+      const field = subMode === 'country-to-capital' ? 'capital' : 'name'
+      const chosen = countries?.find(c => typeof c[field] === 'string' && c[field].toLowerCase().trim() === typed)
+      handleAnswer(false, chosen?.id ?? null, { inputKind: 'typed' })
       setTimeout(() => {
         setProcessing(false)
         nextQuestion()
@@ -57,7 +69,7 @@ export default function CapitalQuiz() {
 
     if (cid === currentCountry.id) {
       setColors({ [cid]: { cap: 'rgba(0, 255, 178, 0.4)', stroke: '#00FFB2', altitude: 0.02 } })
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setProcessing(false)
@@ -68,7 +80,7 @@ export default function CapitalQuiz() {
         [cid]: { cap: 'rgba(255, 107, 107, 0.5)', stroke: '#FF6B6B', altitude: 0.02 },
         [currentCountry.id]: { cap: 'rgba(255, 165, 0, 0.5)', stroke: '#FFA500', altitude: 0.02 }
       })
-      handleAnswer(false, cid)
+      handleAnswer(false, cid, { inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setProcessing(false)
@@ -113,8 +125,13 @@ export default function CapitalQuiz() {
         </div>
       )}
 
+      {/* The globe cannot render without the map: say so instead of asking unanswerable questions. */}
+      {subMode === 'locate' && mapDown && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center"><MapUnavailable /></div>
+      )}
+
       {/* Main HUD */}
-      {!isFinished && currentCountry && (
+      {!(subMode === 'locate' && mapDown) && !isFinished && currentCountry && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute top-16 left-4 z-20 flex gap-2 sm:gap-4 scale-90 sm:scale-100 origin-top-left pointer-events-none">
           <div className="glass-card px-4 py-2 flex items-center justify-center font-mono text-white/50 text-sm">
             {questionCount} / {maxQuestions}
@@ -126,7 +143,7 @@ export default function CapitalQuiz() {
       )}
 
       {/* Body Area */}
-      {!isFinished && currentCountry && (
+      {!(subMode === 'locate' && mapDown) && !isFinished && currentCountry && (
         <>
           {subMode === 'locate' ? (
             <div className="absolute inset-0 z-10 w-full h-full overflow-visible">
@@ -180,6 +197,8 @@ export default function CapitalQuiz() {
           )}
         </>
       )}
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* Session End Overlay */}
       <AnimatePresence>

@@ -17,6 +17,7 @@ export default function Confetti({ active }) {
   }, [active, prefersReducedMotion])
 
   // Pre-calculate 16 particles
+  /* eslint-disable react-hooks/purity -- visual-only random particle spread, computed once ([] deps) */
   const particles = useMemo(() => {
     const colors = ['#6C63FF', '#00D4FF', '#00FFB2', '#FF6B6B', '#FFA500']
     return Array.from({ length: 16 }).map((_, i) => {
@@ -36,6 +37,7 @@ export default function Confetti({ active }) {
       }
     })
   }, [])
+  /* eslint-enable react-hooks/purity */
 
   if (!show) return null
 

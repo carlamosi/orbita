@@ -1,104 +1,174 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { freshV2 } from '../srs/migrate.js'
+import { reviewCard, newCard, Rating, State } from '../srs/scheduler.js'
+import { materializeProgress } from '../srs/conf.js'
+import { localDayKey, daysBetween } from '../srs/dayKey.js'
+import {
+  createV2Storage,
+  mergeV2,
+  toLogEntry,
+  capLog,
+  capDaily,
+  capConfusionRow,
+  topSpeedBests,
+  pickV2,
+} from './storageV2.js'
+
+const KEY = 'orbita-v2'
+const LEGACY_KEY = 'orbita-storage'
+
+// Read-only fields the UI consumes (plain state, recomputed on every set so
+// selectors re-render).
+function derive(v2, nowMs) {
+  const dailyActivity = {}
+  for (const [day, d] of Object.entries(v2.daily || {})) dailyActivity[day] = d.reviews
+  return {
+    countryProgress: materializeProgress(v2.cards, nowMs),
+    streak: v2.stats.streak,
+    totalSessions: v2.stats.totalSessions,
+    flagSessionsCompleted: v2.stats.flagSessionsCompleted,
+    dailyActivity,
+  }
+}
+
+// Applies a StateV2 patch and returns it together with its derived UI fields.
+function withDerived(state, patch, nowMs = Date.now()) {
+  const v2 = { ...pickV2(state), ...patch }
+  return { ...patch, ...derive(v2, nowMs) }
+}
+
+const storage = createV2Storage({ legacyKey: LEGACY_KEY, key: KEY })
+
+const statusFields = (status) => ({ storageStatus: status, needsReload: status === 'needsReload' })
 
 export const useGameStore = create(
   persist(
-    (set, get) => ({
-      // ── State ──
-      streak: 0,
-      lastSession: null,
-      totalSessions: 0,
-      countryProgress: {}, // { 'BOL': { locationConf: 0, capitalConf: 0, flagConf: 0, timesWrong: 0 } }
-      activityLog: [],
-      dailyActivity: {}, // { '2026-04-05': count }
-      speedRoundBests: [], // [ { score, fraction, qpm, date, continent } ]
-      flagSessionsCompleted: 0,
-      challenges: {
-        perfectContinents: {}, // { 'Europe': true }
-      },
-
-      // ── Actions ──
-      actions: {
-        updateProgress: (countryId, type, delta, isWrong = false) => set((state) => {
-          const prev = state.countryProgress[countryId] || {
-             locationConf: 0, capitalConf: 0, flagConf: 0, timesWrong: 0
+    (set) => {
+      const answer = (cardId, rating, nowMs, { latencyMs = null } = {}) =>
+        set((s) => {
+          const prev = s.cards[cardId] || newCard(nowMs)
+          const wasNew = prev.state === State.New
+          const reviewed = reviewCard(prev, rating, nowMs)
+          const { log } = reviewed
+          // `wrong` counts every Again, including New/Learning (FSRS lapses do not).
+          const card = {
+            ...reviewed.card,
+            wrong: ((prev.wrong ?? prev.lapses) || 0) + (rating === Rating.Again ? 1 : 0),
           }
-          return {
-            countryProgress: {
-              ...state.countryProgress,
-              [countryId]: {
-                ...prev,
-                [type]: Math.max(0, Math.min(100, prev[type] + delta)),
-                timesWrong: isWrong ? prev.timesWrong + 1 : prev.timesWrong
-              }
-            }
-          }
-        }),
-
-        incrementStreak: () => set((state) => {
-          const today = new Date().toISOString().split('T')[0]
-          const last = state.lastSession
-          if (last === today) return state
-
-          let newStreak = 1
-          if (last) {
-            const diffDays = Math.round(
-              (new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24)
-            )
-            newStreak = diffDays === 1 ? state.streak + 1 : 1
-          }
-
-          return {
-            streak: newStreak,
-            lastSession: today,
-            totalSessions: state.totalSessions + 1
-          }
-        }),
-
-        logSession: (gameMode, score) => set((state) => {
-          const dateStr = new Date().toISOString().split('T')[0]
-          return {
-            activityLog: [
-              { mode: gameMode, score, date: new Date().toISOString() },
-              ...state.activityLog
-            ].slice(0, 100),
-            dailyActivity: {
-              ...state.dailyActivity,
-              [dateStr]: (state.dailyActivity[dateStr] || 0) + 1
-            }
-          }
-        }),
-
-        incrementFlagSessions: () => set((state) => ({
-          flagSessionsCompleted: state.flagSessionsCompleted + 1
-        })),
-
-        unlockChallenge: (key, value = true) => set((state) => ({
-          challenges: { ...state.challenges, [key]: value }
-        })),
-
-        addSpeedScore: (score, fraction, qpm, continent = 'all') => set((state) => {
-          const entry = { score, fraction, qpm, date: new Date().toISOString(), continent }
-          const newBests = [...state.speedRoundBests, entry]
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 10) // Keep top 10
-          return { speedRoundBests: newBests }
+          const day = localDayKey(nowMs)
+          const d = s.daily[day] || { reviews: 0, new: 0 }
+          return withDerived(
+            s,
+            {
+              cards: { ...s.cards, [cardId]: card },
+              reviewLog: capLog([...s.reviewLog, toLogEntry(cardId, log, latencyMs)]),
+              daily: capDaily({
+                ...s.daily,
+                [day]: { reviews: d.reviews + 1, new: d.new + (wasNew ? 1 : 0) },
+              }),
+            },
+            nowMs,
+          )
         })
+
+      const recordConfusion = (cardId, chosenIso3) =>
+        set((s) => {
+          const row = { ...(s.confusions[cardId] || {}) }
+          row[chosenIso3] = (row[chosenIso3] || 0) + 1
+          return { confusions: { ...s.confusions, [cardId]: capConfusionRow(row) } }
+        })
+
+      // Streak: same local day unchanged; the day after +1; otherwise 1.
+      const finishSession = (_mode, _score, nowMs = Date.now()) =>
+        set((s) => {
+          const today = localDayKey(nowMs)
+          const last = s.stats.lastSessionDay
+          let streak = 1
+          if (last === today) streak = s.stats.streak
+          else if (last && daysBetween(last, today) === 1) streak = s.stats.streak + 1
+          return withDerived(
+            s,
+            {
+              stats: {
+                ...s.stats,
+                streak,
+                lastSessionDay: today,
+                totalSessions: s.stats.totalSessions + 1,
+              },
+            },
+            nowMs,
+          )
+        })
+
+      const addSpeedScore = (score, fraction, qpm, continent = 'all') =>
+        set((s) => ({
+          speedRoundBests: topSpeedBests([
+            ...s.speedRoundBests,
+            { score, fraction, qpm, date: new Date().toISOString(), continent },
+          ]),
+        }))
+
+      const unlockPerfectContinent = (continent) =>
+        set((s) => ({
+          challenges: {
+            ...s.challenges,
+            perfectContinents: { ...s.challenges.perfectContinents, [continent]: true },
+          },
+        }))
+
+      const incrementFlagSessions = () =>
+        set((s) =>
+          withDerived(s, {
+            stats: { ...s.stats, flagSessionsCompleted: s.stats.flagSessionsCompleted + 1 },
+          }),
+        )
+
+      // Replaces the v2 state with an already merged one (progress import).
+      const importState = (v2) =>
+        set((s) => withDerived(s, pickV2(v2)))
+
+      const fresh = freshV2(Date.now())
+      return {
+        ...fresh,
+        ...derive(fresh, Date.now()),
+        ...statusFields('ok'),
+
+        answer,
+        recordConfusion,
+        finishSession,
+        addSpeedScore,
+        unlockPerfectContinent,
+        incrementFlagSessions,
+        importState,
       }
-    }),
+    },
     {
-      name: 'orbita-storage', // name of the item in the storage (must be unique)
-      partialize: (state) => ({ // Don't persist actions logic
-        streak: state.streak,
-        lastSession: state.lastSession,
-        totalSessions: state.totalSessions,
-        countryProgress: state.countryProgress,
-        activityLog: state.activityLog,
-        dailyActivity: state.dailyActivity || {},
-        speedRoundBests: state.speedRoundBests || [],
-        flagSessionsCompleted: state.flagSessionsCompleted || 0,
-        challenges: state.challenges || { perfectContinents: {} }
-      })
-    }
-  )
+      name: KEY,
+      version: 2,
+      storage,
+      partialize: pickV2,
+      // Hydration and every rehydrate (storage events) merge disk into memory
+      // instead of replacing it, then recompute the derived UI fields.
+      merge: (persisted, current) => {
+        const v2 = persisted ? mergeV2(persisted, pickV2(current)) : pickV2(current)
+        return { ...current, ...v2, ...derive(v2, Date.now()), ...statusFields(storage.status) }
+      },
+    },
+  ),
 )
+
+storage.onStatus((status) => useGameStore.setState(statusFields(status)))
+
+// Other tabs: a v2 write is merged in on rehydrate; a write from a tab still on
+// the old bundle (legacy key) is migrated and folded into v2 first.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (e) => {
+    if (e.key === KEY) {
+      useGameStore.persist.rehydrate()
+    } else if (e.key === LEGACY_KEY) {
+      storage.absorbLegacyWrite()
+      useGameStore.persist.rehydrate()
+    }
+  })
+}

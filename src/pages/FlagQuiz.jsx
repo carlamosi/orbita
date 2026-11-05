@@ -1,38 +1,47 @@
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Confetti, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
 import { useWorldData } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
+import { safeGet } from '../hooks/safeStorage'
+import DayComplete from '../components/DayComplete'
+import { useGameStore } from '../store/useGameStore'
+import { similarPool } from './similarPool'
 
 export default function FlagQuiz() {
   const { countries } = useWorldData()
   const [subMode, setSubMode] = useState('flag-to-country') // 'flag-to-country' | 'country-to-flag'
   const [similarMode, setSimilarMode] = useState(false)
 
-  // Filter pool if similar flags mode is active
+  // Confusions are snapshotted when the toggle is switched on, so wrong answers during
+  // the session do not change the pool (which would restart it).
+  const [confusionsSnapshot, setConfusionsSnapshot] = useState({})
+
+  // Filter pool if similar flags mode is active (similarTo links plus flag confusions)
   const pool = useMemo(() => {
     if (!countries) return []
     if (!similarMode) return countries
-    return countries.filter(c => !!c.similarTo)
-  }, [countries, similarMode])
+    return similarPool(countries, confusionsSnapshot)
+  }, [countries, similarMode, confusionsSnapshot])
 
   const {
     currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
-  } = useCountryGame('flag', pool)
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
+  } = useCountryGame('flag', { pool })
 
   const [processing, setProcessing] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null)
   
   const [hasUsedKeyboard, setHasUsedKeyboard] = useState(() => 
-    localStorage.getItem('orbita-has-used-keyboard') === 'true'
+    safeGet('orbita-has-used-keyboard') === 'true'
   )
 
   useEffect(() => {
     const checkKbd = () => {
-      if (localStorage.getItem('orbita-has-used-keyboard') === 'true') {
+      if (safeGet('orbita-has-used-keyboard') === 'true') {
         setHasUsedKeyboard(true)
       }
     }
@@ -67,7 +76,7 @@ export default function FlagQuiz() {
     setSelectedOption(cid)
 
     if (cid === currentCountry.id) {
-      handleAnswer(true)
+      handleAnswer(true, null, { inputKind: 'choice' })
       setShowConfetti(true)
       setTimeout(() => {
         setShowConfetti(false)
@@ -76,7 +85,7 @@ export default function FlagQuiz() {
         nextQuestion()
       }, 1500)
     } else {
-      handleAnswer(false, cid)
+      handleAnswer(false, cid, { inputKind: 'choice' })
       setTimeout(() => {
         setSelectedOption(null)
         setProcessing(false)
@@ -94,6 +103,7 @@ export default function FlagQuiz() {
       '3': () => handleSelect(options[2].id),
       '4': () => handleSelect(options[3].id),
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- handleSelect is recreated every render; handlers refresh only when the key-relevant state changes
   }, [processing, isFinished, options])
 
   useKeyboard(keyboardHandlers)
@@ -145,6 +155,15 @@ export default function FlagQuiz() {
           
           {/* Similar Flags Challenge Match Checkbox */}
           <label className="flex items-center gap-2 cursor-pointer group">
+            <input
+              type="checkbox"
+              className="sr-only"
+              checked={similarMode}
+              onChange={e => {
+                if (e.target.checked) setConfusionsSnapshot(useGameStore.getState().confusions || {})
+                setSimilarMode(e.target.checked)
+              }}
+            />
             <div className={`w-4 h-4 rounded tap-transparent border flex items-center justify-center transition-all ${
               similarMode ? 'bg-violet border-violet' : 'border-white/20 group-hover:border-white/50'
             }`}>
@@ -225,6 +244,8 @@ export default function FlagQuiz() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* Session End Overlay */}
       <AnimatePresence>

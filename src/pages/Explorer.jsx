@@ -1,5 +1,4 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import Globe3D from '../components/Globe3D'
 import CountryPanel from '../components/CountryPanel'
 import CountryList from '../components/CountryList'

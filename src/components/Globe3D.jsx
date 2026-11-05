@@ -4,6 +4,7 @@ import GlobeGL from 'react-globe.gl'
 import { useWorldData } from '../context/WorldDataContext'
 import { useGameStore } from '../store/useGameStore'
 import { GlobeSkeleton } from './Skeleton'
+import { isMastered } from '../srs/conf'
 
 /**
  * Globe3D
@@ -77,6 +78,7 @@ export default function Globe3D({
       if (globeRef.current) {
         globeRef.current.renderer()?.dispose()
         globeRef.current.scene()?.clear()
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- need the live globe instance at unmount, not the one at mount
         globeRef.current.controls()?.dispose()
       }
     }
@@ -163,8 +165,8 @@ export default function Globe3D({
           // Heatmap Default Logic
           const prog = countryProgress[cid]
           if (prog) {
+            if (isMastered(prog)) return 'rgba(0,255,178,0.2)' // Mastered: 20% neon
             const avg = (prog.locationConf + prog.capitalConf + prog.flagConf) / 3
-            if (avg >= 60) return 'rgba(0,255,178,0.2)' // Mastered: 20% neon
             if (avg >= 20) return 'rgba(108,99,255,0.15)' // Learning: 15% violet
           }
           

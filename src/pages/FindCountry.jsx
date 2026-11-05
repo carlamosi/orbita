@@ -3,15 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Globe3D, QuestionCard, Button } from '../components'
 import { useCountryGame } from '../hooks/useCountryGame'
-import { useWorldData } from '../context/WorldDataContext'
+import { useWorldData, locatablePool } from '../context/WorldDataContext'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useMemo } from 'react'
+import DayComplete from '../components/DayComplete'
+import MapUnavailable, { isMapDown } from '../components/MapUnavailable'
 
 export default function FindCountry() {
+  const { countries, shapeIds, geoData, geoError, isLoading } = useWorldData()
+  const mapDown = isMapDown({ geoError, geoData, isLoading })
+  // Only countries with a shape on the globe can be asked.
+  const pool = useMemo(() => locatablePool(countries, shapeIds), [countries, shapeIds])
   const {
-    currentCountry, score, combo, questionCount, maxQuestions,
-    isFinished, nextQuestion, handleAnswer, restartGame
-  } = useCountryGame('find')
+    currentCountry, score, questionCount, maxQuestions,
+    isFinished, sessionEmpty, nextQuestion, handleAnswer, restartGame, startPractice
+  } = useCountryGame('find', { pool })
 
   const [colors, setColors] = useState({})
   const [processing, setProcessing] = useState(false)
@@ -31,7 +37,7 @@ export default function FindCountry() {
     if (cid === currentCountry.id) {
       // Correct
       setColors({ [cid]: { cap: 'rgba(0, 255, 178, 0.4)', stroke: '#00FFB2', altitude: 0.02 } })
-      handleAnswer(true)
+      handleAnswer(true, null, { hintUsed: showHint, inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setShowHint(false)
@@ -44,7 +50,7 @@ export default function FindCountry() {
         [cid]: { cap: 'rgba(255, 107, 107, 0.5)', stroke: '#FF6B6B', altitude: 0.02 },
         [currentCountry.id]: { cap: 'rgba(255, 165, 0, 0.5)', stroke: '#FFA500', altitude: 0.02 }
       })
-      handleAnswer(false, cid)
+      handleAnswer(false, cid, { hintUsed: showHint, inputKind: 'globe' })
       setTimeout(() => {
         setColors({})
         setShowHint(false)
@@ -52,6 +58,10 @@ export default function FindCountry() {
         nextQuestion()
       }, 2000)
     }
+  }
+
+  if (mapDown) {
+    return <div className="min-h-[100dvh] bg-space flex items-center justify-center"><MapUnavailable /></div>
   }
 
   return (
@@ -97,6 +107,8 @@ export default function FindCountry() {
           height="100%"
         />
       </div>
+
+      {sessionEmpty && <DayComplete onPractice={startPractice} />}
 
       {/* ── Session End Overlay ── */}
       <AnimatePresence>
