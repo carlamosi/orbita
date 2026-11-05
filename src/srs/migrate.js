@@ -14,6 +14,8 @@ const S_MAX = 365
 const MAX_DAYS = 400
 const MAX_SPEED_BESTS = 10
 const DAY_KEY = /^\d{4}-\d{2}-\d{2}$/
+const DAY_MS = 86400000
+const SEED_HORIZON_MS = 7 * DAY_MS
 
 export function freshV2(nowMs) {
   return {
@@ -40,13 +42,13 @@ function seededCard(conf, timesWrong, lapses, nowMs) {
     ...newCard(nowMs),
     state: State.Review,
     difficulty: clamp(5 + timesWrong * 0.5, 1, 10),
-    due: nowMs,
     last_review: nowMs,
-    scheduled_days: 0,
     reps: 1,
     lapses,
   }
-  const confAt = (s) => cardConf({ ...card, stability: s }, nowMs)
+  // Target is checked a week out so seeded mastery survives 7 days without review.
+  // R only decays, so conf at nowMs is >= conf too.
+  const confAt = (s) => cardConf({ ...card, stability: s }, nowMs + SEED_HORIZON_MS)
   let stability = S_MAX
   if (confAt(S_MIN) >= conf) {
     stability = S_MIN
@@ -61,14 +63,22 @@ function seededCard(conf, timesWrong, lapses, nowMs) {
     }
     stability = hi
   }
-  return { ...card, stability }
+  // Due at the FSRS interval for retention 0.9 (R(S) = 0.9), not all due on day one.
+  const scheduled_days = Math.round(stability)
+  return { ...card, stability, scheduled_days, due: nowMs + scheduled_days * DAY_MS }
 }
 
 function migrateCards(countryProgress, nowMs, validIds) {
   const cards = {}
   if (!isObj(countryProgress)) return cards
+  const isos = Object.keys(countryProgress)
+  if (isos.length > 0 && !isos.some((iso) => validIds.has(iso))) {
+    throw new Error(
+      `migrateV0toV2: none of the ${isos.length} v0 countryProgress ids is in validIds; refusing to drop all progress`,
+    )
+  }
   for (const [iso, p] of Object.entries(countryProgress)) {
-    if (!validIds || !validIds.has(iso) || !isObj(p)) continue
+    if (!validIds.has(iso) || !isObj(p)) continue
     const timesWrong = count(p.timesWrong)
     // materializeProgress sums lapses over a country's cards, so the whole
     // timesWrong goes on the first seeded card (loc, cap, flag) and 0 on the rest.
@@ -81,6 +91,8 @@ function migrateCards(countryProgress, nowMs, validIds) {
       cards[`${iso}:${cat}`] = seededCard(conf, timesWrong, lapsesLeft, nowMs)
       lapsesLeft = 0
     }
+    // Weak spot with every Conf at 0: keep its timesWrong on a New loc card.
+    if (lapsesLeft > 0) cards[`${iso}:loc`] = { ...newCard(nowMs), lapses: lapsesLeft }
   }
   return cards
 }
@@ -109,7 +121,13 @@ function migrateChallenges(challenges) {
 }
 
 // rawV0: persisted wrapper {state, version} or the bare state object.
+// Throws (instead of returning an empty v2 that would be persisted) when the
+// arguments cannot be trusted; the caller stays in legacy mode.
 export function migrateV0toV2(rawV0, nowMs, validIds) {
+  if (!finite(nowMs)) throw new Error(`migrateV0toV2: nowMs must be a finite number, got ${nowMs}`)
+  if (!(validIds instanceof Set) || validIds.size === 0) {
+    throw new Error('migrateV0toV2: validIds must be a non-empty Set of ISO3 ids')
+  }
   if (!isObj(rawV0)) return freshV2(nowMs)
   if (rawV0.schema === 2) return rawV0
   const s = isObj(rawV0.state) ? rawV0.state : rawV0

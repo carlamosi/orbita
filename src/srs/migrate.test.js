@@ -8,6 +8,7 @@ import corruptRaw from './__fixtures__/v0-corrupt.txt?raw'
 
 const NOW = Date.parse('2026-11-05T10:00:00+01:00')
 const VALID = new Set(['ESP', 'FRA', 'PRT', 'DEU'])
+const DAY = 86400000
 
 const FIXTURES = { 'v0-typical.json': typicalRaw, 'v0-empty.json': emptyRaw, 'v0-corrupt.txt': corruptRaw }
 const fixture = (name) => FIXTURES[name]
@@ -45,21 +46,28 @@ describe('migrateV0toV2: typical fixture', () => {
   it('dominado antes, dominado después', () => {
     for (const cat of ['loc', 'cap', 'flag']) {
       expect(cardConf(v2.cards[`ESP:${cat}`], NOW)).toBeGreaterThanOrEqual(MASTERED)
+      expect(cardConf(v2.cards[`ESP:${cat}`], NOW + 7 * DAY)).toBeGreaterThanOrEqual(MASTERED)
     }
     const p = materializeProgress(v2.cards, NOW).ESP
     expect(Math.min(p.locationConf, p.capitalConf, p.flagConf)).toBeGreaterThanOrEqual(MASTERED)
   })
 
-  it('seeded conf is reached and not far exceeded', () => {
-    expect(cardConf(v2.cards['FRA:loc'], NOW)).toBeGreaterThanOrEqual(15)
-    expect(cardConf(v2.cards['FRA:loc'], NOW)).toBeLessThanOrEqual(16)
-    expect(cardConf(v2.cards['ESP:loc'], NOW)).toBeLessThanOrEqual(76)
+  it('seeded conf is reached for 7 days and not far exceeded at day 7', () => {
+    expect(cardConf(v2.cards['FRA:loc'], NOW + 7 * DAY)).toBeGreaterThanOrEqual(15)
+    expect(cardConf(v2.cards['FRA:loc'], NOW + 7 * DAY)).toBeLessThanOrEqual(16)
+    expect(cardConf(v2.cards['ESP:loc'], NOW + 7 * DAY)).toBeLessThanOrEqual(76)
+  })
+
+  it('seeded cards are due at round(stability) days, after nowMs', () => {
+    const c = v2.cards['ESP:loc']
+    expect(c.due).toBeGreaterThan(NOW)
+    expect(c.scheduled_days).toBe(Math.round(c.stability))
+    expect(c.due).toBe(NOW + c.scheduled_days * DAY)
   })
 
   it('seeds Review cards with the brief values', () => {
     const c = v2.cards['ESP:loc']
     expect(c.state).toBe(State.Review)
-    expect(c.due).toBe(NOW)
     expect(c.last_review).toBe(NOW)
     expect(c.difficulty).toBe(6.5)
     expect(c.stability).toBeGreaterThanOrEqual(0.5)
@@ -127,6 +135,54 @@ describe('migrateV0toV2: typical fixture', () => {
     const before = JSON.stringify(input)
     migrateV0toV2(input, NOW, VALID)
     expect(JSON.stringify(input)).toBe(before)
+  })
+})
+
+describe('migrateV0toV2: fix round 1', () => {
+  it('keeps timesWrong of a weak spot with every Conf at 0 on a New loc card', () => {
+    const v2 = migrateV0toV2(
+      { countryProgress: { ESP: { locationConf: 0, capitalConf: 0, flagConf: 0, timesWrong: 5 } } },
+      NOW,
+      VALID,
+    )
+    expect(Object.keys(v2.cards)).toEqual(['ESP:loc'])
+    expect(v2.cards['ESP:loc'].state).toBe(State.New)
+    expect(v2.cards['ESP:loc'].lapses).toBe(5)
+    expect(cardConf(v2.cards['ESP:loc'], NOW)).toBe(0)
+    expect(materializeProgress(v2.cards, NOW).ESP).toEqual({
+      locationConf: 0,
+      capitalConf: 0,
+      flagConf: 0,
+      timesWrong: 5,
+    })
+  })
+
+  it('property: for conf 1..100, cardConf >= conf at nowMs and at nowMs + 7 days', () => {
+    for (let conf = 1; conf <= 100; conf++) {
+      const v2 = migrateV0toV2({ countryProgress: { ESP: { locationConf: conf } } }, NOW, VALID)
+      const c = v2.cards['ESP:loc']
+      // Target reachable unless the search hit the 365 ceiling.
+      if (c.stability >= 365 && cardConf(c, NOW + 7 * DAY) < conf) continue
+      expect(cardConf(c, NOW), `conf ${conf} at t0`).toBeGreaterThanOrEqual(conf)
+      expect(cardConf(c, NOW + 7 * DAY), `conf ${conf} at t0+7d`).toBeGreaterThanOrEqual(conf)
+    }
+  })
+
+  it('throws when validIds is not a Set or is empty', () => {
+    const v0 = typical()
+    expect(() => migrateV0toV2(v0, NOW, undefined)).toThrow(/validIds/)
+    expect(() => migrateV0toV2(v0, NOW, ['ESP'])).toThrow(/validIds/)
+    expect(() => migrateV0toV2(v0, NOW, new Set())).toThrow(/validIds/)
+  })
+
+  it('throws when nowMs is not a finite number, even for null input', () => {
+    expect(() => migrateV0toV2(typical(), NaN, VALID)).toThrow(/nowMs/)
+    expect(() => migrateV0toV2(typical(), undefined, VALID)).toThrow(/nowMs/)
+    expect(() => migrateV0toV2(null, '2026-11-05', VALID)).toThrow(/nowMs/)
+  })
+
+  it('throws when countryProgress has entries but none is in validIds', () => {
+    expect(() => migrateV0toV2(typical(), NOW, new Set(['USA', 'CAN']))).toThrow(/validIds/)
   })
 })
 
