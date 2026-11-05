@@ -132,7 +132,7 @@ export default function Challenges() {
             progress="0/1"
             isLocked={speedRoundBests.filter(s => s.continent !== 'all').length === 0}
             lockedReason="Attempt a Continent Speedrun first."
-            isCompleted={Object.keys(challenges || {}).some(k => k.startsWith('perfect_'))}
+            isCompleted={Object.values(challenges?.perfectContinents || {}).some(v => v === true)}
             onStart={() => {}}
           />
         </div>
