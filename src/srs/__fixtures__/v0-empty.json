@@ -1,0 +1,14 @@
+{
+  "state": {
+    "streak": 0,
+    "lastSession": null,
+    "totalSessions": 0,
+    "countryProgress": {},
+    "activityLog": [],
+    "dailyActivity": {},
+    "speedRoundBests": [],
+    "flagSessionsCompleted": 0,
+    "challenges": { "perfectContinents": {} }
+  },
+  "version": 0
+}
