@@ -132,6 +132,19 @@ describe('Progress and heatmap', () => {
     act(() => root.unmount())
   })
 
+  it('import of a file with a null card shows a friendly message and keeps the store', async () => {
+    vi.useRealTimers()
+    const root = render(<Progress />)
+    const input = document.querySelector('input[type="file"]')
+    const json = JSON.stringify({ schema: 2, cards: { 'ESP:loc': null } })
+    Object.defineProperty(input, 'files', { value: [new File([json], 'x.json')], configurable: true })
+    const before = useGameStore.getState().cards
+    await act(async () => { input.dispatchEvent(new Event('change', { bubbles: true })); await new Promise((r) => setTimeout(r, 50)) })
+    expect(document.querySelector('[role="alert"]').textContent).toBe('This progress backup contains invalid cards.')
+    expect(useGameStore.getState().cards).toBe(before)
+    act(() => root.unmount())
+  })
+
   it('import of a valid file merges into the store', async () => {
     vi.useRealTimers()
     const root = render(<Progress />)

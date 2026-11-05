@@ -9,7 +9,7 @@ import Button from '../components/Button'
 import { MASTERED } from '../srs/conf'
 import { localDayKey, daysBetween } from '../srs/dayKey'
 import { State } from '../srs/scheduler'
-import { exportProgress, importProgress } from '../srs/backup'
+import { exportProgress, importProgress, BackupError } from '../srs/backup'
 
 const CAT_ROUTE = { loc: '/find', cap: '/capital', flag: '/flag' }
 const CAT_LABEL = { loc: 'location', cap: 'capital', flag: 'flag' }
@@ -95,7 +95,7 @@ export default function Progress({ now = Date.now }) {
       useGameStore.getState().importState(merged)
       setImportError(null)
     } catch (err) {
-      setImportError(err instanceof Error && err.message ? err.message : 'Could not import this progress file.')
+      setImportError(err instanceof BackupError ? err.message : 'This file could not be imported.')
     }
     try { input.value = '' } catch { /* ignore */ }
   }

@@ -44,4 +44,22 @@ describe('backup', () => {
     expect(() => importProgress(json, current)).toThrow(/progress/i)
     expect(JSON.stringify(current)).toBe(before)
   })
+
+  const withCards = (cards) => JSON.stringify({ ...sample(), cards })
+  const good = () => ({ ...newCard(1000), reps: 1, last_review: 5000 })
+  it.each([
+    ['null card', withCards({ 'ESP:loc': null }), /invalid cards/],
+    ['string card', withCards({ 'ESP:loc': 'x' }), /invalid cards/],
+    ['NaN stability', withCards({ 'ESP:loc': { ...good(), stability: null } }), /invalid cards/],
+    ['far-future last_review', withCards({ 'ESP:loc': { ...good(), last_review: 9e15 } }), /invalid cards/],
+    ['bad id', withCards({ 'esp:xyz': good() }), /invalid cards/],
+    ['bad state', withCards({ 'ESP:loc': { ...good(), state: 7 } }), /invalid cards/],
+    ['bad lastSessionDay', JSON.stringify({ ...sample(), stats: { ...sample().stats, lastSessionDay: '9999-12-31' } }), /invalid date/],
+    ['garbage lastSessionDay', JSON.stringify({ ...sample(), stats: { ...sample().stats, lastSessionDay: 'zzzz' } }), /invalid date/],
+  ])('rejects %s and leaves current untouched', (_n, json, re) => {
+    const current = sample()
+    const before = JSON.stringify(current)
+    expect(() => importProgress(json, current, Date.parse('2026-11-05T12:00:00Z'))).toThrow(re)
+    expect(JSON.stringify(current)).toBe(before)
+  })
 })
