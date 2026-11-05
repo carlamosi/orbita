@@ -63,7 +63,13 @@ export const useGameStore = create(
         set((s) => {
           const prev = s.cards[cardId] || newCard(nowMs)
           const wasNew = prev.state === State.New
-          const { card, log } = reviewCard(prev, rating, nowMs)
+          const reviewed = reviewCard(prev, rating, nowMs)
+          const { log } = reviewed
+          // `wrong` counts every Again, including New/Learning (FSRS lapses do not).
+          const card = {
+            ...reviewed.card,
+            wrong: ((prev.wrong ?? prev.lapses) || 0) + (rating === Rating.Again ? 1 : 0),
+          }
           const day = localDayKey(nowMs)
           const d = s.daily[day] || { reviews: 0, new: 0 }
           return withDerived(
@@ -147,9 +153,11 @@ export const useGameStore = create(
 
         actions: {
           // DEPRECATED: removed in Task 7
-          updateProgress: (countryId, type, _delta, isWrong = false) => {
+          updateProgress: (countryId, type, delta, isWrong = false) => {
             const cat = CAT[type]
             if (!cat) return
+            // useCountryGame's distractor penalty (-5): the unasked country is not rated.
+            if (isWrong && delta === -5) return
             answer(`${countryId}:${cat}`, isWrong ? Rating.Again : Rating.Good, Date.now(), {
               latencyMs: null,
             })

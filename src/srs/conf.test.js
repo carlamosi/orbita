@@ -70,3 +70,17 @@ describe('materializeProgress', () => {
     expect(materializeProgress({}, T0)).toEqual({})
   })
 })
+
+describe('materializeProgress: wrong counter', () => {
+  it('sums card.wrong, falling back to lapses when wrong is missing', () => {
+    const m = materializeProgress(
+      {
+        'ESP:loc': { ...newCard(T0), wrong: 2 },
+        'ESP:cap': { ...reviewed(7, 3), wrong: 4 },
+        'ESP:flag': reviewed(7, 1),
+      },
+      T0,
+    )
+    expect(m.ESP.timesWrong).toBe(7)
+  })
+})

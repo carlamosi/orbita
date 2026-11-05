@@ -26,7 +26,8 @@ export function materializeProgress(cards, nowMs) {
     if (!field) continue
     const p = (out[iso] ||= { locationConf: 0, capitalConf: 0, flagConf: 0, timesWrong: 0 })
     p[field] = cardConf(card, nowMs)
-    p.timesWrong += card.lapses || 0
+    // `wrong` counts every Again (New/Learning too); older cards only have lapses.
+    p.timesWrong += (card.wrong ?? card.lapses) || 0
   }
   return out
 }

@@ -92,6 +92,8 @@ describe('migrateV0toV2: typical fixture', () => {
     expect(m.FRA.timesWrong).toBe(2)
     expect(m.PRT.timesWrong).toBe(4)
     expect(v2.cards['ESP:loc'].lapses).toBe(3)
+    expect(v2.cards['ESP:loc'].wrong).toBe(3)
+    expect(v2.cards['ESP:cap'].wrong ?? 0).toBe(0)
     expect(v2.cards['ESP:cap'].lapses).toBe(0)
     expect(v2.cards['ESP:flag'].lapses).toBe(0)
   })
@@ -148,6 +150,7 @@ describe('migrateV0toV2: fix round 1', () => {
     expect(Object.keys(v2.cards)).toEqual(['ESP:loc'])
     expect(v2.cards['ESP:loc'].state).toBe(State.New)
     expect(v2.cards['ESP:loc'].lapses).toBe(5)
+    expect(v2.cards['ESP:loc'].wrong).toBe(5)
     expect(cardConf(v2.cards['ESP:loc'], NOW)).toBe(0)
     expect(materializeProgress(v2.cards, NOW).ESP).toEqual({
       locationConf: 0,

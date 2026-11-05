@@ -111,7 +111,37 @@ describe('useGameStore v2', () => {
     expect(Object.values(s.dailyActivity)).toEqual([1])
   })
 
+  it('every Again counts in timesWrong, also on New and Learning cards', () => {
+    const { answer } = store.getState()
+    answer('TCD:loc', Rating.Again, T0, { latencyMs: null })
+    answer('TCD:loc', Rating.Again, T0 + 60000, { latencyMs: null })
+    expect(store.getState().cards['TCD:loc'].wrong).toBe(2)
+    expect(store.getState().countryProgress.TCD.timesWrong).toBe(2)
+    answer('TCD:loc', Rating.Good, T0 + 120000, { latencyMs: null })
+    expect(store.getState().cards['TCD:loc'].wrong).toBe(2)
+  })
+
+  it('wrong continues from lapses on cards stored before the wrong field existed', () => {
+    store.getState().answer('TCD:loc', Rating.Good, T0, { latencyMs: null })
+    const legacyCard = { ...store.getState().cards['TCD:loc'], lapses: 3 }
+    delete legacyCard.wrong
+    store.setState({ cards: { 'TCD:loc': legacyCard } })
+    store.getState().answer('TCD:loc', Rating.Again, T0 + 60000, { latencyMs: null })
+    expect(store.getState().cards['TCD:loc'].wrong).toBe(4)
+  })
+
   describe('deprecated adapters (removed in Task 7)', () => {
+    it('updateProgress ignores the distractor call (isWrong with delta -5)', () => {
+      const { actions } = store.getState()
+      actions.updateProgress('TCD', 'locationConf', -10, true)
+      actions.updateProgress('NER', 'locationConf', -5, true)
+      const s = store.getState()
+      expect(s.cards['NER:loc']).toBeUndefined()
+      expect(s.reviewLog.map((e) => e[0])).toEqual(['TCD:loc'])
+      expect(Object.values(s.daily)[0]).toEqual({ reviews: 1, new: 1 })
+      expect(s.countryProgress.TCD.timesWrong).toBe(1)
+    })
+
     it('updateProgress maps type to category and isWrong to Again/Good', () => {
       const { actions } = store.getState()
       actions.updateProgress('ESP', 'locationConf', 15)

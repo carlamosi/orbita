@@ -245,32 +245,59 @@ describe('createV2Storage + store', () => {
     expect(log.at(-1)[0]).toBe('FRA:cap')
   })
 
-  it('JSON corrupto (legacy): no writes besides the -corrupt- copy', async () => {
+  it('JSON corrupto (legacy): copied aside, then a new user that saves normally', async () => {
     localStorage.setItem(LEGACY, '{"state": {broken')
-    const spy = vi.spyOn(Storage.prototype, 'setItem')
     const store = await loadStore()
-    store.getState().answer('ESP:loc', Rating.Good, T0, { latencyMs: null })
 
-    const keys = Object.keys(localStorage)
-    const corrupt = keys.filter((k) => k.startsWith('orbita-storage-corrupt-'))
+    const corrupt = Object.keys(localStorage).filter((k) => k.startsWith('orbita-storage-corrupt-'))
     expect(corrupt).toHaveLength(1)
     expect(localStorage.getItem(corrupt[0])).toBe('{"state": {broken')
-    expect(spy.mock.calls.map(([k]) => k)).toEqual([corrupt[0]])
-    expect(localStorage.getItem(KEY)).toBeNull()
+    expect(store.getState().storageStatus).toBe('ok')
+
+    store.getState().answer('ESP:loc', Rating.Good, T0, { latencyMs: null })
+    expect(readV2().state.cards['ESP:loc']).toBeDefined()
+
+    const reloaded = (await loadStore()).getState()
+    expect(reloaded.storageStatus).toBe('ok')
+    expect(reloaded.cards['ESP:loc']).toBeDefined()
+    // The legacy key is never written or removed; no second corrupt copy.
     expect(localStorage.getItem(LEGACY)).toBe('{"state": {broken')
-    expect(store.getState().storageStatus).toBe('corrupt')
+    expect(Object.keys(localStorage).filter((k) => k.startsWith('orbita-storage-corrupt-'))).toHaveLength(1)
   })
 
-  it('JSON corrupto (v2): copied aside, no writes to orbita-v2', async () => {
+  it('JSON corrupto (v2) + valid legacy: copied aside and re-migrated from legacy', async () => {
+    const raw = v0Raw({ countryProgress: { ESP: { locationConf: 70, capitalConf: 0, flagConf: 0, timesWrong: 0 } } })
+    localStorage.setItem(LEGACY, raw)
     localStorage.setItem(KEY, 'not json')
-    const spy = vi.spyOn(Storage.prototype, 'setItem')
     const store = await loadStore()
-    store.getState().answer('ESP:loc', Rating.Good, T0, { latencyMs: null })
 
     const corrupt = Object.keys(localStorage).filter((k) => k.startsWith('orbita-v2-corrupt-'))
     expect(corrupt).toHaveLength(1)
-    expect(spy.mock.calls.map(([k]) => k)).toEqual([corrupt[0]])
+    expect(localStorage.getItem(corrupt[0])).toBe('not json')
+    expect(store.getState().cards['ESP:loc']).toBeDefined()
+    expect(store.getState().storageStatus).toBe('ok')
+    expect(localStorage.getItem(BACKUP)).toBe(raw)
+
+    const reloaded = (await loadStore()).getState()
+    expect(reloaded.cards['ESP:loc']).toBeDefined()
+    expect(readV2().state.cards['ESP:loc']).toBeDefined()
+  })
+
+  it('JSON corrupto and the quarantine copy fails: no writes at all', async () => {
+    localStorage.setItem(KEY, 'not json')
+    localStorage.setItem(LEGACY, v0Raw({ countryProgress: { ESP: { locationConf: 70, timesWrong: 0 } } }))
+    const orig = Storage.prototype.setItem
+    const spy = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(function (k, v) {
+      if (k.includes('-corrupt-')) throw new DOMException('full', 'QuotaExceededError')
+      return orig.call(this, k, v)
+    })
+    const store = await loadStore()
+    store.getState().answer('FRA:loc', Rating.Good, T0, { latencyMs: null })
+
+    expect(spy.mock.calls.every(([k]) => k.includes('-corrupt-'))).toBe(true)
     expect(localStorage.getItem(KEY)).toBe('not json')
+    expect(localStorage.getItem(BACKUP)).toBeNull()
+    expect(store.getState().storageStatus).toBe('corrupt')
   })
 
   it('stored version > 2: no writes and needsReload', async () => {

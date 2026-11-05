@@ -170,7 +170,14 @@ export function absorbLegacy(v2, migrated) {
   const have = obj(v2.cards)
   const fill = {}
   for (const [id, card] of Object.entries(obj(migrated.cards))) if (!(id in have)) fill[id] = card
-  return mergeV2(v2, { ...migrated, cards: fill, meta: {}, settings: undefined })
+  const merged = mergeV2(v2, { ...migrated, cards: fill, meta: {}, settings: undefined })
+  // An old-bundle tab must not reset the streak: v2 keeps streak and
+  // lastSessionDay unless it never had a session. Counters still take the max.
+  const vs = obj(v2.stats)
+  if (vs.lastSessionDay != null) {
+    merged.stats = { ...merged.stats, streak: num(vs.streak), lastSessionDay: vs.lastSessionDay }
+  }
+  return merged
 }
 
 // Cheap stable string hash (djb2) to remember which legacy snapshot was absorbed.
@@ -228,16 +235,18 @@ export function createV2Storage({
     }
   }
 
-  // Copies an unparsable value aside (once per distinct content) and stops writes.
+  // Copies an unparsable value aside (once per distinct content). Returns true when
+  // the copy exists, so the caller may carry on. If the copy fails, all writes stop.
   function quarantine(ls, srcKey, raw) {
     try {
       const prefix = `${srcKey}-corrupt-`
       const already = Object.keys(ls).some((k) => k.startsWith(prefix) && ls.getItem(k) === raw)
       if (!already) ls.setItem(`${prefix}${now()}`, raw)
+      return true
     } catch {
-      // Nothing else to do: still no writes to the real keys.
+      setStatus('corrupt')
+      return false
     }
-    setStatus('corrupt')
   }
 
   function write(ls, state) {
@@ -301,8 +310,8 @@ export function createV2Storage({
       parsed = null
     }
     if (!isObj(parsed) || !isObj(parsed.state)) {
-      quarantine(ls, key, raw)
-      return { error: true }
+      // Copied aside: treat v2 as missing (re-migrate from legacy or start fresh).
+      return quarantine(ls, key, raw) ? { missing: true } : { error: true }
     }
     if (tooNew(parsed)) {
       setStatus('needsReload')
@@ -316,6 +325,7 @@ export function createV2Storage({
     if (raw == null) return null // new user: first action writes v2
     const res = migrateLegacy(raw)
     if (res.error === 'corrupt') {
+      // Copied aside: start as a new user (the legacy key itself is never touched).
       quarantine(ls, legacyKey, raw)
       return null
     }

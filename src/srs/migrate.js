@@ -45,6 +45,7 @@ function seededCard(conf, timesWrong, lapses, nowMs) {
     last_review: nowMs,
     reps: 1,
     lapses,
+    wrong: lapses,
   }
   // Target is checked a week out so seeded mastery survives 7 days without review.
   // R only decays, so conf at nowMs is >= conf too.
@@ -92,7 +93,7 @@ function migrateCards(countryProgress, nowMs, validIds) {
       lapsesLeft = 0
     }
     // Weak spot with every Conf at 0: keep its timesWrong on a New loc card.
-    if (lapsesLeft > 0) cards[`${iso}:loc`] = { ...newCard(nowMs), lapses: lapsesLeft }
+    if (lapsesLeft > 0) cards[`${iso}:loc`] = { ...newCard(nowMs), lapses: lapsesLeft, wrong: lapsesLeft }
   }
   return cards
 }
